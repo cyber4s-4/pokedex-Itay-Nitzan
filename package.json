@@ -1,0 +1,26 @@
+{
+  "name": "gulp_typescript",
+  "scripts": {
+    "start": "gulp",
+    "lint": "eslint ./src --ext .ts",
+    "jest": "jest",
+    "lint-fix": "eslint ./src --ext .ts --fix"
+  },
+  "dependencies": {
+    "@types/jest": "^28.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.24.0",
+    "@typescript-eslint/parser": "^5.24.0",
+    "browser-sync": "^2.27.9",
+    "eslint": "^8.15.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "jest": "^28.1.0",
+    "sass": "^1.51.0",
+    "source-map-loader": "^3.0.1",
+    "ts-jest": "^28.0.4",
+    "typescript": "^4.6.4",
+    "webpack-stream": "^7.0.0"
+  }
+}
