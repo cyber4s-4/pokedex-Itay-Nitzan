@@ -33,5 +33,3 @@ export class Pokemon {
     const typeSection = document.createElement('section');
   }
 }
-
-
