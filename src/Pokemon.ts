@@ -4,7 +4,7 @@ export class Pokemon {
   pictureSrc: string | null;
   pokemonType: string | null;
   weight: string | null;
-  id: number | null;
+  id: string | null;
   constructor(name: string) {
     this.name = name;
     this.id = null;
@@ -12,8 +12,6 @@ export class Pokemon {
     this.weight = null;
     this.pictureSrc = null;
     this.pokemonType = null;
-    this.fetchPokemonData();
-    this.createPokemonHtmlCard();
   }
   async fetchPokemonData() {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`);
