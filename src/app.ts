@@ -23,8 +23,8 @@ function api(pokemon: string) {
       height.innerText = `Height: ${data.height}`;
       const weight = document.querySelector('#weight') as HTMLElement;
       weight.innerText = `Weight: ${data.weight}`;
-      const sumbit = document.querySelector('.sumbit') as HTMLElement;
-      sumbit.addEventListener('click', search);
+      const submit = document.querySelector('.submit') as HTMLElement;
+      submit.addEventListener('click', search);
       function search() {
         const pokeName = (document.querySelector('input') as HTMLInputElement).value.toLowerCase();
         api(pokeName);
