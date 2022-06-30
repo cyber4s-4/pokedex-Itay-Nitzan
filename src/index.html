@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/styles.css" />
-    <script src="./app.js" defer></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <main>dfdfdf</main>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <script src="./app.js" defer></script>
+  <title>Pokédex</title>
+</head>
+
+<body>
+  <main>
+    <img src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" alt="">
+    <p>Search for your pokemon's name or ID:</p>
+    <form>
+      <input class="input" type="text" placeholder="Enter a pokemon name or id..."></input>
+      <p class="sumbit">&#x1F50E;&#xFE0E;</p>
+    </form>
+  </main>
+
+
+  <div class="poke-container">
+    <img id="pokeimg" src="" alt="Pokemon-image">
+    <div id="name"></div>
+    <div id="type"></div>
+    <!-- <div>
+      <h3>Moves:</h3>
+      <ul id="moves-list">
+        <li class="move"></li>
+        <li class="move"></li>
+        <li class="move"></li>
+        <li class="move"></li>
+        <li class="move"></li>
+        <li class="move"></li>
+      </ul>
+    </div> -->
+    <div>
+      <h3>Physical stats:</h3>
+      <ul>
+        <li id="height"></li>
+        <li id="weight"></li>
+      </ul>
+    </div>
+  </div>
+
+
+</body>
+
 </html>

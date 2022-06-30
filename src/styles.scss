@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -14,18 +15,26 @@ $border-color: #222;
 * {
   margin: 0;
   padding: 0;
-  button {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-  }
-  ul {
-    list-style-type: none;
-  }
+  box-sizing: border-box;
+  // button {
+  //   background: none;
+  //   color: inherit;
+  //   border: none;
+  //   padding: 0;
+  //   font: inherit;
+  //   cursor: pointer;
+  //   outline: inherit;
+  // }
+  // ul {
+  //   list-style-type: none;
+  // }
+}
+
+html {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
 }
 
 body {
@@ -35,13 +44,57 @@ body {
   width: 100vw;
   height: 100vh;
   @include fcc();
-  flex-flow: column;
+  flex-direction: column;
+  margin: 100px 0;
+  gap: 4vh;
+
   font-size: min(4vw, 24px);
+  background-image: linear-gradient(to right, #1f092f, #4a136e);
+
   main {
-    width: 80%;
-    background-color: $secondary-color;
     @include fcc();
-    gap: 1vh;
-    border-radius: 10px;
+    flex-direction: column;
+    gap: 20px;
+    p {
+      color: white;
+      font-family: "Cabin", sans-serif;
+    }
+    form {
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+      gap: 15px;
+      .input {
+        height: 55px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        padding: 0 60px 0 20px;
+        font-size: 18px;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+        &::placeholder {
+          font-family: "Cabin", sans-serif;
+        }
+      }
+      .sumbit {
+        color: white;
+        font-size: 30pt;
+        font-family: "Cabin", sans-serif;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .poke-container {
+    @include fcc();
+    flex-direction: column;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    font-family: "Cabin", sans-serif;
+    width: 50vh;
+    height: max-content;
   }
 }
