@@ -1,3 +1,4 @@
+import { createAndDisplayPokemons } from './handleUI';
 import { Pokemon } from './Pokemon';
 let currentPage = 0;
 
@@ -22,5 +23,5 @@ async function retrieveAllPokemonsToDB() {
   }
   localStorage.setItem('pokemonsData', JSON.stringify(pokemonArr));
 }
-
+createAndDisplayPokemons();
 retrieveAllPokemonsToDB();
