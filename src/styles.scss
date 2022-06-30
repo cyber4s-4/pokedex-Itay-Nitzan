@@ -5,7 +5,7 @@ $text-color: #333;
 $text-hover-color: blue;
 $border-color: #222;
 
-@mixin fcc {
+@mixin flexCenterCenter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,13 +34,13 @@ body {
   background-color: $primary-color;
   width: 100vw;
   height: 100vh;
-  @include fcc();
+  @include flexCenterCenter();
   flex-flow: column;
   font-size: min(4vw, 24px);
   main {
     width: 80%;
     background-color: $secondary-color;
-    @include fcc();
+    @include flexCenterCenter();
     gap: 1vh;
     border-radius: 10px;
   }
