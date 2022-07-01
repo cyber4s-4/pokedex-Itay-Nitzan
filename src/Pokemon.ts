@@ -25,7 +25,6 @@ export class Pokemon {
 
   // TODO: function incomplete, will finish after lunch!
   createPokemonHtmlCard() {
-    const blabla = document.createElement('div');
     const pokemonCard = document.createElement('div');
     const picture = document.createElement('image');
     const id = document.createElement('p');
