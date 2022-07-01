@@ -1,10 +1,10 @@
 export class Pokemon {
   name: string;
-  height: string | null;
+  height: number | null;
   pictureSrc: string | null;
   pokemonType: string | null;
-  weight: string | null;
-  id: string | null;
+  weight: number | null;
+  id: number | null;
   constructor(name: string) {
     this.name = name;
     this.id = null;
