@@ -53,7 +53,7 @@ body {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     p {
       color: white;
       font-family: "Cabin", sans-serif;
@@ -62,7 +62,7 @@ body {
     .buttons {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: flex-start;
       width: 80%;
       form {
         display: flex;
@@ -101,50 +101,61 @@ body {
           Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
-        font-size: 16px;
         border-radius: 15px;
-        span {
-          padding: 0.7rem 1rem;
-          background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
-          color: white;
-          font-size: 16px;
-          font-weight: 500;
-          font-variant: small-caps;
-          display: block;
-          border-radius: 15px;
-          &:hover {
-            cursor: pointer;
-          }
-          &::after {
-            float: right;
-            right: 10%;
-            content: "+";
-          }
-        }
-        .slide {
-          clear: both;
-          width: 100%;
-          height: 0px;
-          overflow: hidden;
-          text-align: center;
-          transition: height 0.4s ease;
-          li {
-            padding: 30px;
-            p {
-              text-decoration: none;
-              color: #2d2f31;
-            }
+        position: relative;
+        .floating-list-of-sort-options {
+          top: 0;
+          position: absolute;
+          span {
+            padding: 0.7rem 1rem;
+            background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            font-variant: small-caps;
+            display: block;
+            border-radius: 15px;
             &:hover {
               cursor: pointer;
+              &:not([disabled]):hover {
+                box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                  -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                  0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+              }
+            }
+            &::after {
+              float: right;
+              right: 10%;
+              content: "+";
             }
           }
-        }
-        #touch {
-          position: absolute;
-          opacity: 0;
-          height: 0px;
-          &:checked + .slide {
-            height: 320px;
+          .slide {
+            clear: both;
+            width: 100%;
+            height: 0px;
+            overflow: hidden;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            transition: height 0.4s ease;
+            li {
+              padding: 30px;
+              p {
+                text-decoration: none;
+                color: #2d2f31;
+              }
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+          #touch {
+            position: absolute;
+            opacity: 0;
+            height: 0px;
+            &:checked + .slide {
+              height: 360px;
+            }
           }
         }
       }
