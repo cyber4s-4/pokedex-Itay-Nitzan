@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -43,9 +44,9 @@ body {
   flex-direction: column;
   margin: 100px 0;
   gap: 4vh;
-
   font-size: min(4vw, 24px);
   background-image: linear-gradient(to right, #d4d3dd, #efefbb);
+  overflow-x: hidden;
 
   main {
     display: flex;
@@ -55,75 +56,183 @@ body {
     gap: 20px;
     p {
       color: white;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
     }
-    form {
+
+    .buttons {
       display: flex;
-      justify-content: space-around;
-      align-content: center;
-      gap: 15px;
-      .input {
-        height: 55px;
-        width: 100%;
-        border: none;
-        border-radius: 5px;
-        padding: 0 60px 0 20px;
-        font-size: 18px;
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-        &::placeholder {
-          font-family: 'Cabin', sans-serif;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 80%;
+      form {
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        gap: 15px;
+        #search {
+          height: 55px;
+          width: 100%;
+          border: none;
+          border-radius: 5px;
+          padding: 0 60px 0 20px;
+          font-size: 18px;
+          box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+          &::placeholder {
+            font-family: "Cabin", sans-serif;
+          }
+        }
+        .submit {
+          color: white;
+          font-size: 30pt;
+          font-family: "Cabin", sans-serif;
+          background: none;
+          border: none;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
-      .submit {
-        color: white;
-        font-size: 30pt;
-        font-family: 'Cabin', sans-serif;
-        background: none;
-        border: none;
-        &:hover {
-          cursor: pointer;
-          transform: scale(1.1);
+
+      nav {
+        width: 200px;
+        background: #ffffff;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        font-size: 16px;
+        border-radius: 15px;
+        span {
+          padding: 0.7rem 1rem;
+          background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          font-variant: small-caps;
+          display: block;
+          border-radius: 15px;
+          &:hover {
+            cursor: pointer;
+          }
+          &::after {
+            float: right;
+            right: 10%;
+            content: "+";
+          }
+        }
+        .slide {
+          clear: both;
+          width: 100%;
+          height: 0px;
+          overflow: hidden;
+          text-align: center;
+          transition: height 0.4s ease;
+          li {
+            padding: 30px;
+            p {
+              text-decoration: none;
+              color: #2d2f31;
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        #touch {
+          position: absolute;
+          opacity: 0;
+          height: 0px;
+          &:checked + .slide {
+            height: 320px;
+          }
+        }
+      }
+
+      .random {
+        background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+        border: 0;
+        border-radius: 12px;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 2.5;
+        outline: transparent;
+        padding: 0 1rem;
+        text-align: center;
+        text-decoration: none;
+        transition: box-shadow 0.2s ease-in-out;
+        user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        &:not([disabled]):focus {
+          box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+            -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+            0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+        &:not([disabled]):hover {
+          box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+            -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+            0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
         }
       }
     }
 
     .poke-container {
-      @include fcc();
-      flex-direction: column;
-      background-color: whitesmoke;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
       border-radius: 15px;
-      font-family: 'Cabin', sans-serif;
-      width: 50vh;
-      height: max-content;
+      font-family: "Cabin", sans-serif;
+      height: 280px;
+      width: 80%;
+      background-color: #eee;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
     }
 
     .poke-container-body {
       display: flex;
-      flex-wrap: wrap;
-      align-items: space-between;
       justify-content: center;
-      margin: 0 auto;
-      max-width: 1200px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      max-width: 85%;
       .pokemon {
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        transition: all 0.5s ease;
         background-color: #eee;
         border-radius: 10px;
         box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
         margin: 10px;
         padding: 20px;
+        width: 186px;
         text-align: center;
+        white-space: nowrap;
         &:hover {
-          transform: scale(1.2, 1.2);
+          transform: scale(1.1);
           cursor: pointer;
         }
-        .img-container {
-          background-color: rgba(255, 255, 255, 0.6);
-          border-radius: 50%;
-          width: 120px;
-          height: 120px;
-          text-align: center;
-          img {
-            max-width: 90%;
-            margin-top: 20px;
+        .img-parent {
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          .img-container {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            img {
+              max-width: 90%;
+              margin-top: 20px;
+            }
           }
         }
         .info {
