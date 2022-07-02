@@ -15,6 +15,7 @@ async function retrieveAllPokemonsToDB() {
       `https://pokeapi.co/api/v2/pokemon?limit=${logic.totalNUmberOfPokemons()}`
     );
     const pokemonJSON = await res.json();
+    // TODO: Make fetching each pokemon async.
     for (let i = 0; i < pokemonJSON.results.length; i++) {
       const pokemonRawData = await fetchPokemonDataByName(pokemonJSON.results[i].name);
       const newPokemon = new Pokemon(pokemonJSON.results[i].name, pokemonRawData);
@@ -34,10 +35,12 @@ async function retrieveAllPokemonsToDB() {
 function addEventListenersForSearch() {
   const submitIcon = document.querySelector('.search-icon') as HTMLElement;
   submitIcon.addEventListener('click', handleInputEntered);
+
   const inputEl = document.querySelector('.search-input') as HTMLInputElement;
   inputEl.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleInputEntered();
   });
+
   const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
   getRandomPokemonBtn.addEventListener('click', () => {
     addPokemonToPreviewBox(logic.getRandomPokemon());
