@@ -1,34 +1,19 @@
 export class Pokemon {
-  name: string;
-  height: number | null;
   pictureSrc: string | null;
-  pokemonType: string | null;
-  weight: number | null;
   id: number | null;
+  name: string | null;
+  type: string | null;
+  height: string | null;
+  weight: string | null;
+  moves: string | null;
+
   constructor(name: string) {
-    this.name = name;
+    this.pictureSrc = null;
     this.id = null;
+    this.name = name;
+    this.type = null;
     this.height = null;
     this.weight = null;
-    this.pictureSrc = null;
-    this.pokemonType = null;
-  }
-  async fetchPokemonData() {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`);
-    const pokemonDataJSON = await res.json();
-    this.id = pokemonDataJSON.id;
-    this.height = pokemonDataJSON.height;
-    this.weight = pokemonDataJSON.weight;
-    this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.id}.png`;
-    this.pokemonType = pokemonDataJSON.types[0].type.name;
-  }
-
-  // TODO: function incomplete, will finish after lunch!
-  createPokemonHtmlCard() {
-    const pokemonCard = document.createElement('div');
-    const picture = document.createElement('image');
-    const id = document.createElement('p');
-    const name = document.createElement('p');
-    const typeSection = document.createElement('section');
+    this.moves = null;
   }
 }
