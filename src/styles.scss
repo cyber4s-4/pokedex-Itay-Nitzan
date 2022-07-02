@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -56,7 +56,7 @@ body {
     gap: 40px;
     p {
       color: white;
-      font-family: "Cabin", sans-serif;
+      font-family: 'Cabin', sans-serif;
     }
 
     .buttons {
@@ -78,13 +78,13 @@ body {
           font-size: 18px;
           box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
           &::placeholder {
-            font-family: "Cabin", sans-serif;
+            font-family: 'Cabin', sans-serif;
           }
         }
         .submit {
           color: white;
           font-size: 30pt;
-          font-family: "Cabin", sans-serif;
+          font-family: 'Cabin', sans-serif;
           background: none;
           border: none;
           &:hover {
@@ -97,8 +97,7 @@ body {
       nav {
         width: 200px;
         background: #ffffff;
-        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
+        font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
         border-radius: 15px;
@@ -110,23 +109,31 @@ body {
             padding: 0.7rem 1rem;
             background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
             color: white;
+            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
+            width: max-content;
             font-weight: 500;
+            outline: transparent;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
             font-variant: small-caps;
             display: block;
             border-radius: 15px;
-            &:hover {
+            &:not([disabled]):hover {
+              box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
               cursor: pointer;
-              &:not([disabled]):hover {
-                box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-                  -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-                  0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-              }
             }
+
             &::after {
               float: right;
               right: 10%;
-              content: "+";
+              content: '+';
             }
           }
           .slide {
@@ -167,8 +174,7 @@ body {
         color: #ffffff;
         cursor: pointer;
         display: inline-block;
-        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
+        font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
         line-height: 2.5;
@@ -198,7 +204,7 @@ body {
       justify-content: space-evenly;
       align-items: center;
       border-radius: 15px;
-      font-family: "Cabin", sans-serif;
+      font-family: 'Cabin', sans-serif;
       height: 280px;
       width: 80%;
       background-color: #eee;
