@@ -56,6 +56,7 @@ export class HandleUi {
     poke_container.appendChild(pokemonCard);
     pokemonCard.addEventListener('click', () => {
       addPokemonToPreviewBox(pokemon);
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     });
   };
 }
