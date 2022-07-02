@@ -1,11 +1,11 @@
 export class Pokemon {
-  pictureSrc: string | null;
-  id: number | null;
-  name: string | null;
-  pokemonType: string | null;
-  height: string | null;
-  weight: string | null;
-  moves: string[] | null;
+  pictureSrc: string;
+  id: number;
+  name: string;
+  pokemonTypes: string[];
+  height: string;
+  weight: string;
+  moves: string[];
   rawData: any;
 
   constructor(name: string, pokemonRawData: object) {
@@ -20,6 +20,9 @@ export class Pokemon {
       })
       .slice(0, 6);
     this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.id}.png`;
-    this.pokemonType = this.rawData.types[0].type.name;
+    this.pokemonTypes = this.rawData.types.map((typeObj: any) => {
+      return typeObj.type.name;
+    });
+    this.rawData = null;
   }
 }
