@@ -4,8 +4,21 @@ export class Logic {
   totalNUmberOfPokemons() {
     return 905;
   }
-  getPokemonById(id: number): Pokemon {
-    return this.getPokemonArrFromLocalStorage()[id - 1];
+  getPokemonById(id: number): Pokemon | null {
+    const pokemon = this.getPokemonArrFromLocalStorage()[id - 1];
+    if (pokemon !== undefined) return pokemon;
+    console.log('No such pokemon was found.');
+    return null;
+  }
+
+  getPokemonByName(name: string): Pokemon | null {
+    let pokemon;
+    this.getPokemonArrFromLocalStorage().forEach((pokemonObj: Pokemon) => {
+      if (pokemonObj.name === name) pokemon = pokemonObj;
+    });
+    if (pokemon !== undefined) return pokemon;
+    console.log('No such pokemon was found.');
+    return null;
   }
 
   getPokemonArrFromLocalStorage() {

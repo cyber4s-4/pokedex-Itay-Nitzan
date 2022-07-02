@@ -64,12 +64,13 @@ body {
       justify-content: space-between;
       align-items: flex-start;
       width: 80%;
-      form {
+      .search-container {
         display: flex;
         justify-content: space-around;
         align-content: center;
         gap: 15px;
-        #search {
+        .search-input {
+          background-color: #fff;
           height: 55px;
           width: 100%;
           border: none;
@@ -81,7 +82,7 @@ body {
             font-family: 'Cabin', sans-serif;
           }
         }
-        .submit {
+        .submit-icon {
           color: white;
           font-size: 30pt;
           font-family: 'Cabin', sans-serif;

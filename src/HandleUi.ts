@@ -62,36 +62,34 @@ export class HandleUi {
     const randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
     return randomNumber;
   }
-
-  addPokemonToPreviewBox(pokemon: Pokemon) {
-    const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-    pic.src = pokemon.pictureSrc;
-    const nameEl = document.getElementById('name') as HTMLElement;
-    nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
-    const type = document.querySelector('#type') as HTMLElement;
-    type.textContent = `${
-      pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-    } type pokemon`;
-    const moves = document.querySelector('#moves-list') as HTMLElement;
-    for (let i = 0; i < 6; i++) {
-      const li = moves.querySelectorAll('li')[i];
-      li.innerText = pokemon.moves[i];
-    }
-    const height = document.querySelector('#height') as HTMLElement;
-    height.innerText = `Height: ${pokemon.height}`;
-    const weight = document.querySelector('#weight') as HTMLElement;
-    weight.innerText = `Weight: ${pokemon.weight}`;
-    const form = document.querySelector('form') as HTMLFormElement;
-    // HTMLFormElement.prototype.submit.call(this.handleInputEntered);
-    form.addEventListener('submit', this.handleInputEntered);
+}
+export function addPokemonToPreviewBox(pokemon: Pokemon) {
+  const pic = document.querySelector('#pokeimg') as HTMLImageElement;
+  pic.src = pokemon.pictureSrc;
+  const nameEl = document.getElementById('name') as HTMLElement;
+  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
+  const type = document.querySelector('#type') as HTMLElement;
+  type.textContent = `${
+    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
+  } type pokemon`;
+  const moves = document.querySelector('#moves-list') as HTMLElement;
+  for (let i = 0; i < 6; i++) {
+    const li = moves.querySelectorAll('li')[i];
+    li.innerText = pokemon.moves[i];
   }
+  const height = document.querySelector('#height') as HTMLElement;
+  height.innerText = `Height: ${pokemon.height}`;
+  const weight = document.querySelector('#weight') as HTMLElement;
+  weight.innerText = `Weight: ${pokemon.weight}`;
+}
 
-  handleInputEntered(e: any) {
-    e.preventDefault();
-    const inputEl = document.querySelector('#search') as HTMLInputElement;
-    console.log(inputEl);
-    const pokeId = Number(inputEl.value);
-    console.log(typeof pokeId, pokeId);
-    this.addPokemonToPreviewBox(logic.getPokemonById(pokeId));
+export function handleInputEntered() {
+  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
+  if (isNaN(Number(inputEl.value))) {
+    const searchResult = logic.getPokemonByName(inputEl.value);
+    if (searchResult !== null) addPokemonToPreviewBox(searchResult);
+  } else {
+    const searchResult = logic.getPokemonById(Number(inputEl.value));
+    if (searchResult !== null) addPokemonToPreviewBox(searchResult);
   }
 }

@@ -1,4 +1,4 @@
-import { HandleUi } from './handleUI';
+import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './HandleUi';
 import { Pokemon } from './Pokemon';
 import { Logic } from './Logic';
 
@@ -24,12 +24,20 @@ async function retrieveAllPokemonsToDB() {
     console.log('Finished retrieving all the data from the API.');
     // Otherwise, get the pokemon array from the local storage.
   } else {
-    console.log('Retrieved data from local storage.');
     pokemonArr = JSON.parse(localStorage.getItem('pokemonsData') as string);
+    console.log('Retrieved data from local storage.');
   }
   handleUi.createAndDisplayPokemons();
-  handleUi.searchPok();
-  console.log(logic.getPokemonById(1));
+  addPokemonToPreviewBox(logic.getPokemonById(2));
+}
+
+function addEventListenersForSearch() {
+  const submitIcon = document.querySelector('.search-icon') as HTMLElement;
+  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
+  submitIcon.addEventListener('click', handleInputEntered);
+  inputEl.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleInputEntered();
+  });
 }
 
 async function fetchPokemonDataByName(pokemonName: string) {
@@ -37,3 +45,4 @@ async function fetchPokemonDataByName(pokemonName: string) {
   return await res.json();
 }
 retrieveAllPokemonsToDB();
+addEventListenersForSearch();
