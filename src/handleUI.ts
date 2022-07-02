@@ -33,7 +33,7 @@ export class HandleUi {
     const id = pokemon.id.toString();
     pokemonCard.id = id;
     pokemonCard.classList.add('pokemon');
-    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
     const visualId = pokemon.id.toString().padStart(3, '0');
     const poke_types = pokemon.pokemonTypes;
 
