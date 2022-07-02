@@ -28,7 +28,7 @@ async function retrieveAllPokemonsToDB() {
     console.log('Retrieved data from local storage.');
   }
   handleUi.createAndDisplayPokemons();
-  addPokemonToPreviewBox(logic.getRandomPokemon())
+  addPokemonToPreviewBox(logic.getRandomPokemon());
 }
 
 function addEventListenersForSearch() {
@@ -40,8 +40,8 @@ function addEventListenersForSearch() {
   });
   const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
   getRandomPokemonBtn.addEventListener('click', () => {
-    addPokemonToPreviewBox(logic.getRandomPokemon())
-  })
+    addPokemonToPreviewBox(logic.getRandomPokemon());
+  });
 }
 
 async function fetchPokemonDataByName(pokemonName: string) {
