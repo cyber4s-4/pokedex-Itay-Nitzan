@@ -55,13 +55,6 @@ export class HandleUi {
 
     poke_container.appendChild(pokemonCard);
   };
-
-  getRandom(min: number, max: number) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    const randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
-    return randomNumber;
-  }
 }
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;

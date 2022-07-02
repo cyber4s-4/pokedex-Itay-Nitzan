@@ -24,4 +24,10 @@ export class Logic {
   getPokemonArrFromLocalStorage() {
     return JSON.parse(localStorage.getItem('pokemonsData') as string);
   }
+
+  getRandomPokemon(): Pokemon {
+    const randomNumber = Math.floor(Math.random() * (this.totalNUmberOfPokemons() + 1));
+    const randomPokemon = this.getPokemonById(randomNumber);
+    return randomPokemon!;
+  }
 }
