@@ -5,30 +5,21 @@ export class Pokemon {
   pokemonType: string | null;
   height: string | null;
   weight: string | null;
-  moves: string | null;
+  moves: string[] | null;
   rawData: any;
 
-  constructor(name: string) {
-    this.rawData = this.getDataFromLocalStorage();
-    this.pictureSrc = null;
-    this.id = null;
+  constructor(name: string, pokemonRawData: object) {
     this.name = name;
-    this.pokemonType = null;
-    this.height = null;
-    this.weight = null;
-    this.moves = null;
-  }
-
-  async fetchPokemonData() {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`);
-    const pokemonDataJSON = await res.json();
-    this.id = pokemonDataJSON.id;
-    this.height = pokemonDataJSON.height;
-    this.weight = pokemonDataJSON.weight;
+    this.rawData = pokemonRawData;
+    this.id = this.rawData.id;
+    this.height = this.rawData.height;
+    this.weight = this.rawData.weight;
+    this.moves = this.rawData.moves
+      .map((moveObj: { move: { name: string } }) => {
+        return moveObj.move.name;
+      })
+      .slice(0, 6);
     this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.id}.png`;
-    this.pokemonType = pokemonDataJSON.types[0].type.name;
-  }
-  getDataFromLocalStorage(): object {
-    return JSON.parse(localStorage.getItem('pokemonsData') as string);
+    this.pokemonType = this.rawData.types[0].type.name;
   }
 }
