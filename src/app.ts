@@ -1,6 +1,6 @@
-import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './HandleUi';
-import { Pokemon } from './Pokemon';
-import { Logic } from './Logic';
+import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './utils/HandleUi';
+import { Pokemon } from './components/Pokemon';
+import { Logic } from './utils/Logic';
 
 const logic = new Logic();
 const handleUi = new HandleUi();
@@ -16,9 +16,9 @@ async function retrieveAllPokemonsToDB() {
     );
     const pokemonJSON = await res.json();
     // TODO: Make fetching each pokemon async.
-    for (let i = 0; i < pokemonJSON.results.length; i++) {
-      const pokemonRawData = await fetchPokemonDataByName(pokemonJSON.results[i].name);
-      const newPokemon = new Pokemon(pokemonJSON.results[i].name, pokemonRawData);
+    for (const pokemonJsonObj of pokemonJSON.results) {
+      const pokemonRawData = await fetchPokemonDataByName(pokemonJsonObj.name);
+      const newPokemon = new Pokemon(pokemonJsonObj.name, pokemonRawData);
       pokemonArr.push(newPokemon);
     }
     localStorage.setItem('pokemonsData', JSON.stringify(pokemonArr));
@@ -33,15 +33,15 @@ async function retrieveAllPokemonsToDB() {
 }
 
 function addEventListenersForSearch() {
-  const submitIcon = document.querySelector('.search-icon') as HTMLElement;
+  const submitIcon = document.querySelector('.search-icon') as HTMLpokemonJsonObj;
   submitIcon.addEventListener('click', handleInputEntered);
 
-  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
+  const inputEl = document.querySelector('.search-input') as HTMLInputpokemonJsonObj;
   inputEl.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleInputEntered();
   });
 
-  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
+  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonpokemonJsonObj;
   getRandomPokemonBtn.addEventListener('click', () => {
     addPokemonToPreviewBox(logic.getRandomPokemon());
   });

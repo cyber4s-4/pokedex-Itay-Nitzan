@@ -1,4 +1,4 @@
-import { Pokemon } from './Pokemon';
+import { Pokemon } from '../components/Pokemon';
 
 export class Logic {
   totalNUmberOfPokemons() {
