@@ -15,11 +15,15 @@ gulp.task('build', () => {
 });
 // Converts scss to css
 gulp.task('scss', () => {
-  return gulp.src('./src/**/*.scss').pipe(sass()).pipe(gulp.dest('./dist/styles'));
+  return gulp.src('./src/**/*.scss').pipe(sass()).pipe(gulp.dest('./dist'));
 });
 // Transfers index
 gulp.task('index', () => {
-  return gulp.src(['./src/*.html', './src/*.ico']).pipe(gulp.dest('./dist'));
+  return gulp.src(['./src/**/*.html']).pipe(gulp.dest('./dist'));
+});
+// Transfers assets
+gulp.task('assets', () => {
+  return gulp.src(['./src/assets/**/*', './src/assets/']).pipe(gulp.dest('./dist'));
 });
 // Browser Sync
 gulp.task('browser-sync', () => {
@@ -33,7 +37,7 @@ gulp.task('browser-sync', () => {
 // Browser Sync live reload
 gulp.task('browser-sync-watch', () => {
   gulp.watch('./dist/**/*.css').on('change', browserSync.reload);
-  gulp.watch('./dist/scripts/app.js').on('change', browserSync.reload);
+  gulp.watch('./dist/**/*.js').on('change', browserSync.reload);
   gulp.watch('./dist/*.html').on('change', browserSync.reload);
 });
 // Watch scss files
@@ -42,7 +46,7 @@ gulp.task('watch-scss', () => {
 });
 // Watch html files
 gulp.task('watch-html', () => {
-  return gulp.watch('./src/*.html', gulp.series('index'));
+  return gulp.watch('./src/**/*.html', gulp.series('index'));
 });
 // Watch tsc files
 gulp.task('watch-tsc', () => {
@@ -65,6 +69,7 @@ gulp.task(
     'start',
     'scss',
     'index',
+    'assets',
     'tsc',
     'build',
     gulp.parallel(

@@ -33,15 +33,15 @@ async function retrieveAllPokemonsToDB() {
 }
 
 function addEventListenersForSearch() {
-  const submitIcon = document.querySelector('.search-icon') as HTMLpokemonJsonObj;
+  const submitIcon = document.querySelector('.search-icon') as HTMLElement;
   submitIcon.addEventListener('click', handleInputEntered);
 
-  const inputEl = document.querySelector('.search-input') as HTMLInputpokemonJsonObj;
+  const inputEl = document.querySelector('.search-input') as HTMLElement;
   inputEl.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleInputEntered();
   });
 
-  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonpokemonJsonObj;
+  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLElement;
   getRandomPokemonBtn.addEventListener('click', () => {
     addPokemonToPreviewBox(logic.getRandomPokemon());
   });
