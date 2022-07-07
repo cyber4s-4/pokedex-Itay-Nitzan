@@ -6,7 +6,7 @@ export class HandleUi {
   createAndDisplayPokemons() {
     const pokemon_count = logic.totalNUmberOfPokemons();
     for (let i = 1; i <= pokemon_count; i++) {
-      this.createPokemonCard(logic.getPokemonById(i));
+      this.createPokemonCard(logic.getPokemonById(i) as Pokemon);
     }
   }
 
