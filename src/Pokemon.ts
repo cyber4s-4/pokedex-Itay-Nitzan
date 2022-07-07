@@ -1,39 +1,37 @@
 export class Pokemon {
+  pictureSrc: string;
+  id: number;
   name: string;
-  height: string | null;
-  pictureSrc: string | null;
-  pokemonType: string | null;
-  weight: string | null;
-  id: number | null;
-  constructor(name: string) {
-    this.name = name;
-    this.id = null;
-    this.height = null;
-    this.weight = null;
-    this.pictureSrc = null;
-    this.pokemonType = null;
-    this.fetchPokemonData();
-    this.createPokemonHtmlCard();
-  }
-  async fetchPokemonData() {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`);
-    const pokemonDataJSON = await res.json();
-    this.id = pokemonDataJSON.id;
-    this.height = pokemonDataJSON.height;
-    this.weight = pokemonDataJSON.weight;
-    this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.id}.png`;
-    this.pokemonType = pokemonDataJSON.types[0].type.name;
-  }
+  pokemonTypes: string[];
+  height: string;
+  weight: string;
+  moves: string[];
+  rawData: any;
+  spritesSources: object;
+  visualId: string;
 
-  // TODO: function incomplete, will finish after lunch!
-  createPokemonHtmlCard() {
-    const blabla = document.createElement('div');
-    const pokemonCard = document.createElement('div');
-    const picture = document.createElement('image');
-    const id = document.createElement('p');
-    const name = document.createElement('p');
-    const typeSection = document.createElement('section');
+  constructor(name: string, pokemonRawData: object) {
+    this.name = name;
+    this.rawData = pokemonRawData;
+    this.id = this.rawData.id;
+    this.height = this.rawData.height;
+    this.weight = this.rawData.weight;
+    this.moves = this.rawData.moves
+      .map((moveObj: { move: { name: string } }) => {
+        return moveObj.move.name;
+      })
+      .slice(0, 6);
+    this.visualId = this.id.toString().padStart(3, '0');
+    this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.visualId}.png`;
+    this.pokemonTypes = this.rawData.types.map((typeObj: any) => {
+      return typeObj.type.name;
+    });
+    this.spritesSources = {
+      frontDefault: this.rawData.sprites['front_default'],
+      backDefault: this.rawData.sprites['back_default'],
+      frontShiny: this.rawData.sprites['front_shiny'],
+      backShiny: this.rawData.sprites['back_shiny'],
+    };
+    this.rawData = null;
   }
 }
-
-

@@ -255,9 +255,18 @@ body {
         padding: 20px;
         width: 186px;
         text-align: center;
+        position: relative;
         &:hover {
           transform: scale(1.1);
           cursor: pointer;
+        }
+        .star {
+          position: absolute;
+          top: 5px;
+          left: 4px;
+          &:hover {
+            transform: scale(1.1);
+          }
         }
         .img-parent {
           display: flex;

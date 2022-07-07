@@ -46,6 +46,7 @@ export function createAndDisplayPokemons() {
         pokemonEl.style.backgroundColor = color;
 
         pokemonEl.innerHTML = `
+        <img class="star" src="https://cdn-icons-png.flaticon.com/512/188/188931.png" alt="Add To Favorites" width="32" height="32">
         <div class="img-parent">
         <div class="img-container">
         <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png" alt="">
