@@ -235,6 +235,27 @@ body {
           font-size: 1.4em;
         }
       }
+      .spin-shine {
+        display: flex;
+        justify-content: center;
+        white-space: nowrap;
+        align-items: flex-start;
+        gap: 5px;
+        .spin {
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+            transition: all 0.2s ease-in-out;
+          }
+        }
+        .shiny {
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+            transition: all 0.2s ease-in-out;
+          }
+        }
+      }
       .middle-preview-container {
         display: flex;
         flex-direction: column;
@@ -262,9 +283,24 @@ body {
         padding: 20px;
         width: 186px;
         text-align: center;
+        position: relative;
         &:hover {
           transform: scale(1.1);
           cursor: pointer;
+        }
+        .star {
+          position: absolute;
+          top: 5px;
+          left: 4px;
+          &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+          }
+          &.star-selected {
+            filter: brightness(70%);
+            width: 28px;
+            height: 28px;
+          }
         }
         .img-parent {
           display: flex;
