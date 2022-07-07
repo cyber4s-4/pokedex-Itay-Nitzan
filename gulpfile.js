@@ -44,7 +44,7 @@ gulp.task("watch-html", () => {
 
 // Watch tsc files
 gulp.task("watch-tsc", () => {
-  return gulp.watch("./dist/tsc/**/*.js", gulp.series("build"));
+  return gulp.watch("./dist/**/*.js", gulp.series("build"));
 });
 
 // Initial ts compile
@@ -64,7 +64,7 @@ gulp.task("tsc-w", () => {
 
 // Start express
 gulp.task("express", () => {
-  const tsc = exec("node ./dist/server.js");
+  const tsc = exec("nodemon server.js");
   tsc.stdout.on("data", (data) => console.log(data));
   tsc.stderr.on("data", (data) => console.error(data));
 });
