@@ -28,7 +28,7 @@ export class HandleUi {
       normal: '#F5F5F5',
     };
     const main_types = Object.keys(colors);
-    const poke_container = document.getElementsByClassName('poke-container-body')[0] as HTMLElement;
+    const pokeContainer = document.getElementsByClassName('poke-container-body')[0] as HTMLElement;
     const pokemonCard = document.createElement('div');
     const id = pokemon.id.toString();
     pokemonCard.id = id;
@@ -53,10 +53,11 @@ export class HandleUi {
         <small class="type">Type: <span>${type}</span></small>
         </div>`;
 
-    poke_container.appendChild(pokemonCard);
+    pokeContainer.appendChild(pokemonCard);
     pokemonCard.addEventListener('click', () => {
       addPokemonToPreviewBox(pokemon);
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      const pokePreview = document.querySelector('.poke-preview') as HTMLElement;
+      pokePreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   };
 }

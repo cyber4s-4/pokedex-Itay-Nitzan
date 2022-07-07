@@ -202,14 +202,19 @@ body {
         .search-container {
           width: 100%;
         }
-        .floating-list-of-sort-options {
+        nav {
+          width: 100%;
+          .floating-list-of-sort-options {
+            width: 100%;
+          }
         }
         .get-random {
+          width: 100%;
         }
       }
     }
 
-    .poke-container {
+    .poke-preview {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
