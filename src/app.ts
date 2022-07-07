@@ -1,6 +1,6 @@
-import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './utils/HandleUi';
-import { Pokemon } from './components/Pokemon';
-import { Logic } from './utils/Logic';
+import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './HandleUi';
+import { Pokemon } from './Pokemon';
+import { Logic } from './Logic';
 
 const logic = new Logic();
 const handleUi = new HandleUi();
@@ -16,9 +16,9 @@ async function retrieveAllPokemonsToDB() {
     );
     const pokemonJSON = await res.json();
     // TODO: Make fetching each pokemon async.
-    for (const pokemonJsonObj of pokemonJSON.results) {
-      const pokemonRawData = await fetchPokemonDataByName(pokemonJsonObj.name);
-      const newPokemon = new Pokemon(pokemonJsonObj.name, pokemonRawData);
+    for (let i = 0; i < pokemonJSON.results.length; i++) {
+      const pokemonRawData = await fetchPokemonDataByName(pokemonJSON.results[i].name);
+      const newPokemon = new Pokemon(pokemonJSON.results[i].name, pokemonRawData);
       pokemonArr.push(newPokemon);
     }
     localStorage.setItem('pokemonsData', JSON.stringify(pokemonArr));
@@ -36,12 +36,12 @@ function addEventListenersForSearch() {
   const submitIcon = document.querySelector('.search-icon') as HTMLElement;
   submitIcon.addEventListener('click', handleInputEntered);
 
-  const inputEl = document.querySelector('.search-input') as HTMLElement;
+  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
   inputEl.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleInputEntered();
   });
 
-  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLElement;
+  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
   getRandomPokemonBtn.addEventListener('click', () => {
     addPokemonToPreviewBox(logic.getRandomPokemon());
   });

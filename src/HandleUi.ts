@@ -1,5 +1,5 @@
 import { Logic } from './Logic';
-import { Pokemon } from '../components/Pokemon';
+import { Pokemon } from './Pokemon';
 const logic = new Logic();
 
 export class HandleUi {
