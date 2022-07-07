@@ -7,6 +7,7 @@ export class Pokemon {
   weight: string;
   moves: string[];
   rawData: any;
+  spritesSources: object;
   visualId: string;
 
   constructor(name: string, pokemonRawData: object) {
@@ -25,6 +26,12 @@ export class Pokemon {
     this.pokemonTypes = this.rawData.types.map((typeObj: any) => {
       return typeObj.type.name;
     });
+    this.spritesSources = {
+      frontDefault: this.rawData.sprites['front_default'],
+      backDefault: this.rawData.sprites['back_default'],
+      frontShiny: this.rawData.sprites['front_shiny'],
+      backShiny: this.rawData.sprites['back_shiny'],
+    };
     this.rawData = null;
   }
 }
