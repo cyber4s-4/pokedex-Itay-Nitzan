@@ -36,6 +36,10 @@ export class HandleUi {
     const visualId = pokemon.id.toString().padStart(3, '0');
     const poke_types = pokemon.pokemonTypes;
 
+    const type = main_types.find((type) => poke_types.indexOf(type) > -1);
+    const color = colors[type];
+    pokemonCard.style.backgroundColor = color;
+
     pokemonCard.innerHTML = `
         <img class="star" id=${id} src="https://cdn-icons-png.flaticon.com/512/188/188931.png" alt="Add To Favorites" width="32" height="32">
         <div class="img-parent">
@@ -64,6 +68,7 @@ export class HandleUi {
 }
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;
+
   pic.src = pokemon.spritesSources.frontDefault;
   function spinShiny() {
     const spinButton = document.getElementsByClassName('spin')[0];

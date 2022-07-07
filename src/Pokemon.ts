@@ -7,7 +7,12 @@ export class Pokemon {
   weight: string;
   moves: string[];
   rawData: any;
-  spritesSources: object;
+  spritesSources: {
+    frontDefault: string;
+    backDefault: string;
+    frontShiny: string;
+    backShiny: string;
+  };
   visualId: string;
 
   constructor(name: string, pokemonRawData: object) {
