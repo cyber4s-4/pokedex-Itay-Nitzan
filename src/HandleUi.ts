@@ -3,6 +3,14 @@ import { Pokemon } from './Pokemon';
 const logic = new Logic();
 
 export class HandleUi {
+  finishLoadingUI() {
+    const loader = document.querySelector('.loader') as HTMLDivElement;
+    const buttons = document.querySelector('.buttons') as HTMLDivElement;
+    const pokePreview = document.querySelector('.poke-preview') as HTMLDivElement;
+    loader.style.display = 'none';
+    buttons.style.display = 'flex';
+    pokePreview.style.display = 'flex';
+  }
   createAndDisplayPokemons() {
     const pokemon_count = logic.totalNUmberOfPokemons();
     for (let i = 1; i <= pokemon_count; i++) {

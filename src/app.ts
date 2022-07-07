@@ -28,6 +28,7 @@ async function retrieveAllPokemonsToDB() {
     pokemonArr = JSON.parse(localStorage.getItem('pokemonsData') as string);
     console.log('Retrieved data from local storage.');
   }
+  handleUi.finishLoadingUI();
   handleUi.createAndDisplayPokemons();
   addPokemonToPreviewBox(logic.getRandomPokemon());
 }
