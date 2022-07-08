@@ -12,10 +12,9 @@ export class Logic {
   }
 
   getPokemonByName(name: string): Pokemon | null {
-    let pokemon;
-    this.getPokemonArrFromLocalStorage().forEach((pokemonObj: Pokemon) => {
-      if (pokemonObj.name === name) pokemon = pokemonObj;
-    });
+    const pokemon = this.getPokemonArrFromLocalStorage().find(
+      (pokemonObj: Pokemon) => pokemonObj.name === name.toLowerCase()
+    );
     if (pokemon !== undefined) return pokemon;
     console.log('No such pokemon was found.');
     return null;
