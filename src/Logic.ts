@@ -31,7 +31,22 @@ export class Logic {
     return randomPokemon!;
   }
 
-  sortPokemonsAlphabeticallyAtoZ() {
-    return;
+  sortPokemons(sortId: string, pokemonArr: Pokemon[]) {
+    switch (sortId) {
+      case 'sortAtoZ':
+        this.sortPokemonsAlphabeticallyAtoZ(pokemonArr);
+        return;
+
+      default:
+        console.log('Unrecognized sort name');
+        return;
+    }
+  }
+
+  sortPokemonsAlphabeticallyAtoZ(pokemonArr: Pokemon[]) {
+    // Change to let when possible
+    const sortedPokemonArr = pokemonArr;
+    console.log('In sorting function');
+    return sortedPokemonArr;
   }
 }

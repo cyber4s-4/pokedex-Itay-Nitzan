@@ -10,6 +10,12 @@ export class HandleUi {
     loader.style.display = 'none';
     buttons.style.display = 'flex';
     pokePreview.style.display = 'flex';
+    const sortOptions = Array.from(document.querySelectorAll<HTMLLIElement>('.sort-option'));
+    sortOptions.forEach((sortOption) => {
+      sortOption.addEventListener('click', () => {
+        logic.sortPokemons(sortOption.id, logic.getPokemonArrFromLocalStorage());
+      });
+    });
   }
   createAndDisplayPokemons(pokemonArr: Pokemon[]) {
     for (let i = 0; i < pokemonArr.length; i++) {
