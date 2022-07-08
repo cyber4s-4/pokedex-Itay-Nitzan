@@ -111,6 +111,7 @@ body {
         font-weight: 500;
         border-radius: 15px;
         position: relative;
+        z-index: 100;
         .floating-list-of-sort-options {
           top: 0;
           position: absolute;
@@ -147,7 +148,6 @@ body {
             background-color: white;
             border-radius: 15px;
             transition: height 0.4s ease;
-            z-index: 100;
             li {
               padding: 30px;
               p {
@@ -283,6 +283,7 @@ body {
       flex-wrap: wrap;
       max-width: 85%;
       gap: 2vh;
+      z-index: 50;
       .pokemon {
         display: flex;
         flex-direction: column;
