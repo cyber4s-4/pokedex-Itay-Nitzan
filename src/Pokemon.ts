@@ -29,7 +29,7 @@ export class Pokemon {
     this.visualId = this.id.toString().padStart(3, '0');
     this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.visualId}.png`;
     this.pokemonTypes = this.rawData.types.map((typeObj: any) => {
-      return typeObj.type.name;
+      return typeObj.type.name !== undefined ? typeObj.type.name : 'Unknown';
     });
     this.spritesSources = {
       frontDefault: this.rawData.sprites['front_default'],

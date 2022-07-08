@@ -34,8 +34,8 @@ export class HandleUi {
       fire: '#FDDFDF',
       grass: '#DEFDE0',
       electric: '#FCF7DE',
-      water: '#DEF3FD',
-      ground: '#f4e7da',
+      water: '#15aaff',
+      ground: '#A88C7D',
       rock: '#d5d5d4',
       fairy: '#fceaff',
       poison: '#98d7a5',
@@ -45,6 +45,10 @@ export class HandleUi {
       flying: '#F5F5F5',
       fighting: '#E6E0D4',
       normal: '#F5F5F5',
+      dark: '#4C5265',
+      ghost: '#cc8899',
+      ice: '#DEF3FD',
+      steel: '#d5d5d4',
     };
     const main_types = Object.keys(colors);
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
@@ -60,24 +64,53 @@ export class HandleUi {
     const color = colors[type];
     pokemonCard.style.backgroundColor = color;
 
-    pokemonCard.innerHTML = `
-        <img class="star" id=${id} src="https://cdn-icons-png.flaticon.com/512/188/188931.png" alt="Add To Favorites" width="32" height="32">
-        <div class="img-parent">
-        <div class="img-container">
-        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${visualId}.png" alt="">
-        </div>
-        </div>
-        <div class="info">
-        <span class="number">#${visualId}</span>
-        <h3 class="name">${name}</h3>
-        <small class="type">Type: <span>${type}</span></small>
-        </div>`;
-
-    const star = pokemonCard.querySelector('.star') as HTMLElement;
+    // Add star
+    const star = document.createElement('img') as HTMLImageElement;
+    star.className = 'star';
+    star.src = 'https://cdn-icons-png.flaticon.com/512/188/188931.png';
+    star.alt = 'Add To Favorites';
+    pokemonCard.appendChild(star);
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
     });
+
+    // Add img container
+    const imgContainer = document.createElement('div') as HTMLDivElement;
+    imgContainer.className = 'img-container';
+    pokemonCard.appendChild(imgContainer);
+
+    // Add pokemon image
+    const pokemonImage = document.createElement('img') as HTMLImageElement;
+    pokemonImage.className = 'pokemon-image';
+    pokemonImage.src = pokemon.pictureSrc;
+    imgContainer.appendChild(pokemonImage);
+
+    // Add info section within the pokemon card
+    const pokemonInfo = document.createElement('div') as HTMLDivElement;
+    pokemonInfo.className = 'info';
+    pokemonCard.appendChild(pokemonInfo);
+
+    const visualIdText = document.createElement('span') as HTMLSpanElement;
+    visualIdText.className = 'number';
+    visualIdText.innerText = '#' + visualId;
+    pokemonInfo.appendChild(visualIdText);
+
+    const pokemonH3 = document.createElement('h3') as HTMLHeadingElement;
+    pokemonH3.className = 'name';
+    pokemonH3.innerText = name;
+    pokemonInfo.appendChild(pokemonH3);
+
+    const pokemonTypeContainer = document.createElement('div') as HTMLDivElement;
+    pokemonTypeContainer.className = 'type';
+    pokemonTypeContainer.innerText = 'Type: ';
+    pokemonInfo.appendChild(pokemonTypeContainer);
+
+    const pokemonType = document.createElement('span') as HTMLHeadingElement;
+    pokemonType.innerText = type[0].toUpperCase() + type.slice(1);
+    pokemonTypeContainer.appendChild(pokemonType);
+
+    // Add the pokemon card to the pokemon container
     pokeContainer.appendChild(pokemonCard);
     pokemonCard.addEventListener('click', () => {
       addPokemonToPreviewBox(pokemon);

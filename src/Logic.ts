@@ -26,8 +26,8 @@ export class Logic {
 
   getRandomPokemon(): Pokemon {
     const randomNumber = Math.floor(Math.random() * (this.totalNUmberOfPokemons() + 1));
-    const randomPokemon = this.getPokemonById(randomNumber);
-    return randomPokemon!;
+    const randomPokemon: Pokemon = this.getPokemonById(randomNumber);
+    return randomPokemon;
   }
 
   sortPokemons(sortId: string, pokemonArr: Pokemon[]) {
