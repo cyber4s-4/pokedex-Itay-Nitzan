@@ -33,9 +33,14 @@ export class Logic {
 
   sortPokemons(sortId: string, pokemonArr: Pokemon[]) {
     switch (sortId) {
+      case 'sortIdLowToHigh':
+        return this.sortPokemonsByIdLowToHigh(pokemonArr);
+      case 'sortIdHighToLow':
+        return this.sortPokemonsByIdHighToLow(pokemonArr);
       case 'sortAtoZ':
-        this.sortPokemonsAlphabeticallyAtoZ(pokemonArr);
-        return;
+        return this.sortPokemonsAlphabeticallyAtoZ(pokemonArr);
+      case 'sortZtoA':
+        return this.sortPokemonsAlphabeticallyZtoA(pokemonArr);
 
       default:
         console.log('Unrecognized sort name');
@@ -43,10 +48,31 @@ export class Logic {
     }
   }
 
+  sortPokemonsByIdLowToHigh(pokemonArr: Pokemon[]) {
+    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+      return Number(pokemonA.id) - Number(pokemonB.id);
+    });
+    return sortedPokemonArr;
+  }
+
+  sortPokemonsByIdHighToLow(pokemonArr: Pokemon[]) {
+    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+      return Number(pokemonB.id) - Number(pokemonA.id);
+    });
+    return sortedPokemonArr;
+  }
+
   sortPokemonsAlphabeticallyAtoZ(pokemonArr: Pokemon[]) {
-    // Change to let when possible
-    const sortedPokemonArr = pokemonArr;
-    console.log('In sorting function');
+    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+      return pokemonA.name.localeCompare(pokemonB.name);
+    });
+    return sortedPokemonArr;
+  }
+
+  sortPokemonsAlphabeticallyZtoA(pokemonArr: Pokemon[]) {
+    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+      return pokemonB.name.localeCompare(pokemonA.name);
+    });
     return sortedPokemonArr;
   }
 }

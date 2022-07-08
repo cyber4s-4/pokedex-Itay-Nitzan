@@ -13,9 +13,16 @@ export class HandleUi {
     const sortOptions = Array.from(document.querySelectorAll<HTMLLIElement>('.sort-option'));
     sortOptions.forEach((sortOption) => {
       sortOption.addEventListener('click', () => {
-        logic.sortPokemons(sortOption.id, logic.getPokemonArrFromLocalStorage());
+        this.removePokemonsFromDisplay();
+        this.createAndDisplayPokemons(
+          logic.sortPokemons(sortOption.id, logic.getPokemonArrFromLocalStorage())
+        );
       });
     });
+  }
+  removePokemonsFromDisplay() {
+    const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
+    pokeContainer.replaceChildren('');
   }
   createAndDisplayPokemons(pokemonArr: Pokemon[]) {
     for (let i = 0; i < pokemonArr.length; i++) {
@@ -40,7 +47,7 @@ export class HandleUi {
       normal: '#F5F5F5',
     };
     const main_types = Object.keys(colors);
-    const pokeContainer = document.getElementsByClassName('poke-container-body')[0] as HTMLElement;
+    const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
     const pokemonCard = document.createElement('div');
     const id = pokemon.id.toString();
     pokemonCard.id = id;
