@@ -237,7 +237,7 @@ body {
       align-items: center;
       border-radius: 15px;
       font-family: 'Cabin', sans-serif;
-      height: 280px;
+      height: min(280px, 25vw);
       width: 80%;
       background-color: #eee;
       border-radius: 10px;
