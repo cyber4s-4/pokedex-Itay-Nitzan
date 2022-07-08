@@ -30,4 +30,8 @@ export class Logic {
     const randomPokemon = this.getPokemonById(randomNumber);
     return randomPokemon!;
   }
+
+  sortPokemonsAlphabeticallyAtoZ() {
+    return;
+  }
 }

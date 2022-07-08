@@ -11,10 +11,9 @@ export class HandleUi {
     buttons.style.display = 'flex';
     pokePreview.style.display = 'flex';
   }
-  createAndDisplayPokemons() {
-    const pokemon_count = logic.totalNUmberOfPokemons();
-    for (let i = 1; i <= pokemon_count; i++) {
-      this.createPokemonCard(logic.getPokemonById(i) as Pokemon);
+  createAndDisplayPokemons(pokemonArr: Pokemon[]) {
+    for (let i = 0; i < pokemonArr.length; i++) {
+      this.createPokemonCard(pokemonArr[i]);
     }
   }
   createPokemonCard = (pokemon: Pokemon) => {

@@ -29,7 +29,7 @@ async function retrieveAllPokemonsToDB() {
     console.log('Retrieved data from local storage.');
   }
   handleUi.finishLoadingUI();
-  handleUi.createAndDisplayPokemons();
+  handleUi.createAndDisplayPokemons(pokemonArr);
   addPokemonToPreviewBox(logic.getRandomPokemon());
 }
 
