@@ -52,5 +52,6 @@ async function fetchPokemonDataByName(pokemonName: string) {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   return await res.json();
 }
+
 retrieveAllPokemonsToDB();
 addEventListenersForSearch();
