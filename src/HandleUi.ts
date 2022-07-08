@@ -5,10 +5,10 @@ const logic = new Logic();
 export class HandleUi {
   finishLoadingUI() {
     const loader = document.querySelector('.loader') as HTMLDivElement;
-    const buttons = document.querySelector('.buttons') as HTMLDivElement;
+    const changeUiSection = document.querySelector('.change-ui-section') as HTMLDivElement;
     const pokePreview = document.querySelector('.poke-preview') as HTMLDivElement;
     loader.style.display = 'none';
-    buttons.style.display = 'flex';
+    changeUiSection.style.display = 'flex';
     pokePreview.style.display = 'flex';
     const sortOptions = Array.from(document.querySelectorAll<HTMLLIElement>('.sort-option'));
     sortOptions.forEach((sortOption) => {
