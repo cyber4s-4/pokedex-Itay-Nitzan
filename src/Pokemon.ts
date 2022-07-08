@@ -27,7 +27,8 @@ export class Pokemon {
       })
       .slice(0, 6);
     this.visualId = this.id.toString().padStart(3, '0');
-    this.pictureSrc = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.visualId}.png`;
+    this.pictureSrc =
+      'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' + this.visualId + '.png';
     this.pokemonTypes = this.rawData.types.map((typeObj: any) => {
       return typeObj.type.name !== undefined ? typeObj.type.name : 'Unknown';
     });

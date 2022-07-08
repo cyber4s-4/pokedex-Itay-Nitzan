@@ -74,7 +74,7 @@ body {
       .search-container {
         display: flex;
         justify-content: space-around;
-        align-content: center;
+        align-items: center;
         flex-grow: 1;
         gap: 15px;
         .search-input {
@@ -282,17 +282,17 @@ body {
       align-items: flex-start;
       flex-wrap: wrap;
       max-width: 85%;
+      gap: 2vh;
       .pokemon {
         display: flex;
-        justify-content: flex-start;
-        align-content: center;
         flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         flex-wrap: wrap;
         transition: all 0.5s ease;
         background-color: #eee;
         border-radius: 10px;
         box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
-        margin: 10px;
         padding: 20px;
         width: 186px;
         text-align: center;
@@ -319,13 +319,16 @@ body {
           }
         }
         .img-container {
+          justify-self: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: rgba(255, 255, 255, 0.6);
           border-radius: 50%;
           width: 120px;
           height: 120px;
           .pokemon-image {
             max-width: 90%;
-            margin-top: 20px;
           }
         }
         .info {
