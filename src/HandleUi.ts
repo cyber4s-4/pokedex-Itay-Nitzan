@@ -75,66 +75,6 @@ export class HandleUi {
   };
 }
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
-  const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-
-  pic.src = pokemon.spritesSources.frontDefault;
-  function spinShiny() {
-    const spinButton = document.getElementsByClassName('spin')[0];
-    const shinyButton = document.getElementsByClassName('shiny')[0];
-    const pokeImgRegularFront = pokemon.spritesSources.frontDefault;
-    const pokeImgRegularBack = pokemon.spritesSources.backDefault;
-    const pokeImgShinyFront = pokemon.spritesSources.frontShiny;
-    const pokeImgShinyBack = pokemon.spritesSources.backShiny;
-    spinButton.addEventListener('click', () => {
-      console.log('spin', pic.src);
-      if (pokeImgRegularBack !== null) {
-        if ((pic.src = pokeImgRegularFront)) {
-          pic.src = pokeImgRegularBack;
-          return;
-        }
-        if ((pic.src = pokeImgRegularBack)) {
-          console.log('Back to regular front');
-
-          pic.src = pokeImgRegularFront;
-          return;
-        }
-        if ((pic.src = pokeImgShinyFront)) {
-          pic.src = pokeImgShinyBack;
-          return;
-        }
-        if ((pic.src = pokeImgShinyBack)) {
-          pic.src = pokeImgShinyFront;
-          return;
-        }
-      } else {
-        return;
-      }
-    });
-    shinyButton.addEventListener('click', () => {
-      console.log('shine/unshine');
-      if (pokeImgShinyFront && pokeImgShinyBack !== null) {
-        if ((pic.src = pokeImgRegularFront)) {
-          pic.src = pokeImgShinyFront;
-          return;
-        }
-        if ((pic.src = pokeImgRegularBack)) {
-          pic.src = pokeImgShinyBack;
-          return;
-        }
-        if ((pic.src = pokeImgShinyFront)) {
-          pic.src = pokeImgRegularFront;
-          return;
-        }
-        if ((pic.src = pokeImgShinyBack)) {
-          pic.src = pokeImgRegularBack;
-          return;
-        }
-      } else {
-        return;
-      }
-    });
-  }
-  spinShiny();
   const nameEl = document.getElementById('name') as HTMLElement;
   nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
   const type = document.querySelector('#type') as HTMLElement;
@@ -150,6 +90,83 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   height.innerText = `Height: ${pokemon.height}`;
   const weight = document.querySelector('#weight') as HTMLElement;
   weight.innerText = `Weight: ${pokemon.weight}`;
+  const pic = document.querySelector('#pokeimg') as HTMLImageElement;
+  if (pokemon.spritesSources.frontDefault != null) {
+    pic.src = pokemon.spritesSources.frontDefault;
+    addSpinAndShinyListeners(pokemon);
+  } else {
+    pic.src = pokemon.pictureSrc;
+  }
+}
+
+function addSpinAndShinyListeners(pokemon: Pokemon) {
+  const pic = document.querySelector('#pokeimg') as HTMLImageElement;
+  const spinButton = document.getElementsByClassName('spin')[0];
+  const shinyButton = document.getElementsByClassName('shiny')[0];
+  const pokeImgRegularFront = pokemon.spritesSources.frontDefault;
+  const pokeImgRegularBack = pokemon.spritesSources.backDefault;
+  const pokeImgShinyFront = pokemon.spritesSources.frontShiny;
+  const pokeImgShinyBack = pokemon.spritesSources.backShiny;
+  spinButton.addEventListener('click', () => {
+    if (pic.src === pokeImgRegularFront) {
+      if (pokeImgRegularBack == null) {
+        console.log('No back image');
+        return;
+      }
+      pic.src = pokeImgRegularBack;
+      return;
+    }
+    if (pic.src === pokeImgRegularBack) {
+      pic.src = pokeImgRegularFront;
+      return;
+    }
+    if (pic.src === pokeImgShinyFront) {
+      if (pokeImgShinyBack == null) {
+        console.log('No Shiny back image');
+        return;
+      }
+      pic.src = pokeImgShinyBack;
+      return;
+    }
+    if (pic.src === pokeImgShinyBack) {
+      if (pokeImgShinyFront == null) {
+        console.log('No Shiny front image');
+        return;
+      }
+      pic.src = pokeImgShinyFront;
+      return;
+    }
+  });
+  shinyButton.addEventListener('click', () => {
+    if (pic.src === pokeImgRegularFront) {
+      if (pokeImgShinyFront == null) {
+        console.log('No Shiny front image');
+        return;
+      }
+      pic.src = pokeImgShinyFront;
+      return;
+    }
+    if (pic.src === pokeImgRegularBack) {
+      if (pokeImgShinyBack == null) {
+        console.log('No Shiny back image');
+        return;
+      }
+      pic.src = pokeImgShinyBack;
+      return;
+    }
+    if (pic.src === pokeImgShinyFront) {
+      pic.src = pokeImgRegularFront;
+      return;
+    }
+    if (pic.src === pokeImgShinyBack) {
+      if (pokeImgRegularBack == null) {
+        console.log('No back image');
+        return;
+      }
+      pic.src = pokeImgRegularBack;
+      return;
+    }
+  });
 }
 
 export function handleInputEntered() {

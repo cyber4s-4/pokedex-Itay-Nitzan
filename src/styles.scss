@@ -247,10 +247,14 @@ body {
         display: flex;
         flex-flow: column;
         align-items: center;
+        width: 50%;
+        height: 80%;
         #pokeimg {
-          width: 75%;
+          height: 80%;
+          flex-grow: 1;
         }
         #name {
+          height: 20%;
           font-size: 1.4em;
         }
       }
