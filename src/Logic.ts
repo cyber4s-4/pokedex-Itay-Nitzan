@@ -24,8 +24,14 @@ export class Logic {
     }
   }
 
-  getPokemonArrFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('pokemonsData') as string);
+  async getPokemonArrFromServer(): Promise<Pokemon[]> {
+    try {
+      const response = await fetch('http://localhost:3000/pokemons');
+      const pokemonArr = await response.json();
+      return pokemonArr;
+    } catch {
+      console.log('Error in retrieving pokemon array from server.');
+    }
   }
 
   async getRandomPokemon(): Promise<Pokemon> {

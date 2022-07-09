@@ -12,10 +12,10 @@ export class HandleUi {
     pokePreview.style.display = 'flex';
     const sortOptions = Array.from(document.querySelectorAll<HTMLLIElement>('.sort-option'));
     sortOptions.forEach((sortOption) => {
-      sortOption.addEventListener('click', () => {
+      sortOption.addEventListener('click', async () => {
         this.removePokemonsFromDisplay();
         this.createAndDisplayPokemons(
-          logic.sortPokemons(sortOption.id, logic.getPokemonArrFromLocalStorage())
+          logic.sortPokemons(sortOption.id, await logic.getPokemonArrFromServer())
         );
       });
     });
