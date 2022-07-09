@@ -22,7 +22,10 @@ export class HandleUi {
     const showFavorites = document.querySelector('#showFavorites');
     showFavorites.addEventListener('click', async () => {
       this.removePokemonsFromDisplay();
-      this.createAndDisplayPokemons(await logic.getFavoritesArr());
+      if (showFavorites.classList.contains('active-favorites'))
+        this.createAndDisplayPokemons(await logic.getPokemonArr());
+      else this.createAndDisplayPokemons(await logic.getFavoritesArr());
+      showFavorites.classList.toggle('active-favorites');
     });
   }
   removePokemonsFromDisplay() {

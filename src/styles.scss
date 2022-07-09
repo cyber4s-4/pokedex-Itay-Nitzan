@@ -137,6 +137,9 @@ body {
               -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
               0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
           }
+          &.active-favorites {
+            background: linear-gradient(to bottom right, #ef47666b, #ff995a8c);
+          }
         }
         .floating-list-of-sort-options {
           width: 200px;
