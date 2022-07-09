@@ -13,6 +13,7 @@ export class Pokemon {
     backShiny: string;
   };
   visualId: string;
+  isFavorite: boolean;
 
   constructor(pokemon: Pokemon) {
     this.name = pokemon.name;
@@ -24,5 +25,6 @@ export class Pokemon {
     this.pictureSrc = pokemon.pictureSrc;
     this.pokemonTypes = pokemon.pokemonTypes;
     this.spritesSources = pokemon.spritesSources;
+    this.isFavorite = pokemon.isFavorite;
   }
 }

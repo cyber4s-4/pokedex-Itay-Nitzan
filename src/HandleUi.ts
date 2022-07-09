@@ -72,6 +72,7 @@ export class HandleUi {
     // Add star
     const star = document.createElement('img') as HTMLImageElement;
     star.className = 'star';
+    if (pokemon.isFavorite) star.classList.add('star-selected');
     star.src = 'https://cdn-icons-png.flaticon.com/512/188/188931.png';
     star.alt = 'Add To Favorites';
     pokemonCard.appendChild(star);
