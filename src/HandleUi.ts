@@ -65,100 +65,97 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
+      // if (star.className.contains('star-selected'))
     });
     pokeContainer.appendChild(pokemonCard);
     pokemonCard.addEventListener('click', () => {
-      addPokemonToPreviewBox(pokemon);
+      addPokemonToPreviewBox(pokemon.name);
       const pokePreview = document.querySelector('.poke-preview') as HTMLElement;
       pokePreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   };
 }
-export function addPokemonToPreviewBox(pokemon: Pokemon) {
-  const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-
-  pic.src = pokemon.spritesSources.frontDefault;
-  function spinShiny() {
-    const spinButton = document.getElementsByClassName('spin')[0];
-    const shinyButton = document.getElementsByClassName('shiny')[0];
-    const pokeImgRegularFront = pokemon.spritesSources.frontDefault;
-    const pokeImgRegularBack = pokemon.spritesSources.backDefault;
-    const pokeImgShinyFront = pokemon.spritesSources.frontShiny;
-    const pokeImgShinyBack = pokemon.spritesSources.backShiny;
-    spinButton.addEventListener('click', () => {
-      console.log('spin', pic.src);
-      if (pokeImgRegularBack !== null) {
-        if ((pic.src = pokeImgRegularFront)) {
-          pic.src = pokeImgRegularBack;
+export async function addPokemonToPreviewBox(pokemon: string) {
+  try {
+    const response = await fetch(`http://localhost:3000/${pokemon}`)
+    const data = await response.json();
+    const pic = document.querySelector('#pokeimg') as HTMLImageElement;
+    pic.src = data.spritesSources.frontDefault;
+    function spinShiny() {
+      const spinButton = document.getElementsByClassName('spin')[0];
+      const shinyButton = document.getElementsByClassName('shiny')[0];
+      const pokeImgRegularFront = data.spritesSources.frontDefault;
+      const pokeImgRegularBack = data.spritesSources.backDefault;
+      const pokeImgShinyFront = data.spritesSources.frontShiny;
+      const pokeImgShinyBack = data.spritesSources.backShiny;
+      spinButton.addEventListener('click', () => {
+        if (pokeImgRegularBack !== null) {
+          if (pic.src = pokeImgRegularFront) {
+            pic.setAttribute("src", `${pokeImgRegularBack}`);
+          }
+          if (pic.src = pokeImgRegularBack) {
+            pic.setAttribute("src", `${pokeImgRegularFront}`);
+          }
+          if (pic.src = pokeImgShinyFront) {
+            pic.setAttribute("src", `${pokeImgShinyBack}`);
+          }
+          if (pic.src = pokeImgShinyBack) {
+            pic.setAttribute("src", `${pokeImgShinyFront}`);
+          }
+        } else {
           return;
         }
-        if ((pic.src = pokeImgRegularBack)) {
-          console.log('Back to regular front');
-
-          pic.src = pokeImgRegularFront;
+      });
+      shinyButton.addEventListener('click', () => {
+        if (pokeImgShinyFront && pokeImgShinyBack !== null) {
+          if ((pic.src = pokeImgRegularFront)) {
+            pic.setAttribute("src", `${pokeImgShinyFront}`);
+          }
+          if ((pic.src = pokeImgRegularBack)) {
+            pic.setAttribute("src", `${pokeImgShinyBack}`);
+          }
+          if ((pic.src = pokeImgShinyFront)) {
+            pic.setAttribute("src", `${pokeImgRegularFront}`);
+          }
+          if ((pic.src = pokeImgShinyBack)) {
+            pic.setAttribute("src", `${pokeImgRegularBack}`);
+          }
+        } else {
           return;
         }
-        if ((pic.src = pokeImgShinyFront)) {
-          pic.src = pokeImgShinyBack;
-          return;
-        }
-        if ((pic.src = pokeImgShinyBack)) {
-          pic.src = pokeImgShinyFront;
-          return;
-        }
-      } else {
-        return;
-      }
-    });
-    shinyButton.addEventListener('click', () => {
-      console.log('shine/unshine');
-      if (pokeImgShinyFront && pokeImgShinyBack !== null) {
-        if ((pic.src = pokeImgRegularFront)) {
-          pic.src = pokeImgShinyFront;
-          return;
-        }
-        if ((pic.src = pokeImgRegularBack)) {
-          pic.src = pokeImgShinyBack;
-          return;
-        }
-        if ((pic.src = pokeImgShinyFront)) {
-          pic.src = pokeImgRegularFront;
-          return;
-        }
-        if ((pic.src = pokeImgShinyBack)) {
-          pic.src = pokeImgRegularBack;
-          return;
-        }
-      } else {
-        return;
-      }
-    });
+      });
+    }
+    spinShiny();
+    const nameEl = document.getElementById('name') as HTMLElement;
+    nameEl.innerText = data.name[0].toUpperCase() + data.name.slice(1).replace('-', ' ');
+    const type = document.querySelector('#type') as HTMLElement;
+    type.textContent = `${data.pokemonTypes[0][0].toUpperCase() + data.pokemonTypes[0].slice(1)
+      } type pokemon`;
+    const moves = document.querySelector('#moves-list') as HTMLElement;
+    for (let i = 0; i < 6; i++) {
+      const li = moves.querySelectorAll('li')[i];
+      li.innerText = data.moves[i];
+    }
+    const height = document.querySelector('#height') as HTMLElement;
+    height.innerText = `Height: ${data.height}`;
+    const weight = document.querySelector('#weight') as HTMLElement;
+    weight.innerText = `Weight: ${data.weight}`;
+  } catch (error) {
+    console.log(error)
   }
-  spinShiny();
-  const nameEl = document.getElementById('name') as HTMLElement;
-  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
-  const type = document.querySelector('#type') as HTMLElement;
-  type.textContent = `${
-    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-  } type pokemon`;
-  const moves = document.querySelector('#moves-list') as HTMLElement;
-  for (let i = 0; i < 6; i++) {
-    const li = moves.querySelectorAll('li')[i];
-    li.innerText = pokemon.moves[i];
-  }
-  const height = document.querySelector('#height') as HTMLElement;
-  height.innerText = `Height: ${pokemon.height}`;
-  const weight = document.querySelector('#weight') as HTMLElement;
-  weight.innerText = `Weight: ${pokemon.weight}`;
 }
 
 export function handleInputEntered() {
-  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
-  if (isNaN(Number(inputEl.value))) {
-    const searchResult = logic.getPokemonByName(inputEl.value);
-    if (searchResult !== null) addPokemonToPreviewBox(searchResult);
-  } else {
-    const searchResult = logic.getPokemonById(Number(inputEl.value));
-    if (searchResult !== null) addPokemonToPreviewBox(searchResult);
-  }
+  const searchBox = document.getElementsByClassName('search-container')[0];
+  searchBox.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputEl = document.querySelector('.search-input') as HTMLInputElement;
+    if (isNaN(Number(inputEl.value))) {
+      const searchResult = logic.getPokemonByName(inputEl.value);
+      if (searchResult !== null) addPokemonToPreviewBox(searchResult.name);
+    } else {
+      const searchResult = logic.getPokemonById(Number(inputEl.value));
+      if (searchResult !== null) addPokemonToPreviewBox(searchResult.name);
+    }
+  })
 }

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -73,7 +73,7 @@ body {
     }
     .search-desc {
       color: white;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
       font-size: min(1.4em, 24px);
     }
 
@@ -99,13 +99,13 @@ body {
           padding: 0 0 0 1.5%;
           box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
           &::placeholder {
-            font-family: 'Cabin', sans-serif;
+            font-family: "Cabin", sans-serif;
           }
         }
         .search-icon {
           color: white;
           font-size: 40px;
-          font-family: 'Cabin', sans-serif;
+          font-family: "Cabin", sans-serif;
           background: none;
           border: none;
           &:hover {
@@ -118,7 +118,8 @@ body {
       nav {
         width: 200px;
         background: #ffffff;
-        font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
         border-radius: 15px;
@@ -131,7 +132,8 @@ body {
             border-radius: 12px;
             color: #ffffff;
             display: block;
-            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+              Arial, sans-serif;
             font-size: 16px;
             font-weight: 500;
             line-height: 2.5;
@@ -189,7 +191,8 @@ body {
         color: #ffffff;
         cursor: pointer;
         display: inline-block;
-        font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
         line-height: 2.5;
@@ -213,7 +216,7 @@ body {
         }
       }
       @media only screen and (max-width: 724px) {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: flex-start;
         .search-container {
@@ -236,7 +239,7 @@ body {
       justify-content: space-evenly;
       align-items: center;
       border-radius: 15px;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
       height: 280px;
       width: 80%;
       background-color: #eee;

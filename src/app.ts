@@ -1,6 +1,7 @@
 import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './HandleUi';
 import { Pokemon } from './Pokemon';
 import { Logic } from './Logic';
+var fs = require('fs');
 
 const logic = new Logic();
 const handleUi = new HandleUi();
@@ -30,7 +31,7 @@ async function retrieveAllPokemonsToDB() {
   }
   handleUi.finishLoadingUI();
   handleUi.createAndDisplayPokemons();
-  addPokemonToPreviewBox(logic.getRandomPokemon());
+  addPokemonToPreviewBox(logic.getRandomPokemon().name);
 }
 
 function addEventListenersForSearch() {
@@ -44,7 +45,7 @@ function addEventListenersForSearch() {
 
   const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
   getRandomPokemonBtn.addEventListener('click', () => {
-    addPokemonToPreviewBox(logic.getRandomPokemon());
+    addPokemonToPreviewBox(logic.getRandomPokemon().name);
   });
 }
 
