@@ -65,37 +65,10 @@ body {
       font-family: 'Cabin', sans-serif;
       font-size: min(1.4em, 24px);
     }
-    .showFavorites {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
-      width: 200px;
-      border: 0;
-      border-radius: 12px;
-      color: #ffffff;
-      cursor: pointer;
-      font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      font-weight: 500;
-      line-height: 2.5;
-      outline: transparent;
-      padding: 0 1rem;
-      text-align: center;
-      text-decoration: none;
-      transition: box-shadow 0.2s ease-in-out;
-      user-select: none;
-      touch-action: manipulation;
-      white-space: nowrap;
-      font-size: min(2em, 16px);
-      &:hover {
-        box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-          0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-      }
-    }
     .change-ui-section {
       display: none;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 1vw;
       width: 80%;
       .search-container {
@@ -129,7 +102,6 @@ body {
           }
         }
       }
-
       .buttons {
         display: flex;
         flex-flow: column;
@@ -137,69 +109,94 @@ body {
         align-items: center;
         gap: 1vh;
         font-size: min(2em, 16px);
-        nav {
+        position: relative;
+        .showFavorites {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+          width: 200px;
+          border: 0;
+          border-radius: 12px;
+          color: #ffffff;
+          cursor: pointer;
+          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-weight: 500;
+          line-height: 2.5;
+          outline: transparent;
+          padding: 0 1rem;
+          text-align: center;
+          text-decoration: none;
+          transition: box-shadow 0.2s ease-in-out;
+          user-select: none;
+          touch-action: manipulation;
+          white-space: nowrap;
+          font-size: min(2em, 16px);
+          &:hover {
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+              -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+              0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+          }
+        }
+        .floating-list-of-sort-options {
           width: 200px;
           background: #ffffff;
           font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
           font-weight: 500;
           border-radius: 15px;
-          position: relative;
           z-index: 100;
-          .floating-list-of-sort-options {
-            top: 0;
+          top: 0;
+          span {
+            background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+            border-radius: 12px;
+            color: #ffffff;
+            display: block;
+            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            &:not([disabled]):hover {
+              box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+              cursor: pointer;
+            }
+          }
+          .slide {
+            clear: both;
+            width: 100%;
+            height: 0px;
+            overflow: hidden;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            transition: height 0.4s ease;
             position: absolute;
-            span {
-              background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
-              border-radius: 12px;
-              color: #ffffff;
-              display: block;
-              font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial,
-                sans-serif;
-              font-weight: 500;
-              line-height: 2.5;
-              outline: transparent;
-              padding: 0 1rem;
-              text-align: center;
-              text-decoration: none;
-              transition: box-shadow 0.2s ease-in-out;
-              user-select: none;
-              touch-action: manipulation;
-              white-space: nowrap;
-              &:not([disabled]):hover {
-                box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-                  -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-                  0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+            li {
+              padding: 30px;
+              p {
+                text-decoration: none;
+                color: #2d2f31;
+              }
+              &:hover {
                 cursor: pointer;
+                text-decoration: solid #2d2f31 underline 1px;
               }
             }
-            .slide {
-              clear: both;
-              width: 100%;
-              height: 0px;
-              overflow: hidden;
-              text-align: center;
-              background-color: white;
-              border-radius: 15px;
-              transition: height 0.4s ease;
-              li {
-                padding: 30px;
-                p {
-                  text-decoration: none;
-                  color: #2d2f31;
-                }
-                &:hover {
-                  cursor: pointer;
-                  text-decoration: solid #2d2f31 underline 1px;
-                }
-              }
-            }
-            #touch {
-              position: absolute;
-              opacity: 0;
-              height: 0px;
-              &:checked + .slide {
-                height: max-content;
-              }
+          }
+          #touch {
+            position: absolute;
+            opacity: 0;
+            height: 0px;
+            &:checked + .slide {
+              height: max-content;
             }
           }
         }
@@ -246,14 +243,6 @@ body {
         gap: 4vw;
         width: 80%;
         .search-container {
-          width: 100%;
-        }
-        .buttons {
-          display: flex;
-          flex-flow: row;
-          justify-content: center;
-          align-items: flex-start;
-          gap: 1vh;
           width: 100%;
         }
       }
