@@ -43,10 +43,11 @@ body {
     align-items: center;
     gap: 40px;
     .loader {
-      border: 16px solid #f3f3f3; /* Light grey */
-      border-top: 16px solid #3498db; /* Blue */
+      border: min(2vw, 40px) solid #f3f3f3; /* Light grey */
+      border-top: min(2vw, 40px) solid #3498db; /* Blue */
       border-radius: 50%;
-      width: 75%;
+      width: min(20vw, 400px);
+      height: min(20vw, 400px);
       animation: spin 2s linear infinite;
     }
 
