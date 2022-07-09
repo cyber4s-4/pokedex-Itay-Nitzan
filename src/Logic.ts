@@ -1,15 +1,6 @@
 import { Pokemon } from './Pokemon';
 
 export class Logic {
-  async getFavoritesArr(): Promise<Pokemon[]> {
-    try {
-      const response = await fetch('http://localhost:3000/favorites');
-      const pokemonArr = await response.json();
-      return pokemonArr;
-    } catch {
-      console.log('Error in retrieving favorites array from server.');
-    }
-  }
   totalNUmberOfPokemons() {
     return 905;
   }
