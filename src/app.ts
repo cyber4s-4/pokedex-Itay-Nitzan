@@ -8,7 +8,7 @@ const handleUi = new HandleUi();
 async function retrieveAllPokemonsFromDB() {
   let pokemonArr: Pokemon[] = [];
   console.log('Retrieving data from Server...');
-  pokemonArr = await logic.getPokemonArrFromServer();
+  pokemonArr = await logic.getPokemonArr();
   handleUi.finishLoadingUI();
   handleUi.createAndDisplayPokemons(pokemonArr);
   // Add random pokemon to preview box once the site has loaded.

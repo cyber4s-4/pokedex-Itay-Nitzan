@@ -15,14 +15,14 @@ export class HandleUi {
       sortOption.addEventListener('click', async () => {
         this.removePokemonsFromDisplay();
         this.createAndDisplayPokemons(
-          logic.sortPokemons(sortOption.id, await logic.getPokemonArrFromServer())
+          logic.sortPokemons(sortOption.id, await logic.getPokemonArr())
         );
       });
     });
     const showFavorites = document.querySelector('#showFavorites');
-    showFavorites.addEventListener('click', () => {
+    showFavorites.addEventListener('click', async () => {
       this.removePokemonsFromDisplay();
-      this.createAndDisplayPokemons(logic.getFavoritesArr());
+      this.createAndDisplayPokemons(await logic.getFavoritesArr());
     });
   }
   removePokemonsFromDisplay() {
@@ -239,11 +239,11 @@ export async function handleInputEntered() {
   const inputEl = document.querySelector('.search-input') as HTMLInputElement;
   // If value is a string
   if (isNaN(Number(inputEl.value))) {
-    const searchResult = logic.getPokemonByNameFromServer(inputEl.value);
+    const searchResult = logic.getPokemonByName(inputEl.value);
     if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
     // If value is a number
   } else {
-    const searchResult = logic.getPokemonByIdFromServer(Number(inputEl.value));
+    const searchResult = logic.getPokemonById(Number(inputEl.value));
     if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
   }
 }

@@ -4,7 +4,7 @@ export class Logic {
   totalNUmberOfPokemons() {
     return 905;
   }
-  async getPokemonByIdFromServer(id: number): Promise<Pokemon> {
+  async getPokemonById(id: number): Promise<Pokemon> {
     try {
       const response = await fetch(`http://localhost:3000/${id}`);
       const pokemonData = await response.json();
@@ -14,7 +14,7 @@ export class Logic {
     }
   }
 
-  async getPokemonByNameFromServer(name: string): Promise<Pokemon> {
+  async getPokemonByName(name: string): Promise<Pokemon> {
     try {
       const response = await fetch(`http://localhost:3000/${name}`);
       const pokemonData = await response.json();
@@ -24,7 +24,7 @@ export class Logic {
     }
   }
 
-  async getPokemonArrFromServer(): Promise<Pokemon[]> {
+  async getPokemonArr(): Promise<Pokemon[]> {
     try {
       const response = await fetch('http://localhost:3000/pokemons');
       const pokemonArr = await response.json();
@@ -46,7 +46,7 @@ export class Logic {
 
   async getRandomPokemon(): Promise<Pokemon> {
     const randomNumber = Math.floor(Math.random() * (this.totalNUmberOfPokemons() + 1));
-    const randomPokemon: Pokemon = await this.getPokemonByIdFromServer(randomNumber);
+    const randomPokemon: Pokemon = await this.getPokemonById(randomNumber);
     return randomPokemon;
   }
 
@@ -60,8 +60,6 @@ export class Logic {
         return this.sortPokemonsAlphabeticallyAtoZ(pokemonArr);
       case 'sortZtoA':
         return this.sortPokemonsAlphabeticallyZtoA(pokemonArr);
-      case 'sortFavorites':
-        return this.getFavoritesArr();
 
       default:
         console.log('Unrecognized sort name');
