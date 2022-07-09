@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const fs = require("fs");
-const fetch = require("cross-fetch");
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
@@ -63,6 +62,32 @@ app.get("/:searchValue", (req, res) => {
     } catch {
       return res.status(400).send({ message: "Error" });
     }
+  }
+});
+
+app.post("/star", async (req, res) => {
+  try {
+    const pokemonSearch = favorites.find(
+      (pokemon) => pokemon === req.body.name
+    );
+    if (pokemonSearch) {
+      const position = favorites.indexOf(pokemonSearch);
+      favorites.splice(position, 1);
+      return res.status(202).send({ message: "Removed from favorites" });
+    } else {
+      favorites.push(req.body.name);
+      res.status(201).send({ message: "Added to favorites" });
+    }
+  } catch {
+    res.status(500).send({ message: "Error" });
+  }
+});
+
+app.get("/star/star", async (req, res) => {
+  try {
+    return res.status(201).send(favorites);
+  } catch {
+    return res.status(400).send({ message: "Error" });
   }
 });
 

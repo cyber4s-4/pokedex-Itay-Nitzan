@@ -73,8 +73,24 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      // if (star.className.contains('star-selected'))
+      fetch("http://localhost:3000/star", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          name: pokemon.name
+        })
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res.message);
+        });
     });
+
 
     // Add img container
     const imgContainer = document.createElement('div') as HTMLDivElement;
