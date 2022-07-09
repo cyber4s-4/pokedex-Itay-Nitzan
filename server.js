@@ -16,6 +16,16 @@ app.use(
 
 let favorites = [];
 
+app.get("/pokemons", (req, res) => {
+  try {
+    return res
+      .status(201)
+      .send(JSON.parse(fs.readFileSync("pokemonData.json", "utf8")));
+  } catch {
+    return res.status(400).send({ message: "Error" });
+  }
+});
+
 app.get("/:searchValue", (req, res) => {
   // If request containes a number
   if (!isNaN(Number(req.params.searchValue))) {
