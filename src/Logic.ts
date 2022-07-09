@@ -50,6 +50,25 @@ export class Logic {
     return randomPokemon;
   }
 
+  addFavorite(pokemon: Pokemon) {
+    fetch('http://localhost:3000/star', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name: pokemon.name,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res.message);
+      });
+  }
+
   sortPokemons(sortId: string, pokemonArr: Pokemon[]) {
     switch (sortId) {
       case 'sortIdLowToHigh':

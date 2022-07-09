@@ -82,22 +82,7 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      fetch('http://localhost:3000/star', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          name: pokemon.name,
-        }),
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((res) => {
-          console.log(res.message);
-        });
+      logic.addFavorite(pokemon);
     });
 
     // Add img container
@@ -151,6 +136,7 @@ export class HandleUi {
     }
   }
 }
+
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
   nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
