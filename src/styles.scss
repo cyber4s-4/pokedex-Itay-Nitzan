@@ -197,7 +197,7 @@ body {
               opacity: 0;
               height: 0px;
               &:checked + .slide {
-                height: 450px;
+                height: max-content;
               }
             }
           }
