@@ -15,9 +15,14 @@ export class HandleUi {
       sortOption.addEventListener('click', async () => {
         this.removePokemonsFromDisplay();
         this.createAndDisplayPokemons(
-          logic.sortPokemons(sortOption.id, await logic.getPokemonArrFromServer())
+          logic.sortPokemons(sortOption.id, await logic.getPokemonArr())
         );
       });
+    });
+    const showFavorites = document.querySelector('#showFavorites');
+    showFavorites.addEventListener('click', async () => {
+      this.removePokemonsFromDisplay();
+      this.createAndDisplayPokemons(await logic.getFavoritesArr());
     });
   }
   removePokemonsFromDisplay() {
@@ -73,7 +78,22 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      // if (star.className.contains('star-selected'))
+      fetch('http://localhost:3000/star', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          name: pokemon.name,
+        }),
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res.message);
+        });
     });
 
     // Add img container
@@ -226,11 +246,11 @@ export async function handleInputEntered() {
   const inputEl = document.querySelector('.search-input') as HTMLInputElement;
   // If value is a string
   if (isNaN(Number(inputEl.value))) {
-    const searchResult = logic.getPokemonByNameFromServer(inputEl.value);
+    const searchResult = logic.getPokemonByName(inputEl.value);
     if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
     // If value is a number
   } else {
-    const searchResult = logic.getPokemonByIdFromServer(Number(inputEl.value));
+    const searchResult = logic.getPokemonById(Number(inputEl.value));
     if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
   }
 }

@@ -8,7 +8,7 @@ const handleUi = new HandleUi();
 async function retrieveAllPokemonsFromDB() {
   let pokemonArr: Pokemon[] = [];
   console.log('Retrieving data from the server...');
-  pokemonArr = await logic.getPokemonArrFromServer();
+  pokemonArr = await logic.getPokemonArr();
   console.log('Finished retrieving data from the server.');
   handleUi.finishLoadingUI();
   handleUi.createAndDisplayPokemons(pokemonArr);
@@ -32,11 +32,6 @@ function addEventListenersForSearch() {
   getRandomPokemonBtn.addEventListener('click', async () => {
     addPokemonToPreviewBox(await logic.getRandomPokemon());
   });
-}
-
-async function fetchPokemonDataByName(pokemonName: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-  return await res.json();
 }
 
 retrieveAllPokemonsFromDB();
