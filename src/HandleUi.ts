@@ -114,7 +114,7 @@ export class HandleUi {
     // Add the pokemon card to the pokemon container
     pokeContainer.appendChild(pokemonCard);
     pokemonCard.addEventListener('click', () => {
-      addPokemonToPreviewBox(pokemon.name);
+      addPokemonToPreviewBox(pokemon);
       const pokePreview = document.querySelector('.poke-preview') as HTMLElement;
       pokePreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });

@@ -16,31 +16,43 @@ app.use(
 
 let favorites = [];
 
-app.get("/:pokemon", (req, res) => {
-  try {
-    const pokemonName = req.params.pokemon.toLowerCase();
-    const dataPokemon = JSON.parse(fs.readFileSync("pokemonData.json", "utf8"));
-    const pokemonSearch = dataPokemon.find(
-      (pokemon) => pokemon.name === pokemonName
-    );
-    if (pokemonSearch) {
-      return res.status(201).send({
-        name: pokemonSearch.name,
-        rawData: null,
-        id: pokemonSearch.id,
-        height: pokemonSearch.height,
-        weight: pokemonSearch.weight,
-        moves: pokemonSearch.moves,
-        visualId: pokemonSearch.visualId,
-        pictureSrc: pokemonSearch.pictureSrc,
-        pokemonTypes: pokemonSearch.pokemonTypes,
-        spritesSources: pokemonSearch.spritesSources,
-      });
-    } else {
-      return res.status(400).send({ message: "Pokemon not found" });
+app.get("/:searchValue", (req, res) => {
+  // If request containes a number
+  if (!isNaN(Number(req.params.searchValue))) {
+    try {
+      const pokemonID = Number(req.params.searchValue);
+      const dataPokemon = JSON.parse(
+        fs.readFileSync("pokemonData.json", "utf8")
+      );
+      const pokemonSearchResult = dataPokemon.find(
+        (pokemon) => pokemon.id === pokemonID
+      );
+      if (pokemonSearchResult) {
+        return res.status(201).send(pokemonSearchResult);
+      } else {
+        return res.status(400).send({ message: "Pokemon not found" });
+      }
+    } catch {
+      return res.status(400).send({ message: "Error" });
     }
-  } catch {
-    return res.status(400).send({ message: "Error" });
+    // If request containes a string
+  } else {
+    try {
+      const pokemonName = req.params.searchValue.toLowerCase();
+      const dataPokemon = JSON.parse(
+        fs.readFileSync("pokemonData.json", "utf8")
+      );
+      const pokemonSearchResult = dataPokemon.find(
+        (pokemon) => pokemon.name === pokemonName
+      );
+      if (pokemonSearchResult) {
+        return res.status(201).send(pokemonSearchResult);
+      } else {
+        return res.status(400).send({ message: "Pokemon not found" });
+      }
+    } catch {
+      return res.status(400).send({ message: "Error" });
+    }
   }
 });
 
