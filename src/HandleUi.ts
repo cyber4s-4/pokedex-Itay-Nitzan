@@ -19,6 +19,11 @@ export class HandleUi {
         );
       });
     });
+    const showFavorites = document.querySelector('#showFavorites');
+    showFavorites.addEventListener('click', () => {
+      this.removePokemonsFromDisplay();
+      this.createAndDisplayPokemons(logic.getFavoritesArr())
+    })
   }
   removePokemonsFromDisplay() {
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;

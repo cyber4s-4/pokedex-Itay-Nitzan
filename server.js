@@ -67,15 +67,19 @@ app.get("/:searchValue", (req, res) => {
 
 app.post("/star", async (req, res) => {
   try {
+    const dataPokemon = JSON.parse(fs.readFileSync("pokemonData.json", "utf8"));
     const pokemonSearch = favorites.find(
-      (pokemon) => pokemon === req.body.name
+      (pokemon) => pokemon.name === req.body.name
     );
     if (pokemonSearch) {
       const position = favorites.indexOf(pokemonSearch);
       favorites.splice(position, 1);
       return res.status(202).send({ message: "Removed from favorites" });
     } else {
-      favorites.push(req.body.name);
+      const pokemonSearch = dataPokemon.find(
+        (pokemon) => pokemon.name === req.body.name
+      );
+      favorites.push(pokemonSearch);
       res.status(201).send({ message: "Added to favorites" });
     }
   } catch {

@@ -34,6 +34,16 @@ export class Logic {
     }
   }
 
+  async getFavoritesArr(): Promise<Pokemon[]> {
+    try {
+      const response = await fetch('http://localhost:3000/star/star');
+      const favoritesArray = await response.json();
+      return favoritesArray;
+    } catch {
+      console.log('Error in retrieving pokemon array from server.');
+    }
+  }
+
   async getRandomPokemon(): Promise<Pokemon> {
     const randomNumber = Math.floor(Math.random() * (this.totalNUmberOfPokemons() + 1));
     const randomPokemon: Pokemon = await this.getPokemonByIdFromServer(randomNumber);
@@ -50,6 +60,8 @@ export class Logic {
         return this.sortPokemonsAlphabeticallyAtoZ(pokemonArr);
       case 'sortZtoA':
         return this.sortPokemonsAlphabeticallyZtoA(pokemonArr);
+      case 'sortFavorites':
+        return this.getFavoritesArr();
 
       default:
         console.log('Unrecognized sort name');
