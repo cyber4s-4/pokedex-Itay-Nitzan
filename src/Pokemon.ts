@@ -14,7 +14,14 @@ export class Pokemon {
   };
   visualId: string;
   isFavorite: boolean;
-  stats: { hp: any; attack: any; defense: any; specialAttack: any; specialDefense: any; speed: any; };
+  stats: {
+    hp: any;
+    attack: any;
+    defense: any;
+    specialAttack: any;
+    specialDefense: any;
+    speed: any;
+  };
   rawData: any;
 
   constructor(pokemon: Pokemon) {
