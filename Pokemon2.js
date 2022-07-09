@@ -1,4 +1,4 @@
-class Pokemon2 {
+module.exports = class Pokemon2 {
   constructor(name, pokemonRawData) {
     this.name = name;
     this.rawData = pokemonRawData;
@@ -35,4 +35,4 @@ class Pokemon2 {
     };
     this.rawData = null;
   }
-}
+};

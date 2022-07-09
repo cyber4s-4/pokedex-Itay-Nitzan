@@ -1,0 +1,61 @@
+[
+  {
+    "name": "bulbasaur",
+    "rawData": null,
+    "id": 1,
+    "height": 7,
+    "weight": 69,
+    "isFavorite": false,
+    "moves": [
+      "razor-wind",
+      "swords-dance",
+      "cut",
+      "bind",
+      "vine-whip",
+      "headbutt"
+    ],
+    "visualId": "001",
+    "pictureSrc": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
+    "pokemonTypes": ["grass", "poison"],
+    "spritesSources": {
+      "frontDefault": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "backDefault": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
+      "frontShiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
+      "backShiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png"
+    },
+    "stats": {
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "specialAttack": 65,
+      "specialDefense": 65,
+      "speed": 45
+    }
+  },
+  {
+    "name": "ivysaur",
+    "rawData": null,
+    "id": 2,
+    "height": 10,
+    "weight": 130,
+    "isFavorite": false,
+    "moves": ["swords-dance", "cut", "bind", "vine-whip", "headbutt", "tackle"],
+    "visualId": "002",
+    "pictureSrc": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png",
+    "pokemonTypes": ["grass", "poison"],
+    "spritesSources": {
+      "frontDefault": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      "backDefault": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png",
+      "frontShiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png",
+      "backShiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png"
+    },
+    "stats": {
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "specialAttack": 80,
+      "specialDefense": 80,
+      "speed": 60
+    }
+  }
+]

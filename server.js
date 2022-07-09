@@ -44,10 +44,8 @@ app.get("/pokemons", async (req, res) => {
           pokemonJSON.results[i].name,
           pokemonRawData
         );
-        console.log(newPokemon);
         pokemonArr.push(newPokemon);
       }
-      console.log(pokemonArr);
       fs.writeFile("./pokemonData.json", JSON.stringify(pokemonArr), (err) => {
         if (err) {
           throw new Error("File was not created.");
