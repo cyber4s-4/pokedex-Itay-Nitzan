@@ -21,7 +21,7 @@ function addEventListenersForSearch() {
   searchInput.addEventListener('submit', (e) => {
     e.preventDefault();
     handleInputEntered();
-  })
+  });
   // Listen to search icon click
   const submitIcon = document.querySelector('.search-icon') as HTMLElement;
   submitIcon.addEventListener('click', handleInputEntered);
@@ -31,11 +31,6 @@ function addEventListenersForSearch() {
   getRandomPokemonBtn.addEventListener('click', async () => {
     addPokemonToPreviewBox(await logic.getRandomPokemon());
   });
-}
-
-async function fetchPokemonDataByName(pokemonName: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-  return await res.json();
 }
 
 retrieveAllPokemonsFromDB();

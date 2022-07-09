@@ -22,8 +22,8 @@ export class HandleUi {
     const showFavorites = document.querySelector('#showFavorites');
     showFavorites.addEventListener('click', () => {
       this.removePokemonsFromDisplay();
-      this.createAndDisplayPokemons(logic.getFavoritesArr())
-    })
+      this.createAndDisplayPokemons(logic.getFavoritesArr());
+    });
   }
   removePokemonsFromDisplay() {
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
@@ -78,15 +78,15 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      fetch("http://localhost:3000/star", {
+      fetch('http://localhost:3000/star', {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
-          name: pokemon.name
-        })
+          name: pokemon.name,
+        }),
       })
         .then((res) => {
           console.log(res);
@@ -95,7 +95,6 @@ export class HandleUi {
           console.log(res.message);
         });
     });
-
 
     // Add img container
     const imgContainer = document.createElement('div') as HTMLDivElement;
@@ -145,8 +144,9 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
   nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
   const type = document.querySelector('#type') as HTMLElement;
-  type.textContent = `${pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-    } type pokemon`;
+  type.textContent = `${
+    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
+  } type pokemon`;
   const moves = document.querySelector('#moves-list') as HTMLElement;
   for (let i = 0; i < 6; i++) {
     const li = moves.querySelectorAll('li')[i];

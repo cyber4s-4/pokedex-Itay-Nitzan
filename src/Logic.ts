@@ -6,7 +6,7 @@ export class Logic {
   }
   async getPokemonByIdFromServer(id: number): Promise<Pokemon> {
     try {
-      const response = await fetch(`http://localhost:3000/${id}`)
+      const response = await fetch(`http://localhost:3000/${id}`);
       const pokemonData = await response.json();
       return pokemonData;
     } catch {
@@ -16,7 +16,7 @@ export class Logic {
 
   async getPokemonByNameFromServer(name: string): Promise<Pokemon> {
     try {
-      const response = await fetch(`http://localhost:3000/${name}`)
+      const response = await fetch(`http://localhost:3000/${name}`);
       const pokemonData = await response.json();
       return pokemonData;
     } catch {
