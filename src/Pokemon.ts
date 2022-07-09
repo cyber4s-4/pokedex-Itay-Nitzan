@@ -14,6 +14,8 @@ export class Pokemon {
   };
   visualId: string;
   isFavorite: boolean;
+  stats: { hp: any; attack: any; defense: any; specialAttack: any; specialDefense: any; speed: any; };
+  rawData: any;
 
   constructor(pokemon: Pokemon) {
     this.name = pokemon.name;
@@ -26,5 +28,6 @@ export class Pokemon {
     this.pokemonTypes = pokemon.pokemonTypes;
     this.spritesSources = pokemon.spritesSources;
     this.isFavorite = pokemon.isFavorite;
+    this.stats = pokemon.stats;
   }
 }
