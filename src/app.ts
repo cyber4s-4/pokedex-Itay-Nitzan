@@ -30,8 +30,9 @@ async function retrieveAllPokemonsToDB() {
     console.log('Retrieved data from local storage.');
   }
   handleUi.finishLoadingUI();
-  handleUi.createAndDisplayPokemons();
-  addPokemonToPreviewBox(logic.getRandomPokemon().name);
+  handleUi.createAndDisplayPokemons(pokemonArr);
+  getPokemonFromNameFromServer(logic.getRandomPokemon().name);
+  addPokemonToPreviewBox(logic.getRandomPokemon());
 }
 
 function addEventListenersForSearch() {
@@ -53,5 +54,6 @@ async function fetchPokemonDataByName(pokemonName: string) {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   return await res.json();
 }
+
 retrieveAllPokemonsToDB();
 addEventListenersForSearch();
