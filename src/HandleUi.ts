@@ -214,17 +214,15 @@ function addSpinAndShinyListeners(pokemon: Pokemon) {
   });
 }
 
-export function handleInputEntered() {
-  const searchBox = document.getElementsByClassName('search-container')[0];
-  searchBox.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const inputEl = document.querySelector('.search-input') as HTMLInputElement;
-    if (isNaN(Number(inputEl.value))) {
-      const searchResult = logic.getPokemonByName(inputEl.value);
-      if (searchResult !== null) addPokemonToPreviewBox(searchResult.name);
-    } else {
-      const searchResult = logic.getPokemonById(Number(inputEl.value));
-      if (searchResult !== null) addPokemonToPreviewBox(searchResult.name);
-    }
-  })
+export async function handleInputEntered() {
+  const inputEl = document.querySelector('.search-input') as HTMLInputElement;
+  // If value is a string
+  if (isNaN(Number(inputEl.value))) {
+    const searchResult = logic.getPokemonByNameFromServer(inputEl.value);
+    if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
+    // If value is a number
+  } else {
+    const searchResult = logic.getPokemonByIdFromServer(Number(inputEl.value));
+    if (searchResult !== null) addPokemonToPreviewBox(await searchResult);
+  }
 }
