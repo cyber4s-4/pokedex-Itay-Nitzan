@@ -119,13 +119,21 @@ export class HandleUi {
       pokePreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   };
+
+  async showFavorites() {
+    const favoritesArr = await logic.getFavoritesArr();
+    for (let i = 0; i < favoritesArr.length; i++) {
+      this.createPokemonCard(favoritesArr[i]);
+    }
+  }
 }
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
   nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
   const type = document.querySelector('#type') as HTMLElement;
-  type.textContent = `${pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-    } type pokemon`;
+  type.textContent = `${
+    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
+  } type pokemon`;
   const moves = document.querySelector('#moves-list') as HTMLElement;
   for (let i = 0; i < 6; i++) {
     const li = moves.querySelectorAll('li')[i];

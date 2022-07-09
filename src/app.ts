@@ -7,8 +7,9 @@ const handleUi = new HandleUi();
 
 async function retrieveAllPokemonsFromDB() {
   let pokemonArr: Pokemon[] = [];
-  console.log('Retrieving data from Server...');
+  console.log('Retrieving data from the server...');
   pokemonArr = await logic.getPokemonArrFromServer();
+  console.log('Finished retrieving data from the server.');
   handleUi.finishLoadingUI();
   handleUi.createAndDisplayPokemons(pokemonArr);
   // Add random pokemon to preview box once the site has loaded.
@@ -21,7 +22,7 @@ function addEventListenersForSearch() {
   searchInput.addEventListener('submit', (e) => {
     e.preventDefault();
     handleInputEntered();
-  })
+  });
   // Listen to search icon click
   const submitIcon = document.querySelector('.search-icon') as HTMLElement;
   submitIcon.addEventListener('click', handleInputEntered);
