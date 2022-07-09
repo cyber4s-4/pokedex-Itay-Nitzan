@@ -42,6 +42,7 @@ body {
     justify-content: start;
     align-items: center;
     gap: 40px;
+    width: 80%;
     .loader {
       border: min(4vw, 40px) solid #f3f3f3; /* Light grey */
       border-top: min(4vw, 40px) solid #3498db; /* Blue */
@@ -265,7 +266,7 @@ body {
       border-radius: 15px;
       font-family: 'Cabin', sans-serif;
       height: min(280px, 25vw);
-      width: 80%;
+      width: 100%;
       background-color: #eee;
       border-radius: 10px;
       box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
