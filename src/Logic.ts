@@ -6,7 +6,7 @@ export class Logic {
   }
   async getPokemonById(id: number): Promise<Pokemon> {
     try {
-      const response = await fetch(`http://localhost:3000/${id}`);
+      const response = await fetch(`/${id}`);
       const pokemonData = await response.json();
       return pokemonData;
     } catch {
@@ -16,7 +16,7 @@ export class Logic {
 
   async getPokemonByName(name: string): Promise<Pokemon> {
     try {
-      const response = await fetch(`http://localhost:3000/${name}`);
+      const response = await fetch(`/${name}`);
       const pokemonData = await response.json();
       return pokemonData;
     } catch {
@@ -26,7 +26,7 @@ export class Logic {
 
   async getPokemonArr(): Promise<Pokemon[]> {
     try {
-      const response = await fetch('http://localhost:3000/pokemons');
+      const response = await fetch('/pokemons');
       const pokemonArr = await response.json();
       return pokemonArr;
     } catch {
@@ -36,7 +36,7 @@ export class Logic {
 
   async getFavoritesArr(): Promise<Pokemon[]> {
     try {
-      const response = await fetch('http://localhost:3000/star/star');
+      const response = await fetch('/star/star');
       const favoritesArray = await response.json();
       return favoritesArray;
     } catch {
@@ -51,7 +51,7 @@ export class Logic {
   }
 
   addFavorite(pokemon: Pokemon) {
-    fetch('http://localhost:3000/star', {
+    fetch('/star', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -114,3 +114,4 @@ export class Logic {
     return sortedPokemonArr;
   }
 }
+

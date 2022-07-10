@@ -13,7 +13,7 @@ gulp.task("clean", () => {
 });
 
 // Creates js bundle from several js files
-gulp.task("build", () => {
+gulp.task("webpack", () => {
   return webpack(webpackConfig).pipe(gulp.dest("./dist"));
 });
 
@@ -44,7 +44,7 @@ gulp.task("watch-html", () => {
 
 // Watch tsc files
 gulp.task("watch-tsc", () => {
-  return gulp.watch("./dist/**/*.js", gulp.series("build"));
+  return gulp.watch("./dist/js/**/*.js", gulp.series("webpack"));
 });
 
 // Initial ts compile
@@ -78,7 +78,13 @@ gulp.task(
     "index",
     "icon",
     "tsc",
-    "build",
+    "webpack",
     gulp.parallel("watch-scss", "watch-html", "watch-tsc", "tsc-w", "express")
   )
+);
+
+// Run all together
+gulp.task(
+  "build",
+  gulp.series("clean", "scss", "index", "icon", "tsc", "webpack")
 );
