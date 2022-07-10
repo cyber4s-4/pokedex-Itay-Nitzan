@@ -41,7 +41,7 @@ body {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 40px;
+    gap: 8vh;
     width: 80%;
     .loader {
       border: min(4vw, 40px) solid #f3f3f3; /* Light grey */
@@ -314,7 +314,7 @@ body {
       align-items: flex-start;
       flex-wrap: wrap;
       max-width: 85%;
-      gap: 2vh;
+      gap: 4vh;
       z-index: 50;
       .pokemon {
         display: flex;
