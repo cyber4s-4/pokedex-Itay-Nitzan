@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["es2020", "DOM"],
+    "baseUrl": "./",
+    "outDir": "./dist/tsc",
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/cache/tsc.json",
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+  }
+}
