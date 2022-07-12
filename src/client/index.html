@@ -1,34 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Heroku</title>
-  <base href="/">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js"></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+  <title>Pokédex</title>
 </head>
+
 <body>
-  <h1></h1>
-  <div class="alert">
-    <input id="msg" type="text" value="Hey Wakka">
-    <button onclick="app.module.shout()">Say</button>
-  </div>
-  <div class="select">
-    <select id="select" onchange="app.module.updateSelect()">
-      <option>Dialog</option>
-      <option>UI</option>
-      <option>Alert</option>
-      <option>Console</option>
-    </select>
-  </div>
-  <div id="display"></div>
-  <div id="dialog">
-    <div class="card">
-      <div id="message"></div>
-      <button onclick="app.dialog.close()">Ok</button>
+  <main>
+    <img src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" alt="">
+    <p class="search-desc">Search for your pokemon's name or ID:</p>
+    <div class="loader"></div>
+    <div class="change-ui-section">
+      <form method="get" class="search-container">
+        <input class="search-input" type="text" placeholder="Enter a pokemon name or id..."></input>
+        <div class="search-icon">&#x1F50E;&#xFE0E;</div>
+      </form>
+      <div class="buttons">
+        <div class="showFavorites" id="showFavorites">Show Favorites</div>
+        <button class="get-random" role="button">Random Pokémon</button>
+          <section class="floating-list-of-sort-options">
+            <label for="touch"><span>Sort Results By…</span></label>
+            <input type="checkbox" id="touch">
+            <ul class="slide">
+              <li class="sort-option" id="sortIdLowToHigh">
+                <p>Lowest Number (First)</p>
+              </li>
+              <li class="sort-option" id="sortIdHighToLow">
+                <p>Highest Number (First)</p>
+              </li>
+              <li class="sort-option" id="sortAtoZ">
+                <p>A-Z</p>
+              </li>
+              <li class="sort-option" id="sortZtoA">
+                <p>Z-A</p>
+              </li>
+            </ul>
+          </section>
     </div>
-  </div>
+    </div>
+
+    <div class="poke-preview">
+      <div class="imgName-container">
+        <div class="spin-shine">
+          <h6 class="spin">&#8635;</h6><h6 class="shiny">&#127775;</h6>
+        </div>
+        <img id="pokeimg" src="" alt="Pokemon-image">
+        <h3 id="name"></h3>
+      </div>
+      <section class="middle-preview-container">
+        <div class="type-container">
+          <h3>Type:</h3>
+          <div id="type"></div>
+        </div>
+        <div class="stats-container">
+          <h3>Physical stats:</h3>
+          <ul>
+            <li id="height"></li>
+            <li id="weight"></li>
+          </ul>
+        </div>
+      </section>
+      <div class="moves-container">
+        <h3>Moves:</h3>
+        <ul id="moves-list">
+          <li class="move"></li>
+          <li class="move"></li>
+          <li class="move"></li>
+          <li class="move"></li>
+          <li class="move"></li>
+          <li class="move"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="poke-container-body"></div>
+  </main>
 </body>
+
 </html>

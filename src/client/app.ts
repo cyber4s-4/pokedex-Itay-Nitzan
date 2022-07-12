@@ -1,39 +1,38 @@
-import { Say } from './shared/say.service';
-import { Dialog } from './shared/dialog';
+import { HandleUi, addPokemonToPreviewBox, handleInputEntered } from './HandleUi';
+import { Pokemon } from './Pokemon';
+import { Logic } from './Logic';
 
-class Module {
-  title = 'Heroku Wakka';
-  say = new Say();
-  select = 'Dialog';
+const logic = new Logic();
+const handleUi = new HandleUi();
 
-  onload() {
-    const h1 = document.getElementsByTagName('h1')[0] as HTMLHeadingElement;
-    h1.innerText = this.title;
-  }
-
-  updateSelect(): void {
-    const select = document.getElementById('select') as HTMLSelectElement;
-    this.select = select.value;
-  }
-
-  updateDisplay(msg: string): void {
-    const display = document.getElementById('display') as HTMLDivElement;
-    display.innerText = msg;
-  }
-
-  shout(): void {
-    const input = document.getElementById('msg') as HTMLInputElement;
-    switch (this.select) {
-      case 'Alert': this.say.alert(input.value); break;
-      case 'Console': this.say.console(input.value); break;
-      case 'UI': this.updateDisplay(input.value); break;
-      case 'Dialog': dialog.open(input.value); break;
-    }
-  }
+async function retrieveAllPokemonsFromDB() {
+  let pokemonArr: Pokemon[] = [];
+  console.log('Retrieving data from the server...');
+  pokemonArr = await logic.getPokemonArr();
+  console.log('Finished retrieving data from the server.');
+  handleUi.finishLoadingUI();
+  handleUi.createAndDisplayPokemons(pokemonArr);
+  // Add random pokemon to preview box once the site has loaded.
+  addPokemonToPreviewBox(await logic.getRandomPokemon());
 }
-export const module = new Module();
-export const dialog = new Dialog();
 
-window.addEventListener('load', () => {
-  module.onload();
-});
+function addEventListenersForSearch() {
+  // Listen to form search
+  const searchInput = document.getElementsByClassName('search-container')[0];
+  searchInput.addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleInputEntered();
+  });
+  // Listen to search icon click
+  const submitIcon = document.querySelector('.search-icon') as HTMLElement;
+  submitIcon.addEventListener('click', handleInputEntered);
+
+  // Listen for random pokemon search
+  const getRandomPokemonBtn = document.querySelector('.get-random') as HTMLButtonElement;
+  getRandomPokemonBtn.addEventListener('click', async () => {
+    addPokemonToPreviewBox(await logic.getRandomPokemon());
+  });
+}
+
+retrieveAllPokemonsFromDB();
+addEventListenersForSearch();
