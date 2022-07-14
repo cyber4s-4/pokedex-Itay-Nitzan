@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
-const app = express();
+import { create, collection, getAllPokemons } from './mongo';
 import { Request, Response } from 'express';
+const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../../dist')));
 app.use(express.urlencoded({ extended: true }));
@@ -14,11 +15,13 @@ app.use(
     })
 );
 
+
 let favorites: object[] = [];
 
-app.get('/pokemons', (req: Request, res: Response) => {
+
+app.get('/pokemons', async (req: Request, res: Response) => {
     try {
-        return res.status(201).send(JSON.parse(fs.readFileSync('pokemonData.json', 'utf8')));
+        return res.status(201).json(await getAllPokemons().catch(console.error));
     } catch {
         return res.status(400).send({ message: 'Error' });
     }
