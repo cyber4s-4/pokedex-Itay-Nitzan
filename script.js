@@ -18,7 +18,6 @@ run();
 
 async function run() {
   let arr = [];
-  console.log(amountOfOriginalPokemons, fusionIterator);
 
   addOriginalPokemonsToArray(arr);
   addAllFusionsToArray(arr);
