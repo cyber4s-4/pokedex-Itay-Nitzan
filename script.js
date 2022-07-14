@@ -1,9 +1,13 @@
 const { MongoClient, Collection, ServerApiVersion } = require('mongodb');
 const fs = require('fs');
 
-let data = fs.readFileSync('./pokemonData.json', 'utf-8');
+let data = JSON.parse(fs.readFileSync('./pokemonData.json', 'utf-8'));
 const uri =
   'mongodb+srv://nitzanpap:ilovecode@cluster0.nercoqf.mongodb.net/?retryWrites=true&w=majority';
+
+const amountOfOriginalPokemons = data.length;
+let fusionIterator = amountOfOriginalPokemons + 1;
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -14,23 +18,22 @@ run();
 
 async function run() {
   let arr = [];
-  let counter = 906;
+  console.log(amountOfOriginalPokemons, fusionIterator);
 
-  addOriginalToArray(arr);
-  addAllFusionsToArray(arr, counter);
+  addOriginalPokemonsToArray(arr);
+  addAllFusionsToArray(arr);
   await addArrayToDb(arr);
 }
 
-function addOriginalToArray(arr) {
-  data = JSON.parse(data);
+function addOriginalPokemonsToArray(arr) {
   arr.push(...data);
 }
 
-function addAllFusionsToArray(arr, counter) {
-  for (let i = 0; i < 905; i++) {
-    for (let j = 0; j < 905; j++) {
+function addAllFusionsToArray(arr) {
+  for (let i = 0; i < amountOfOriginalPokemons; i++) {
+    for (let j = 0; j < amountOfOriginalPokemons; j++) {
       if (i !== j) {
-        arr.push(combinePokemons(arr[i], arr[j], counter++));
+        arr.push(combinePokemons(arr[i], arr[j], fusionIterator++));
       }
     }
   }
