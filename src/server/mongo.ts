@@ -56,16 +56,61 @@ export async function getPokemonSearch(pokemon: string | number) {
 }
 
 
-// export async function getAllStars() {
-//     try {
-//         const connect = await create();
-//         const collectionName = await collection('pokedex', 'pokemons');
-//         return await collectionName.find({isFavorite: true}).toArray();
-//     } catch (e) {
-//         console.error(e);
-//     } finally {
-//         console.log("done");
-//         client.close();
-//     }
-// }
+export async function getAllStars() {
+    try {
+        const connect = await create();
+        const collectionName = await collection('pokedex', 'pokemons');
+        return await collectionName.find({ isFavorite: true }).toArray();
+    } catch (e) {
+        console.error(e);
+    } finally {
+        console.log("done");
+        client.close();
+    }
+}
 
+export async function RemoveStars(pokemon: string) {
+    try {
+        const connect = await create();
+        const collectionName = await collection('pokedex', 'pokemons');
+        return await collectionName.updateOne({ name: pokemon },
+            { $set: { isFavorite: false } });
+    } catch (e) {
+        console.error(e);
+    } finally {
+        console.log("done");
+        client.close();
+    }
+}
+
+export async function AddStars(pokemon: string) {
+    try {
+        const connect = await create();
+        const collectionName = await collection('pokedex', 'pokemons');
+        return await collectionName.updateOne({ name: pokemon },
+            { $set: { isFavorite: true } });
+    } catch (e) {
+        console.error(e);
+    } finally {
+        console.log("done");
+        client.close();
+    }
+}
+
+export async function SearchStars(pokemon: string) {
+    try {
+        const connect = await create();
+        const collectionName = await collection('pokedex', 'pokemons');
+        const find = await collectionName.findOne({ name: pokemon });
+        if (find?.isFavorite == true) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (e) {
+        console.error(e);
+    } finally {
+        console.log("done");
+        client.close();
+    }
+}

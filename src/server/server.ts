@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
-import { create, collection, getAllPokemons, getPokemonSearch /*,getAllStars*/ } from './mongo';
+import { getAllPokemons, getPokemonSearch, getAllStars, RemoveStars, AddStars, SearchStars } from './mongo';
 import { Request, Response } from 'express';
 const app = express();
 app.use(express.json());
@@ -57,31 +57,28 @@ app.get('/:searchValue', async (req: Request, res: Response) => {
     }
 });
 
-// app.post('/star', async (req: Request, res: Response) => {
-//     try {
-//         const dataPokemon = await getAllPokemons();
-//         const pokemonSearch = favorites.find((pokemon: any) => pokemon.name === req.body.name);
-//         if (pokemonSearch) {
-//             const position = favorites.indexOf(pokemonSearch);
-//             favorites.splice(position, 1);
-//             return res.status(202).send({ message: 'Removed from favorites' });
-//         } else {
-//             const pokemonSearch = dataPokemon.find((pokemon: any) => pokemon.name === req.body.name);
-//             favorites.push(pokemonSearch);
-//             res.status(201).send({ message: 'Added to favorites' });
-//         }
-//     } catch {
-//         res.status(500).send({ message: 'Error' });
-//     }
-// });
+app.post('/star', async (req: Request, res: Response) => {
+    try {
+        const pokemonSearch = await SearchStars(req.body.name.toLowerCase());
+        if (pokemonSearch == true) {
+            await RemoveStars(req.body.name.toLowerCase());
+            return res.status(202).send({ message: 'Removed from favorites' });
+        } else {
+            await AddStars(req.body.name.toLowerCase());
+            res.status(201).send({ message: 'Added to favorites' });
+        }
+    } catch {
+        res.status(500).send({ message: 'Error' });
+    }
+});
 
-// app.get('/star/star', async (req: Request, res: Response) => {
-//     try {
-//         return res.status(201).json(await getAllStars().catch(console.error));
-//     } catch {
-//         return res.status(400).send({ message: 'Error' });
-//     }
-// });
+app.get('/star/star', async (req: Request, res: Response) => {
+    try {
+        return res.status(201).json(await getAllStars().catch(console.error));
+    } catch {
+        return res.status(400).send({ message: 'Error' });
+    }
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
