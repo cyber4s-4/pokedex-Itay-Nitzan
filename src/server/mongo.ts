@@ -27,3 +27,45 @@ export async function getAllPokemons() {
         client.close();
     }
 }
+
+
+export async function getPokemonSearch(pokemon: string | number) {
+    if (typeof pokemon === "string") {
+        try {
+            const connect = await create();
+            const collectionName = await collection('pokedex', 'pokemons');
+            return await collectionName.findOne({ name: pokemon });
+        } catch (e) {
+            console.error(e);
+        } finally {
+            console.log("done");
+            client.close();
+        }
+    } else {
+        try {
+            const connect = await create();
+            const collectionName = await collection('pokedex', 'pokemons');
+            return await collectionName.findOne({ id: pokemon });
+        } catch (e) {
+            console.error(e);
+        } finally {
+            console.log("done");
+            client.close();
+        }
+    }
+}
+
+
+// export async function getAllStars() {
+//     try {
+//         const connect = await create();
+//         const collectionName = await collection('pokedex', 'pokemons');
+//         return await collectionName.find({isFavorite: true}).toArray();
+//     } catch (e) {
+//         console.error(e);
+//     } finally {
+//         console.log("done");
+//         client.close();
+//     }
+// }
+
