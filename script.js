@@ -9,57 +9,64 @@ const uri =
 // const local = "mongodb://localhost:27017/?authMechanism=DEFAULT";
 
 const client = new MongoClient(uri);
+run()
 // Collection.prototype.findById = function (id) {
 //   return this.findOne({ id });
 // };
 
-async function run() {
-  let pokedex = client.db("pokedex");
-  let pokemons = pokedex.collection("pokemons");
-  data = JSON.parse(data);
-  let arr = data.map((x) => {
-    x.pictureSrc = [x.pictureSrc];
-    return x;
-  });
+function run() {
+  let arr = [];
   let counter = 906;
-  addAllFusionsToDb(arr, counter);
+
+  addOriginalToArray(arr);
+  addAllFusionsToArray(arr, counter);
+
   // console.log(counter)
   // arr.splice(0, arr.length - 3025);
 
+  // await pokemons.insertMany(arr.splice(0, 3025), {
+  //   maxTimeMS: 99999,
+  // });
   // if (false)
-  while (arr.length) {
-    // console.log(arr.length);
-    // await pokemons.insertMany(arr.splice(0, 3025), {
-    //   maxTimeMS: 99999,
-    // });
-    // if (false)
-    await Promise.all([
-      pokemons.insertMany(arr.splice(0, 2000), {
-        maxTimeMS: 99999,
-      }),
-      pokemons.insertMany(arr.splice(0, 2000), {
-        maxTimeMS: 99999,
-      }),
-      pokemons.insertMany(arr.splice(0, 2000), {
-        maxTimeMS: 99999,
-      }),
-      pokemons.insertMany(arr.splice(0, 2000), {
-        maxTimeMS: 99999,
-      }),
-    ]);
-    // await pokemons.insertMany(arr.splice(0, 2000), {
-    //   maxTimeMS: 99999,
-    // });
-  }
+  await addArrayToDb(arr);
 }
 
-function addAllFusionsToDb(arr, counter) {
+async function addArrayToDb(arr) {
+  try {
+    await client.connect();
+    let pokedex = client.db("pokedex");
+    let pokemons = pokedex.collection("pokemons");
+    pokemons.insertMany(arr, {
+      maxTimeMS: 99999,
+    });
+} catch(e) {
+  console.error(e);
+  } finally {
+     await client.close();
+   }
+}
+
+function addOriginalToArray(arr) {
+  data = JSON.parse(data);
+  arr.push(data);
+}
+function addAllFusionsToArray(arr, counter) {
   for (let i = 0; i < 905; i++) {
     for (let j = 0; j < 905; j++) {
       if (i !== j) arr.push(combinePokemons(arr[i], arr[j], counter++));
     }
   }
 }
+
+// async function insertOriginal() {
+//   let pokedex = client.db("pokedex");
+//   let pokemons = pokedex.collection("pokemons");
+//   data = JSON.parse(data);
+//   await pokemons.insertMany(data, {
+//     maxTimeMS: 99999,
+//   });
+// }
+// insertOriginal().then(() => client.close());
 
 function combinePokemons(pok1, pok2, id) {
   // let random = Math.floor(Math.random() * 2);
@@ -85,5 +92,3 @@ function combinePokemons(pok1, pok2, id) {
   };
   return pokemon;
 }
-
-run().then(() => client.close());
