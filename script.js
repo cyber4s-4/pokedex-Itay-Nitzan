@@ -2,6 +2,7 @@ const { MongoClient, Collection, ServerApiVersion } = require('mongodb');
 const fs = require('fs');
 
 let data = JSON.parse(fs.readFileSync('./pokemonData.json', 'utf-8'));
+// ?WARRNING: Nitzan's mongoDb address is used here and not Itay's.
 const uri =
   'mongodb+srv://nitzanpap:ilovecode@cluster0.nercoqf.mongodb.net/?retryWrites=true&w=majority';
 
