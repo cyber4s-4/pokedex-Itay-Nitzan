@@ -27,6 +27,14 @@ export class HandleUi {
       else this.createAndDisplayPokemons(await logic.getFavoritesArr());
       showFavorites.classList.toggle('active-favorites');
     });
+    this.addScrollToBottomEventListener();
+  }
+  addScrollToBottomEventListener() {
+    window.onscroll = function () {
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+        console.log("You're at the bottom of the page");
+      }
+    };
   }
   removePokemonsFromDisplay() {
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;

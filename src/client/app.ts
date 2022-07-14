@@ -5,7 +5,7 @@ import { Logic } from './Logic';
 const logic = new Logic();
 const handleUi = new HandleUi();
 
-async function retrieveAllPokemonsFromDB() {
+async function retrieve20PokemonsFromDB() {
   let pokemonArr: Pokemon[] = [];
   console.log('Retrieving data from the server...');
   pokemonArr = await logic.getPokemonArr();
@@ -34,5 +34,5 @@ function addEventListenersForSearch() {
   });
 }
 
-retrieveAllPokemonsFromDB();
+retrieve20PokemonsFromDB();
 addEventListenersForSearch();
