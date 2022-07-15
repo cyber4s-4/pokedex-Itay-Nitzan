@@ -54,7 +54,7 @@ export class Logic {
     return randomPokemon;
   }
 
-  addFavorite(pokemon: Pokemon) {
+  addFavorite(pokemon: string) {
     fetch('/star', {
       headers: {
         Accept: 'application/json',
@@ -62,12 +62,9 @@ export class Logic {
       },
       method: 'POST',
       body: JSON.stringify({
-        name: pokemon.name,
+        name: pokemon.toLowerCase(),
       }),
     })
-      .then((res) => {
-        console.log(res);
-      })
       .catch((res) => {
         console.log(res.message);
       });

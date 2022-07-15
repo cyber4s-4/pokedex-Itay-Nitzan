@@ -1,3 +1,4 @@
+import { json } from 'body-parser';
 import { MongoClient, Db, Collection } from 'mongodb';
 import { Pokemon } from 'src/client/Pokemon';
 
@@ -15,11 +16,12 @@ export async function collection(dbName: string, collectionName: string): Promis
     return collection;
 }
 
-export async function getAllPokemons() {
+export async function get20Pokemons(from: number = 0, limit: number = 20) {
     try {
         const connect = await create();
-        const collectionName = await collection('pokedex', 'pokemons');
-        return await collectionName.find({}).toArray();
+        const pokemons = await collection("pokedex", "pokemons");
+        let response = await pokemons.find({}).skip(from).limit(limit).toArray();
+        return response;
     } catch (e) {
         console.error(e);
     } finally {

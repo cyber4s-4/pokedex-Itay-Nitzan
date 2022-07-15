@@ -3,12 +3,12 @@ const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
 import {
-  getAllPokemons,
   getPokemonSearch,
   getAllStars,
   RemoveStars,
   AddStars,
   SearchStars,
+  get20Pokemons
 } from './mongo';
 import { Request, Response } from 'express';
 const app = express();
@@ -26,7 +26,10 @@ let favorites: object[] = [];
 
 app.get('/pokemons', async (req: Request, res: Response) => {
   try {
-    return res.status(201).json(await getAllPokemons().catch(console.error));
+    let offset = Number(req.query.offset) || 0;
+    let limit = 20;
+    let response = await get20Pokemons(offset, limit);
+    return res.status(201).json(response);
   } catch {
     return res.status(400).send({ message: 'Error' });
   }

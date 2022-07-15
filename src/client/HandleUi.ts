@@ -1,3 +1,4 @@
+import e from 'express';
 import { Logic } from './Logic';
 import { Pokemon } from './Pokemon';
 const logic = new Logic();
@@ -21,21 +22,23 @@ export class HandleUi {
     });
     const showFavorites = document.querySelector('#showFavorites') as HTMLDivElement;
     showFavorites.addEventListener('click', async () => {
-      this.removePokemonsFromDisplay();
-      if (showFavorites.classList.contains('active-favorites'))
-        this.createAndDisplayPokemons(await logic.getPokemonArr());
-      else this.createAndDisplayPokemons(await logic.getFavoritesArr());
-      showFavorites.classList.toggle('active-favorites');
-    });
-    this.addScrollToBottomEventListener();
-  }
-  addScrollToBottomEventListener() {
-    window.onscroll = function () {
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-        console.log("You're at the bottom of the page");
+      try {
+        const response = await fetch('/star/star');
+        const data = await response.json();
+
+        if (data == []) {
+          return false;
+        } else {
+          this.removePokemonsFromDisplay();
+          this.createAndDisplayPokemons(data);
+        }
+      } catch (err) {
+        console.log('Error in retrieving favorites from server.');
+        throw err;
       }
-    };
+    });
   }
+
   removePokemonsFromDisplay() {
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
     pokeContainer.replaceChildren('');
@@ -83,14 +86,14 @@ export class HandleUi {
     // Add star
     const star = document.createElement('img') as HTMLImageElement;
     star.className = 'star';
-    if (pokemon.isFavorite) star.classList.add('star-selected');
+    if (pokemon.isFavorite == true) star.classList.add('star-selected');
     star.src = 'https://cdn-icons-png.flaticon.com/512/188/188931.png';
     star.alt = 'Add To Favorites';
     pokemonCard.appendChild(star);
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      logic.addFavorite(pokemon);
+      logic.addFavorite(pokemon.name);
     });
 
     // Add img container
@@ -101,7 +104,15 @@ export class HandleUi {
     // Add pokemon image
     const pokemonImage = document.createElement('img') as HTMLImageElement;
     pokemonImage.className = 'pokemon-image';
-    pokemonImage.src = pokemon.pictureSrc;
+    if (Array.isArray(pokemon.pictureSrc) == true) {
+      if (pokemon.pictureSrc[0] !== null) {
+        pokemonImage.src = pokemon.pictureSrc[0];
+      } else {
+        pokemonImage.src = pokemon.pictureSrc[1]
+      }
+    } else {
+      pokemonImage.src = pokemon.pictureSrc;
+    }
     imgContainer.appendChild(pokemonImage);
 
     // Add info section within the pokemon card
@@ -161,11 +172,20 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const weight = document.querySelector('#weight') as HTMLElement;
   weight.innerText = `Weight: ${pokemon.weight}`;
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-  if (pokemon.spritesSources.frontDefault != null) {
-    pic.src = pokemon.spritesSources.frontDefault;
-    addSpinAndShinyListeners(pokemon);
-  } else {
-    pic.src = pokemon.pictureSrc;
+  if (Array.isArray(pokemon.pictureSrc) == false) {
+    if (pokemon.spritesSources.frontDefault !== null) {
+      pic.src = pokemon.spritesSources.frontDefault;
+      addSpinAndShinyListeners(pokemon);
+    } else {
+      pic.src = pokemon.pictureSrc;
+    }
+  }
+  if (Array.isArray(pokemon.pictureSrc) == true) {
+    if (pokemon.pictureSrc[0] !== null) {
+      pic.src = pokemon.pictureSrc[0];
+    } else {
+      pic.src = pokemon.pictureSrc[1]
+    }
   }
 }
 
