@@ -20,29 +20,41 @@ async function retrieve20PokemonsFromDB() {
   }
   // Add random pokemon to preview box once the site has loaded.
   addPokemonToPreviewBox(await logic.getRandomPokemon());
-  // addScrollToBottomEventListener();
+}
+
+const body = document.getElementsByTagName('body')[0];
+window.addEventListener('scroll', async () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (clientHeight + scrollTop >= scrollHeight - 5) {
+    // show the loading animation
+    body.classList.add('stop-scrolling');
+    await showLoading();
+    body.classList.remove('stop-scrolling');
+  }
+});
+
+let i = 20;
+async function get20MorePokemons() {
+  try {
+    const response = await fetch(`/pokemons?offset=${i}&limit=20`);
+    const pokemonArr = await response.json();
+    handleUi.createAndDisplayPokemons(pokemonArr);
+    i += 20;
+  } catch (err) {
+    console.log('Error in retrieving pokemons from server.');
+    throw err;
+  } finally {
+    console.log('Finished retrieving data from the server.');
+  }
 }
 
 
-// function addScrollToBottomEventListener() {
-//   let i = 20;
-//   window.onscroll = async function () {
-//     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-//       try {
-//         console.log(i);
-//         const response = await fetch(`/pokemons?offset=${i}&limit=20`);
-//         const pokemonArr = await response.json();
-//         handleUi.createAndDisplayPokemons(pokemonArr);
-//         i += 20;
-//       } catch (err) {
-//         console.log('Error in retrieving pokemons from server.');
-//         throw err;
-//       } finally {
-//         console.log('Finished retrieving data from the server.');
-//       }
-//     }
-//   }
-// }
+const loading = document.querySelector('.loading') as HTMLDivElement;
+async function showLoading() {
+  loading.classList.add('show');
+  await get20MorePokemons();
+  loading.classList.remove('show');
+}
 
 
 function addEventListenersForSearch() {

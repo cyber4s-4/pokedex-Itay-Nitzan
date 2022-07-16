@@ -24,31 +24,32 @@
       <div class="buttons">
         <div class="showFavorites" id="showFavorites">Show Favorites</div>
         <button class="get-random" role="button">Random Pokémon</button>
-          <section class="floating-list-of-sort-options">
-            <label for="touch"><span>Sort Results By…</span></label>
-            <input type="checkbox" id="touch">
-            <ul class="slide">
-              <li class="sort-option" id="sortIdLowToHigh">
-                <p>Lowest Number (First)</p>
-              </li>
-              <li class="sort-option" id="sortIdHighToLow">
-                <p>Highest Number (First)</p>
-              </li>
-              <li class="sort-option" id="sortAtoZ">
-                <p>A-Z</p>
-              </li>
-              <li class="sort-option" id="sortZtoA">
-                <p>Z-A</p>
-              </li>
-            </ul>
-          </section>
-    </div>
+        <section class="floating-list-of-sort-options">
+          <label for="touch"><span>Sort Results By…</span></label>
+          <input type="checkbox" id="touch">
+          <ul class="slide">
+            <li class="sort-option" id="sortIdLowToHigh">
+              <p>Lowest Number (First)</p>
+            </li>
+            <li class="sort-option" id="sortIdHighToLow">
+              <p>Highest Number (First)</p>
+            </li>
+            <li class="sort-option" id="sortAtoZ">
+              <p>A-Z</p>
+            </li>
+            <li class="sort-option" id="sortZtoA">
+              <p>Z-A</p>
+            </li>
+          </ul>
+        </section>
+      </div>
     </div>
 
     <div class="poke-preview">
       <div class="imgName-container">
         <div class="spin-shine">
-          <h6 class="spin">&#8635;</h6><h6 class="shiny">&#127775;</h6>
+          <h6 class="spin">&#8635;</h6>
+          <h6 class="shiny">&#127775;</h6>
         </div>
         <img id="pokeimg" src="" alt="Pokemon-image">
         <h3 id="name"></h3>
@@ -81,5 +82,11 @@
     <div class="poke-container-body"></div>
   </main>
 </body>
-
+<footer>
+  <div class="loading">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
+</footer>
 </html>
