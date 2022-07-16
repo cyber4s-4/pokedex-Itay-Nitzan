@@ -1,4 +1,3 @@
-import e from 'express';
 import { Logic } from './Logic';
 import { Pokemon } from './Pokemon';
 const logic = new Logic();
@@ -85,9 +84,9 @@ export class HandleUi {
     pokemonCard.style.backgroundColor = color;
 
     // Add star
-    const star = document.createElement('img') as HTMLImageElement;
+    const star = document.createElement('img');
     star.className = 'star';
-    if (pokemon.isFavorite == true) star.classList.add('star-selected');
+    if (pokemon.isFavorite) star.classList.add('star-selected');
     star.src = 'https://cdn-icons-png.flaticon.com/512/188/188931.png';
     star.alt = 'Add To Favorites';
     pokemonCard.appendChild(star);
@@ -105,7 +104,7 @@ export class HandleUi {
     // Add pokemon image
     const pokemonImage = document.createElement('img');
     pokemonImage.className = 'pokemon-image';
-    if (Array.isArray(pokemon.pictureSrc) == true) {
+    if (Array.isArray(pokemon.pictureSrc)) {
       if (pokemon.pictureSrc[0] !== null) {
         pokemonImage.src = pokemon.pictureSrc[0];
       } else {
@@ -232,7 +231,6 @@ function addSpinAndShinyListeners(pokemon: Pokemon) {
         return;
       }
       pic.src = pokeImgShinyFront;
-      return;
     }
   });
   shinyButton.addEventListener('click', () => {
@@ -262,7 +260,6 @@ function addSpinAndShinyListeners(pokemon: Pokemon) {
         return;
       }
       pic.src = pokeImgRegularBack;
-      return;
     }
   });
 }
