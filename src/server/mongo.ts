@@ -19,7 +19,7 @@ export async function create() {
 create();
 
 
-export async function collection(dbName: string, collectionName: string): Promise<Collection<Pokemon>> {
+export async function getCollection(dbName: string, collectionName: string): Promise<Collection<Pokemon>> {
     const db: Db = client.db(dbName);
     const collection: Collection<Pokemon> = db.collection(collectionName);
     return collection;
@@ -27,7 +27,7 @@ export async function collection(dbName: string, collectionName: string): Promis
 
 export async function get20Pokemons(from: number = 0, limit: number = 20) {
     try {
-        const pokemons = await collection("pokedex", "pokemons");
+        const pokemons = await getCollection("pokedex", "pokemons");
         let response = await pokemons.find({}).skip(from).limit(limit).toArray();
         return response;
     } catch (e) {
@@ -41,7 +41,7 @@ export async function get20Pokemons(from: number = 0, limit: number = 20) {
 export async function getPokemonSearch(pokemon: string | number) {
     if (typeof pokemon === "string") {
         try {
-            const collectionName = await collection('pokedex', 'pokemons');
+            const collectionName = await getCollection('pokedex', 'pokemons');
             return await collectionName.findOne({ name: pokemon });
         } catch (e) {
             console.error(e);
@@ -50,7 +50,7 @@ export async function getPokemonSearch(pokemon: string | number) {
         }
     } else {
         try {
-            const collectionName = await collection('pokedex', 'pokemons');
+            const collectionName = await getCollection('pokedex', 'pokemons');
             return await collectionName.findOne({ id: pokemon });
         } catch (e) {
             console.error(e);
@@ -63,7 +63,7 @@ export async function getPokemonSearch(pokemon: string | number) {
 
 export async function getAllStars() {
     try {
-        const collectionName = await collection('pokedex', 'pokemons');
+        const collectionName = await getCollection('pokedex', 'pokemons');
         return await collectionName.find({ isFavorite: true }).toArray();
     } catch (e) {
         console.error(e);
@@ -74,7 +74,7 @@ export async function getAllStars() {
 
 export async function RemoveStars(pokemon: string) {
     try {
-        const collectionName = await collection('pokedex', 'pokemons');
+        const collectionName = await getCollection('pokedex', 'pokemons');
         return await collectionName.updateOne({ name: pokemon },
             { $set: { isFavorite: false } });
     } catch (e) {
@@ -86,7 +86,7 @@ export async function RemoveStars(pokemon: string) {
 
 export async function AddStars(pokemon: string) {
     try {
-        const collectionName = await collection('pokedex', 'pokemons');
+        const collectionName = await getCollection('pokedex', 'pokemons');
         return await collectionName.updateOne({ name: pokemon },
             { $set: { isFavorite: true } });
     } catch (e) {
@@ -98,7 +98,7 @@ export async function AddStars(pokemon: string) {
 
 export async function SearchStars(pokemon: string) {
     try {
-        const collectionName = await collection('pokedex', 'pokemons');
+        const collectionName = await getCollection('pokedex', 'pokemons');
         const find = await collectionName.findOne({ name: pokemon });
         if (find?.isFavorite == true) {
             return true;
