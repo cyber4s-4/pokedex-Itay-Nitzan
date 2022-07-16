@@ -48,14 +48,12 @@ async function get20MorePokemons() {
   }
 }
 
-
 const loading = document.querySelector('.loading') as HTMLDivElement;
 async function showLoading() {
   loading.classList.add('show');
   await get20MorePokemons();
   loading.classList.remove('show');
 }
-
 
 function addEventListenersForSearch() {
   // Listen to form search

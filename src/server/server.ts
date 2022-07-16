@@ -8,7 +8,7 @@ import {
   RemoveStars,
   AddStars,
   SearchStars,
-  get20Pokemons
+  get20Pokemons,
 } from './mongo';
 import { Request, Response } from 'express';
 const app = express();
@@ -22,13 +22,13 @@ app.use(
   })
 );
 
-let favorites: object[] = [];
+const favorites: object[] = [];
 
 app.get('/pokemons', async (req: Request, res: Response) => {
   try {
-    let offset = Number(req.query.offset) || 0;
-    let limit = 20;
-    let response = await get20Pokemons(offset, limit);
+    const offset = Number(req.query.offset) || 0;
+    const limit = 20;
+    const response = await get20Pokemons(offset, limit);
     return res.status(201).json(response);
   } catch {
     return res.status(400).send({ message: 'Error' });

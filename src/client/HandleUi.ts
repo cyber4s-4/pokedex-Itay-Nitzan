@@ -27,7 +27,7 @@ export class HandleUi {
       try {
         const response = await fetch('/star/star');
         const data = await response.json();
-        if (data == []) {
+        if (data.length === 0) {
           return false;
         } else {
           this.removePokemonsFromDisplay();
@@ -45,8 +45,8 @@ export class HandleUi {
     pokeContainer.replaceChildren('');
   }
   createAndDisplayPokemons(pokemonArr: Pokemon[]) {
-    for (let i = 0; i < pokemonArr.length; i++) {
-      this.createPokemonCard(pokemonArr[i]);
+    for (const element of pokemonArr) {
+      this.createPokemonCard(element);
     }
   }
   createPokemonCard = (pokemon: Pokemon) => {
@@ -98,18 +98,18 @@ export class HandleUi {
     });
 
     // Add img container
-    const imgContainer = document.createElement('div') as HTMLDivElement;
+    const imgContainer = document.createElement('div');
     imgContainer.className = 'img-container';
     pokemonCard.appendChild(imgContainer);
 
     // Add pokemon image
-    const pokemonImage = document.createElement('img') as HTMLImageElement;
+    const pokemonImage = document.createElement('img');
     pokemonImage.className = 'pokemon-image';
     if (Array.isArray(pokemon.pictureSrc) == true) {
       if (pokemon.pictureSrc[0] !== null) {
         pokemonImage.src = pokemon.pictureSrc[0];
       } else {
-        pokemonImage.src = pokemon.pictureSrc[1]
+        pokemonImage.src = pokemon.pictureSrc[1];
       }
     } else {
       pokemonImage.src = pokemon.pictureSrc;
@@ -117,21 +117,21 @@ export class HandleUi {
     imgContainer.appendChild(pokemonImage);
 
     // Add info section within the pokemon card
-    const pokemonInfo = document.createElement('div') as HTMLDivElement;
+    const pokemonInfo = document.createElement('div');
     pokemonInfo.className = 'info';
     pokemonCard.appendChild(pokemonInfo);
 
-    const visualIdText = document.createElement('span') as HTMLSpanElement;
+    const visualIdText = document.createElement('span');
     visualIdText.className = 'number';
     visualIdText.innerText = '#' + visualId;
     pokemonInfo.appendChild(visualIdText);
 
-    const pokemonH3 = document.createElement('h3') as HTMLHeadingElement;
+    const pokemonH3 = document.createElement('h3');
     pokemonH3.className = 'name';
     pokemonH3.innerText = name;
     pokemonInfo.appendChild(pokemonH3);
 
-    const pokemonTypeContainer = document.createElement('div') as HTMLDivElement;
+    const pokemonTypeContainer = document.createElement('div');
     pokemonTypeContainer.className = 'type';
     pokemonTypeContainer.innerText = 'Type: ';
     pokemonInfo.appendChild(pokemonTypeContainer);
@@ -151,8 +151,8 @@ export class HandleUi {
 
   async showFavorites() {
     const favoritesArr = await logic.getFavoritesArr();
-    for (let i = 0; i < favoritesArr.length; i++) {
-      this.createPokemonCard(favoritesArr[i]);
+    for (const element of favoritesArr) {
+      this.createPokemonCard(element);
     }
   }
 }
@@ -161,8 +161,9 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
   nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
   const type = document.querySelector('#type') as HTMLElement;
-  type.textContent = `${pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-    } type pokemon`;
+  type.textContent = `${
+    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
+  } type pokemon`;
   const moves = document.querySelector('#moves-list') as HTMLElement;
   for (let i = 0; i < 6; i++) {
     const li = moves.querySelectorAll('li')[i];
@@ -173,7 +174,13 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const weight = document.querySelector('#weight') as HTMLElement;
   weight.innerText = `Weight: ${pokemon.weight}`;
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-  if (Array.isArray(pokemon.pictureSrc) == false) {
+  if (Array.isArray(pokemon.pictureSrc)) {
+    if (pokemon.pictureSrc[0] !== null) {
+      pic.src = pokemon.pictureSrc[0];
+    } else {
+      pic.src = pokemon.pictureSrc[1];
+    }
+  } else {
     if (pokemon.spritesSources.frontDefault !== null) {
       pic.src = pokemon.spritesSources.frontDefault;
       addSpinAndShinyListeners(pokemon);
@@ -181,7 +188,7 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
       pic.src = pokemon.pictureSrc;
     }
   }
-  if (Array.isArray(pokemon.pictureSrc) == true) {
+  if (Array.isArray(pokemon.pictureSrc)) {
     if (pokemon.pictureSrc[0] !== null) {
       pic.src = pokemon.pictureSrc[0];
     } else {
