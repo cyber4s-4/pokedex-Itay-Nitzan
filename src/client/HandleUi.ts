@@ -75,7 +75,8 @@ export class HandleUi {
     const id = pokemon.id.toString();
     pokemonCard.id = id;
     pokemonCard.classList.add('pokemon');
-    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
+    const name =
+      pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' ');
     const visualId = pokemon.id.toString().padStart(3, '0');
     const poke_types = pokemon.pokemonTypes;
 
@@ -158,7 +159,8 @@ export class HandleUi {
 
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
-  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
+  nameEl.innerText =
+    pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' / ');
   const type = document.querySelector('#type') as HTMLElement;
   type.textContent = `${
     pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
