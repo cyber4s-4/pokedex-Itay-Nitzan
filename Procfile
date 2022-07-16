@@ -1,1 +1,1 @@
-web: npm run production
+web: node ./dist/server/server.js

@@ -7,40 +7,40 @@ export class Logic {
   async getPokemonById(id: number): Promise<Pokemon> {
     try {
       const response = await fetch(`/${id}`);
-      const pokemonData = await response.json();
-      return pokemonData;
-    } catch {
+      return await response.json();
+    } catch (err) {
       console.log('Error in retrieving pokemon from server.');
+      throw err;
     }
   }
 
   async getPokemonByName(name: string): Promise<Pokemon> {
     try {
       const response = await fetch(`/${name}`);
-      const pokemonData = await response.json();
-      return pokemonData;
-    } catch {
+      return await response.json();
+    } catch (err) {
       console.log('Error in retrieving pokemon from server.');
+      throw err;
     }
   }
 
   async getPokemonArr(): Promise<Pokemon[]> {
     try {
       const response = await fetch('/pokemons');
-      const pokemonArr = await response.json();
-      return pokemonArr;
-    } catch {
-      console.log('Error in retrieving pokemon array from server.');
+      return await response.json();
+    } catch (err) {
+      console.log('Error in retrieving pokemon from server.');
+      throw err;
     }
   }
 
   async getFavoritesArr(): Promise<Pokemon[]> {
     try {
       const response = await fetch('/star/star');
-      const favoritesArray = await response.json();
-      return favoritesArray;
-    } catch {
-      console.log('Error in retrieving pokemon array from server.');
+      return await response.json();
+    } catch (err) {
+      console.log('Error in retrieving pokemon from server.');
+      throw err;
     }
   }
 
@@ -50,7 +50,7 @@ export class Logic {
     return randomPokemon;
   }
 
-  addFavorite(pokemon: Pokemon) {
+  addFavorite(pokemon: string) {
     fetch('/star', {
       headers: {
         Accept: 'application/json',
@@ -58,18 +58,14 @@ export class Logic {
       },
       method: 'POST',
       body: JSON.stringify({
-        name: pokemon.name,
+        name: pokemon.toLowerCase(),
       }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((res) => {
-        console.log(res.message);
-      });
+    }).catch((res) => {
+      console.log(res.message);
+    });
   }
 
-  sortPokemons(sortId: string, pokemonArr: Pokemon[]) {
+  sortPokemons(sortId: string, pokemonArr: Pokemon[]): Pokemon[] {
     switch (sortId) {
       case 'sortIdLowToHigh':
         return this.sortPokemonsByIdLowToHigh(pokemonArr);
@@ -82,36 +78,31 @@ export class Logic {
 
       default:
         console.log('Unrecognized sort name');
-        return;
+        return pokemonArr;
     }
   }
 
   sortPokemonsByIdLowToHigh(pokemonArr: Pokemon[]) {
-    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+    return pokemonArr.sort((pokemonA, pokemonB) => {
       return Number(pokemonA.id) - Number(pokemonB.id);
     });
-    return sortedPokemonArr;
   }
 
   sortPokemonsByIdHighToLow(pokemonArr: Pokemon[]) {
-    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+    return pokemonArr.sort((pokemonA, pokemonB) => {
       return Number(pokemonB.id) - Number(pokemonA.id);
     });
-    return sortedPokemonArr;
   }
 
   sortPokemonsAlphabeticallyAtoZ(pokemonArr: Pokemon[]) {
-    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+    return pokemonArr.sort((pokemonA, pokemonB) => {
       return pokemonA.name.localeCompare(pokemonB.name);
     });
-    return sortedPokemonArr;
   }
 
   sortPokemonsAlphabeticallyZtoA(pokemonArr: Pokemon[]) {
-    const sortedPokemonArr = pokemonArr.sort((pokemonA, pokemonB) => {
+    return pokemonArr.sort((pokemonA, pokemonB) => {
       return pokemonB.name.localeCompare(pokemonA.name);
     });
-    return sortedPokemonArr;
   }
 }
-

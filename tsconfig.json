@@ -5,12 +5,13 @@
     "moduleResolution": "node",
     "lib": ["es2020", "DOM"],
     "baseUrl": "./",
-    "outDir": "./dist/js",
-    "rootDir": "./src/",
+    "outDir": "./dist/tsc",
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "tsBuildInfoFile": "./dist/cache/tsc.json",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true
   }
 }

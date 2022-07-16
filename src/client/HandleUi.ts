@@ -19,22 +19,33 @@ export class HandleUi {
         );
       });
     });
-    const showFavorites = document.querySelector('#showFavorites');
+    const body = document.getElementsByTagName('body')[0];
+    const showFavorites = document.querySelector('#showFavorites') as HTMLDivElement;
     showFavorites.addEventListener('click', async () => {
-      this.removePokemonsFromDisplay();
-      if (showFavorites.classList.contains('active-favorites'))
-        this.createAndDisplayPokemons(await logic.getPokemonArr());
-      else this.createAndDisplayPokemons(await logic.getFavoritesArr());
-      showFavorites.classList.toggle('active-favorites');
+      body.classList.add('stop-scrolling');
+      try {
+        const response = await fetch('/star/star');
+        const data = await response.json();
+        if (data.length === 0) {
+          return false;
+        } else {
+          this.removePokemonsFromDisplay();
+          this.createAndDisplayPokemons(data);
+        }
+      } catch (err) {
+        console.log('Error in retrieving favorites from server.');
+        throw err;
+      }
     });
   }
+
   removePokemonsFromDisplay() {
     const pokeContainer = document.querySelector('.poke-container-body') as HTMLElement;
     pokeContainer.replaceChildren('');
   }
   createAndDisplayPokemons(pokemonArr: Pokemon[]) {
-    for (let i = 0; i < pokemonArr.length; i++) {
-      this.createPokemonCard(pokemonArr[i]);
+    for (const element of pokemonArr) {
+      this.createPokemonCard(element);
     }
   }
   createPokemonCard = (pokemon: Pokemon) => {
@@ -69,11 +80,11 @@ export class HandleUi {
     const poke_types = pokemon.pokemonTypes;
 
     const type = main_types.find((type) => poke_types.indexOf(type) > -1);
-    const color = colors[type];
+    const color = colors[type as keyof typeof colors] || '';
     pokemonCard.style.backgroundColor = color;
 
     // Add star
-    const star = document.createElement('img') as HTMLImageElement;
+    const star = document.createElement('img');
     star.className = 'star';
     if (pokemon.isFavorite) star.classList.add('star-selected');
     star.src = 'https://cdn-icons-png.flaticon.com/512/188/188931.png';
@@ -82,42 +93,50 @@ export class HandleUi {
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       star.classList.toggle('star-selected');
-      logic.addFavorite(pokemon);
+      logic.addFavorite(pokemon.name);
     });
 
     // Add img container
-    const imgContainer = document.createElement('div') as HTMLDivElement;
+    const imgContainer = document.createElement('div');
     imgContainer.className = 'img-container';
     pokemonCard.appendChild(imgContainer);
 
     // Add pokemon image
-    const pokemonImage = document.createElement('img') as HTMLImageElement;
+    const pokemonImage = document.createElement('img');
     pokemonImage.className = 'pokemon-image';
-    pokemonImage.src = pokemon.pictureSrc;
+    if (Array.isArray(pokemon.pictureSrc)) {
+      if (pokemon.pictureSrc[0] !== null) {
+        pokemonImage.src = pokemon.pictureSrc[0];
+      } else {
+        pokemonImage.src = pokemon.pictureSrc[1];
+      }
+    } else {
+      pokemonImage.src = pokemon.pictureSrc;
+    }
     imgContainer.appendChild(pokemonImage);
 
     // Add info section within the pokemon card
-    const pokemonInfo = document.createElement('div') as HTMLDivElement;
+    const pokemonInfo = document.createElement('div');
     pokemonInfo.className = 'info';
     pokemonCard.appendChild(pokemonInfo);
 
-    const visualIdText = document.createElement('span') as HTMLSpanElement;
+    const visualIdText = document.createElement('span');
     visualIdText.className = 'number';
     visualIdText.innerText = '#' + visualId;
     pokemonInfo.appendChild(visualIdText);
 
-    const pokemonH3 = document.createElement('h3') as HTMLHeadingElement;
+    const pokemonH3 = document.createElement('h3');
     pokemonH3.className = 'name';
     pokemonH3.innerText = name;
     pokemonInfo.appendChild(pokemonH3);
 
-    const pokemonTypeContainer = document.createElement('div') as HTMLDivElement;
+    const pokemonTypeContainer = document.createElement('div');
     pokemonTypeContainer.className = 'type';
     pokemonTypeContainer.innerText = 'Type: ';
     pokemonInfo.appendChild(pokemonTypeContainer);
 
     const pokemonType = document.createElement('span') as HTMLHeadingElement;
-    pokemonType.innerText = type[0].toUpperCase() + type.slice(1);
+    pokemonType.innerText = type ? type[0].toUpperCase() + type.slice(1) : '';
     pokemonTypeContainer.appendChild(pokemonType);
 
     // Add the pokemon card to the pokemon container
@@ -131,8 +150,8 @@ export class HandleUi {
 
   async showFavorites() {
     const favoritesArr = await logic.getFavoritesArr();
-    for (let i = 0; i < favoritesArr.length; i++) {
-      this.createPokemonCard(favoritesArr[i]);
+    for (const element of favoritesArr) {
+      this.createPokemonCard(element);
     }
   }
 }
@@ -154,11 +173,26 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const weight = document.querySelector('#weight') as HTMLElement;
   weight.innerText = `Weight: ${pokemon.weight}`;
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-  if (pokemon.spritesSources.frontDefault != null) {
-    pic.src = pokemon.spritesSources.frontDefault;
-    addSpinAndShinyListeners(pokemon);
+  if (Array.isArray(pokemon.pictureSrc)) {
+    if (pokemon.pictureSrc[0] !== null) {
+      pic.src = pokemon.pictureSrc[0];
+    } else {
+      pic.src = pokemon.pictureSrc[1];
+    }
   } else {
-    pic.src = pokemon.pictureSrc;
+    if (pokemon.spritesSources.frontDefault !== null) {
+      pic.src = pokemon.spritesSources.frontDefault;
+      addSpinAndShinyListeners(pokemon);
+    } else {
+      pic.src = pokemon.pictureSrc;
+    }
+  }
+  if (Array.isArray(pokemon.pictureSrc)) {
+    if (pokemon.pictureSrc[0] !== null) {
+      pic.src = pokemon.pictureSrc[0];
+    } else {
+      pic.src = pokemon.pictureSrc[1];
+    }
   }
 }
 
@@ -197,7 +231,6 @@ function addSpinAndShinyListeners(pokemon: Pokemon) {
         return;
       }
       pic.src = pokeImgShinyFront;
-      return;
     }
   });
   shinyButton.addEventListener('click', () => {
@@ -227,7 +260,6 @@ function addSpinAndShinyListeners(pokemon: Pokemon) {
         return;
       }
       pic.src = pokeImgRegularBack;
-      return;
     }
   });
 }

@@ -2,9 +2,18 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
+import {
+  getPokemonSearch,
+  getAllStars,
+  RemoveStars,
+  AddStars,
+  SearchStars,
+  get20Pokemons,
+} from './mongo';
+import { Request, Response } from 'express';
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
@@ -13,27 +22,29 @@ app.use(
   })
 );
 
-let favorites = [];
+const favorites: object[] = [];
 
-app.get('/pokemons', (req, res) => {
+app.get('/pokemons', async (req: Request, res: Response) => {
   try {
-    return res.status(201).send(JSON.parse(fs.readFileSync('pokemonData.json', 'utf8')));
+    const offset = Number(req.query.offset) || 0;
+    const limit = 20;
+    const response = await get20Pokemons(offset, limit);
+    return res.status(201).json(response);
   } catch {
     return res.status(400).send({ message: 'Error' });
   }
 });
 
-app.get('/:searchValue', (req, res) => {
+app.get('/:searchValue', async (req: Request, res: Response) => {
   // If request contains a number
   if (!isNaN(Number(req.params.searchValue))) {
     try {
       const pokemonID = Number(req.params.searchValue);
-      const dataPokemon = JSON.parse(fs.readFileSync('pokemonData.json', 'utf8'));
-      const pokemonSearchResult = dataPokemon.find((pokemon) => pokemon.id === pokemonID);
-      if (pokemonSearchResult) {
-        return res.status(201).send(pokemonSearchResult);
-      } else {
+      const dataPokemon = await getPokemonSearch(pokemonID);
+      if (!dataPokemon) {
         return res.status(400).send({ message: 'Pokemon not found' });
+      } else {
+        return res.status(201).json(dataPokemon);
       }
     } catch {
       return res.status(400).send({ message: 'Error' });
@@ -42,12 +53,11 @@ app.get('/:searchValue', (req, res) => {
   } else {
     try {
       const pokemonName = req.params.searchValue.toLowerCase();
-      const dataPokemon = JSON.parse(fs.readFileSync('pokemonData.json', 'utf8'));
-      const pokemonSearchResult = dataPokemon.find((pokemon) => pokemon.name === pokemonName);
-      if (pokemonSearchResult) {
-        return res.status(201).send(pokemonSearchResult);
-      } else {
+      const dataPokemon = await getPokemonSearch(pokemonName);
+      if (!dataPokemon) {
         return res.status(400).send({ message: 'Pokemon not found' });
+      } else {
+        return res.status(201).json(dataPokemon);
       }
     } catch {
       return res.status(400).send({ message: 'Error' });
@@ -55,17 +65,14 @@ app.get('/:searchValue', (req, res) => {
   }
 });
 
-app.post('/star', async (req, res) => {
+app.post('/star', async (req: Request, res: Response) => {
   try {
-    const dataPokemon = JSON.parse(fs.readFileSync('pokemonData.json', 'utf8'));
-    const pokemonSearch = favorites.find((pokemon) => pokemon.name === req.body.name);
-    if (pokemonSearch) {
-      const position = favorites.indexOf(pokemonSearch);
-      favorites.splice(position, 1);
+    const pokemonSearch = await SearchStars(req.body.name.toLowerCase());
+    if (pokemonSearch == true) {
+      await RemoveStars(req.body.name.toLowerCase());
       return res.status(202).send({ message: 'Removed from favorites' });
     } else {
-      const pokemonSearch = dataPokemon.find((pokemon) => pokemon.name === req.body.name);
-      favorites.push(pokemonSearch);
+      await AddStars(req.body.name.toLowerCase());
       res.status(201).send({ message: 'Added to favorites' });
     }
   } catch {
@@ -73,9 +80,9 @@ app.post('/star', async (req, res) => {
   }
 });
 
-app.get('/star/star', async (req, res) => {
+app.get('/star/star', async (req: Request, res: Response) => {
   try {
-    return res.status(201).send(favorites);
+    return res.status(201).json(await getAllStars().catch(console.error));
   } catch {
     return res.status(400).send({ message: 'Error' });
   }
