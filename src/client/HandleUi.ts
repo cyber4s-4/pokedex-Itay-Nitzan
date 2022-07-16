@@ -20,12 +20,13 @@ export class HandleUi {
         );
       });
     });
+    const body = document.getElementsByTagName('body')[0];
     const showFavorites = document.querySelector('#showFavorites') as HTMLDivElement;
     showFavorites.addEventListener('click', async () => {
+      body.classList.add('stop-scrolling');
       try {
         const response = await fetch('/star/star');
         const data = await response.json();
-
         if (data == []) {
           return false;
         } else {
@@ -184,7 +185,7 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
     if (pokemon.pictureSrc[0] !== null) {
       pic.src = pokemon.pictureSrc[0];
     } else {
-      pic.src = pokemon.pictureSrc[1]
+      pic.src = pokemon.pictureSrc[1];
     }
   }
 }
