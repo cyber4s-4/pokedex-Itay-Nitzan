@@ -20,10 +20,8 @@ export class HandleUi {
         );
       });
     });
-    const body = document.getElementsByTagName('body')[0];
     const showFavorites = document.querySelector('#showFavorites') as HTMLDivElement;
     showFavorites.addEventListener('click', async () => {
-      body.classList.add('stop-scrolling');
       try {
         const response = await fetch('/star/star');
         const data = await response.json();
@@ -76,7 +74,7 @@ export class HandleUi {
     const id = pokemon.id.toString();
     pokemonCard.id = id;
     pokemonCard.classList.add('pokemon');
-    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
+    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' ');
     const visualId = pokemon.id.toString().padStart(3, '0');
     const poke_types = pokemon.pokemonTypes;
 
@@ -159,7 +157,7 @@ export class HandleUi {
 
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
-  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ');
+  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' ');
   const type = document.querySelector('#type') as HTMLElement;
   type.textContent = `${pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
     } type pokemon`;
