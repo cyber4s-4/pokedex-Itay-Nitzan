@@ -97,14 +97,20 @@ export async function SearchStars(pokemon: string) {
   try {
     const collectionName = await getCollection('pokedex', 'pokemons');
     const find = await collectionName.findOne({ name: pokemon });
-    if (find?.isFavorite == true) {
-      return true;
-    } else {
-      return false;
-    }
+    return find?.isFavorite == true;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function get20Sorted(from: number = 0, limit: number = 20, sortBy: 'name' | 'id', dir: 1 | -1) {
+  try {
+    const pokemons = await getCollection("pokedex", "pokemons");
+    let response = await pokemons.find({}).sort(sortBy, dir).skip(from).limit(limit).toArray();
+    return response;
   } catch (e) {
     console.error(e);
   } finally {
-    console.log('done searching star');
+    console.log("done loading 20 pokemons");
   }
 }

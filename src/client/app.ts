@@ -5,6 +5,13 @@ import { Logic } from './Logic';
 const logic = new Logic();
 const handleUi = new HandleUi();
 
+declare global {
+  interface window {
+    isFavourite: boolean;
+    sortBy: 'A2Z' | 'Z2A' | 'h2l' | 'l2h';
+  }
+}
+
 async function retrieve20PokemonsFromDB() {
   try {
     console.log('Retrieving data from the server...');
@@ -36,7 +43,7 @@ window.addEventListener('scroll', async () => {
 let i = 20;
 async function get20MorePokemons() {
   try {
-    const response = await fetch(`/pokemons?offset=${i}&limit=20`);
+    const response = await fetch(`/pokemons?offset=${i}&limit=20${window.sortBy ? `&sort=${window.sortBy}` : ''}`);
     const pokemonArr = await response.json();
     handleUi.createAndDisplayPokemons(pokemonArr);
     i += 20;
@@ -50,9 +57,11 @@ async function get20MorePokemons() {
 
 const loading = document.querySelector('.loading') as HTMLDivElement;
 async function showLoading() {
-  loading.classList.add('show');
-  await get20MorePokemons();
-  loading.classList.remove('show');
+  if (!window.isFavourite) {
+    loading.classList.add('show');
+    await get20MorePokemons();
+    loading.classList.remove('show');
+  }
 }
 
 function addEventListenersForSearch() {

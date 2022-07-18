@@ -1,6 +1,13 @@
 import { Logic } from './Logic';
 import { Pokemon } from './Pokemon';
 const logic = new Logic();
+declare global {
+  interface Window {
+    isFavourite: boolean;
+    sortBy: 'A2Z' | 'Z2A' | 'h2l' | 'l2h';
+  }
+}
+window.isFavourite = false;
 
 export class HandleUi {
   finishLoadingUI() {
@@ -14,25 +21,53 @@ export class HandleUi {
     sortOptions.forEach((sortOption) => {
       sortOption.addEventListener('click', async () => {
         this.removePokemonsFromDisplay();
-        this.createAndDisplayPokemons(
-          logic.sortPokemons(sortOption.id, await logic.getPokemonArr())
-        );
+        if (sortOption.id === "sortIdLowToHigh") {
+          window.sortBy = 'l2h';
+          outFavoritesBtn.classList.remove('none');
+          const response = await fetch('/pokemons?sort=l2h');
+          const data = await response.json();
+          this.createAndDisplayPokemons(data);
+        } else if (sortOption.id === "sortIdHighToLow") {
+          window.sortBy = 'h2l';
+          outFavoritesBtn.classList.remove('none');
+          const response = await fetch('/pokemons?sort=h2l');
+          const data = await response.json();
+          this.createAndDisplayPokemons(data);
+        } else if (sortOption.id === "sortAtoZ") {
+          window.sortBy = 'A2Z';
+          outFavoritesBtn.classList.remove('none');
+          const response = await fetch('/pokemons?sort=A2Z');
+          const data = await response.json();
+          this.createAndDisplayPokemons(data);
+        } else if (sortOption.id === "sortZtoA") {
+          window.sortBy = 'Z2A';
+          outFavoritesBtn.classList.remove('none');
+          const response = await fetch('/pokemons?sort=Z2A');
+          const data = await response.json();
+          this.createAndDisplayPokemons(data);
+        } else {
+          return null;
+        }
       });
     });
-    const body = document.getElementsByTagName('body')[0];
+
+    const outFavoritesBtn = document.getElementById('outButton') as HTMLElement;
     const showFavorites = document.querySelector('#showFavorites') as HTMLDivElement;
     showFavorites.addEventListener('click', async () => {
-      body.classList.add('stop-scrolling');
       try {
+        window.isFavourite = true;
         const response = await fetch('/star/star');
         const data = await response.json();
-        if (data.length === 0) {
+        if (!data.length) {
+          window.isFavourite = false;
           return false;
         } else {
           this.removePokemonsFromDisplay();
           this.createAndDisplayPokemons(data);
+          outFavoritesBtn.classList.remove('none');
         }
       } catch (err) {
+        window.isFavourite = false;
         console.log('Error in retrieving favorites from server.');
         throw err;
       }
@@ -75,8 +110,7 @@ export class HandleUi {
     const id = pokemon.id.toString();
     pokemonCard.id = id;
     pokemonCard.classList.add('pokemon');
-    const name =
-      pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' ');
+    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replaceAll('-', ' ').replaceAll('/', ' ');
     const visualId = pokemon.id.toString().padStart(3, '0');
     const poke_types = pokemon.pokemonTypes;
 
@@ -114,6 +148,8 @@ export class HandleUi {
     } else {
       pokemonImage.src = pokemon.pictureSrc;
     }
+    pokemonImage.setAttribute('onerror', "this.onerror=null;this.src='https://i.ibb.co/9HVyMwK/download-icon-pikachu-pokeball-pokemon-icon-1320184857556086253-512-removebg-preview.png';")
+
     imgContainer.appendChild(pokemonImage);
 
     // Add info section within the pokemon card
@@ -159,12 +195,10 @@ export class HandleUi {
 
 export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const nameEl = document.getElementById('name') as HTMLElement;
-  nameEl.innerText =
-    pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replace('-', ' ').replace('/', ' / ');
+  nameEl.innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1).replaceAll('-', ' ').replaceAll('/', ' ');
   const type = document.querySelector('#type') as HTMLElement;
-  type.textContent = `${
-    pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
-  } type pokemon`;
+  type.textContent = `${pokemon.pokemonTypes[0][0].toUpperCase() + pokemon.pokemonTypes[0].slice(1)
+    } type pokemon`;
   const moves = document.querySelector('#moves-list') as HTMLElement;
   for (let i = 0; i < 6; i++) {
     const li = moves.querySelectorAll('li')[i];
@@ -196,6 +230,7 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
       pic.src = pokemon.pictureSrc[1];
     }
   }
+  pic.setAttribute('onerror', "this.onerror=null;this.src='https://i.ibb.co/9HVyMwK/download-icon-pikachu-pokeball-pokemon-icon-1320184857556086253-512-removebg-preview.png';")
 }
 
 function addSpinAndShinyListeners(pokemon: Pokemon) {

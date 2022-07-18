@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -62,7 +62,7 @@ body {
     }
     .search-desc {
       color: white;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
       font-size: min(1.4em, 24px);
     }
     .change-ui-section {
@@ -87,13 +87,13 @@ body {
           padding: 0 0 0 1.5%;
           box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
           &::placeholder {
-            font-family: 'Cabin', sans-serif;
+            font-family: "Cabin", sans-serif;
           }
         }
         .search-icon {
           color: white;
           font-size: 40px;
-          font-family: 'Cabin', sans-serif;
+          font-family: "Cabin", sans-serif;
           background: none;
           border: none;
           &:hover {
@@ -120,7 +120,8 @@ body {
           border-radius: 12px;
           color: #ffffff;
           cursor: pointer;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           line-height: 2.5;
           outline: transparent;
@@ -144,7 +145,8 @@ body {
         .floating-list-of-sort-options {
           width: 200px;
           background: #ffffff;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           border-radius: 15px;
           z-index: 100;
@@ -155,7 +157,8 @@ body {
             border-radius: 12px;
             color: #ffffff;
             display: block;
-            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+              Arial, sans-serif;
             font-weight: 500;
             line-height: 2.5;
             outline: transparent;
@@ -215,7 +218,8 @@ body {
           border-radius: 12px;
           color: #ffffff;
           cursor: pointer;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           line-height: 2.5;
           outline: transparent;
@@ -257,8 +261,7 @@ body {
       justify-content: space-evenly;
       align-items: center;
       border-radius: 15px;
-      font-family: 'Cabin', sans-serif;
-      height: min(280px, 25vw);
+      font-family: "Cabin", sans-serif;
       width: 100%;
       background-color: #eee;
       border-radius: 10px;
@@ -269,21 +272,23 @@ body {
         flex-flow: column;
         align-items: center;
         width: 50%;
-        height: 80%;
         #pokeimg {
-          height: 80%;
+          width: min(50%, 140px);
           flex-grow: 1;
         }
         #name {
           height: 20%;
           font-size: 1.4em;
+          text-align: center;
+          text-overflow: ellipsis;
         }
       }
       .spin-shine {
         display: flex;
         justify-content: center;
-        white-space: nowrap;
         align-items: flex-start;
+        padding: 10px;
+        white-space: nowrap;
         font-size: 1.5em;
         gap: 5px;
         .spin {
@@ -305,6 +310,47 @@ body {
         display: flex;
         flex-direction: column;
         gap: 1vh;
+      }
+    }
+
+    .none {
+      display: none;
+    }
+
+    @keyframes popout {
+      from {
+        transform: scale(0);
+      }
+      80% {
+        transform: scale(1.2);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .favorites {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 85%;
+      #outButton {
+        animation: popout 0.5s ease-out;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: min(2vw, 15px);
+        padding: 2vh 4vh;
+        width: fit-content;
+        background-color: whitesmoke;
+        color: $border-color;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition-duration: 400ms;
+        &:hover {
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.322);
+          cursor: pointer;
+        }
       }
     }
 
@@ -374,11 +420,11 @@ body {
           justify-content: space-evenly;
           align-items: center;
           flex-grow: 1;
+          font-size: min(0.8em, 22px);
           .number {
             background-color: rgba(0, 0, 0, 0.1);
             padding: 5px 10px;
             border-radius: 10px;
-            font-size: 0.8em;
           }
           .name {
             text-align: center;
