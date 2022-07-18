@@ -8,7 +8,8 @@ import {
   RemoveStars,
   AddStars,
   SearchStars,
-  get20Pokemons
+  get20Pokemons,
+  get20Sorted
 } from './mongo';
 import { Request, Response } from 'express';
 const app = express();
@@ -28,10 +29,26 @@ app.get('/pokemons', async (req: Request, res: Response) => {
   try {
     let offset = Number(req.query.offset) || 0;
     let limit = 20;
-    let response = await get20Pokemons(offset, limit);
-    return res.status(201).json(response);
+    let sort = req.query.sort;
+    if (sort) {
+      if (sort === "A2Z") {
+        res.status(201).json(await get20Sorted(offset, limit, 'name', 1));
+      } else if (sort === "Z2A") {
+        res.status(201).json(await get20Sorted(offset, limit, 'name', -1));
+      }
+      else if (sort === "h2l") {
+        res.status(201).json(await get20Sorted(offset, limit, 'id', -1));
+      }
+      else if (sort === "l2h") {
+        res.status(201).json(await get20Sorted(offset, limit, 'id', 1));
+      }
+    }
+    else {
+      let response = await get20Pokemons(offset, limit);
+      res.status(201).json(response);
+    }
   } catch {
-    return res.status(400).send({ message: 'Error' });
+    res.status(400).send({ message: 'Error' });
   }
 });
 
@@ -42,12 +59,12 @@ app.get('/:searchValue', async (req: Request, res: Response) => {
       const pokemonID = Number(req.params.searchValue);
       const dataPokemon = await getPokemonSearch(pokemonID);
       if (!dataPokemon) {
-        return res.status(400).send({ message: 'Pokemon not found' });
+        res.status(400).send({ message: 'Pokemon not found' });
       } else {
-        return res.status(201).json(dataPokemon);
+        res.status(201).json(dataPokemon);
       }
     } catch {
-      return res.status(400).send({ message: 'Error' });
+      res.status(400).send({ message: 'Error' });
     }
     // If request contains a string
   } else {
@@ -55,12 +72,12 @@ app.get('/:searchValue', async (req: Request, res: Response) => {
       const pokemonName = req.params.searchValue.toLowerCase();
       const dataPokemon = await getPokemonSearch(pokemonName);
       if (!dataPokemon) {
-        return res.status(400).send({ message: 'Pokemon not found' });
+        res.status(400).send({ message: 'Pokemon not found' });
       } else {
-        return res.status(201).json(dataPokemon);
+        res.status(201).json(dataPokemon);
       }
     } catch {
-      return res.status(400).send({ message: 'Error' });
+      res.status(400).send({ message: 'Error' });
     }
   }
 });
@@ -82,11 +99,12 @@ app.post('/star', async (req: Request, res: Response) => {
 
 app.get('/star/star', async (req: Request, res: Response) => {
   try {
-    return res.status(201).json(await getAllStars().catch(console.error));
+    res.status(201).json(await getAllStars());
   } catch {
-    return res.status(400).send({ message: 'Error' });
+    res.status(400).send({ message: 'Error' });
   }
 });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

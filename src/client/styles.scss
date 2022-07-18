@@ -262,7 +262,7 @@ body {
       align-items: center;
       border-radius: 15px;
       font-family: "Cabin", sans-serif;
-      height: min(280px, 25vw);
+      // height: min(280px, 25vw);
       width: 100%;
       background-color: #eee;
       border-radius: 10px;
@@ -273,21 +273,23 @@ body {
         flex-flow: column;
         align-items: center;
         width: 50%;
-        height: 80%;
         #pokeimg {
-          height: 80%;
+          width: min(50%, 140px);
           flex-grow: 1;
         }
         #name {
           height: 20%;
           font-size: 1.4em;
+          text-align: center;
+          text-overflow: ellipsis;
         }
       }
       .spin-shine {
         display: flex;
         justify-content: center;
-        white-space: nowrap;
         align-items: flex-start;
+        padding: 10px;
+        white-space: nowrap;
         font-size: 1.5em;
         gap: 5px;
         .spin {
@@ -309,6 +311,47 @@ body {
         display: flex;
         flex-direction: column;
         gap: 1vh;
+      }
+    }
+
+    .none {
+      display: none;
+    }
+
+    @keyframes popout {
+      from {
+        transform: scale(0);
+      }
+      80% {
+        transform: scale(1.2);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .favorites {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 85%;
+      #outButton {
+        animation: popout 0.5s ease-out;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: min(2vw, 15px);
+        padding: 2vh 4vh;
+        width: fit-content;
+        background-color: whitesmoke;
+        color: $border-color;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition-duration: 400ms;
+        &:hover {
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.322);
+          cursor: pointer;
+        }
       }
     }
 
@@ -378,11 +421,11 @@ body {
           justify-content: space-evenly;
           align-items: center;
           flex-grow: 1;
+          font-size: min(0.8em, 22px);
           .number {
             background-color: rgba(0, 0, 0, 0.1);
             padding: 5px 10px;
             border-radius: 10px;
-            font-size: 0.8em;
           }
           .name {
             text-align: center;
