@@ -21,15 +21,16 @@ run();
 async function run() {
   let arr = [];
 
-  addOriginalPokemonsToArray(arr);
+  arr.push(...data);
+  // addOriginalPokemonsToArray(arr);
   addAllFusionsToArray(arr);
   console.log(arr.length);
-  await addArrayToDb(arr.slice(0, 5000));
+  await addArrayToDb(arr.slice(0, 9000));
 }
 
-function addOriginalPokemonsToArray(arr) {
-  arr.push(...data);
-}
+// function addOriginalPokemonsToArray(arr) {
+//   arr.push(...data);
+// }
 
 function addAllFusionsToArray(arr) {
   for (let i = 0; i < amountOfOriginalPokemons; i++) {
@@ -76,12 +77,14 @@ async function addArrayToDb(arr) {
       "moves" text[] DEFAULT NULL,
       "spritesSources" text DEFAULT NULL,
       "visualId" text DEFAULT NULL,
-      "isFavorite" text DEFAULT NULL
+      "isFavorite" boolean DEFAULT false
 		)
 	`);
-
+  console.log(arr[11]);
+  arr.sort((a, b) => a.id - b.id);
+  console.log(arr[11]);
   while (arr.length) {
-    let curr = arr.splice(0, 200);
+    let curr = arr.splice(0, 50);
     console.log("left:", arr.length);
     await insertAllIntoPokemonsDB(curr).then((res) =>
       console.log("inserted: ", res?.rowCount)

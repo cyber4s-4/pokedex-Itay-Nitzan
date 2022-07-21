@@ -35,8 +35,8 @@ async function connect() {
 export async function get20Pokemons(from = 0, limit = 20) {
 
     const query = {
-        text: 'SELECT * FROM pokemons WHERE id > $1 AND id <= $2',
-        values: [from, limit]
+        text: 'SELECT * FROM pokemons order by id limit $1 offset $2',
+        values: [limit, from]
     }
     try {
         return await pool.query(query.text, query.values).then((res: any) => res.rows);
@@ -51,17 +51,17 @@ export async function getPokemonSearch(pokemon: string | number) {
     let query;
     if (typeof pokemon === 'string') {
         query = {
-            text: 'SELECT name FROM pokemons WHERE name = $1',
+            text: 'SELECT * FROM pokemons WHERE name = $1',
             values: [pokemon]
         }
     } else {
         query = {
-            text: 'SELECT id FROM pokemons WHERE id = $1',
+            text: 'SELECT * FROM pokemons WHERE id = $1',
             values: [pokemon]
         }
     }
     try {
-        return await pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows[0]);
     } catch (e) {
         console.error(e);
     } finally {
@@ -71,7 +71,7 @@ export async function getPokemonSearch(pokemon: string | number) {
 
 export async function getAllStars() {
     const query = {
-        text: 'SELECT isFavorite FROM pokemons WHERE isFavorite = \'true\'',
+        text: `SELECT * FROM pokemons WHERE "isFavorite" = true`,
         values: []
     }
     try {
@@ -84,10 +84,10 @@ export async function getAllStars() {
 }
 
 // !TODO: Remove plural 's' from the function name.
-export async function RemoveStars(pokemon: string) {
+export async function RemoveStars(name: string) {
     const query = {
-        text: 'UPDATE pokemons SET isFavorite = \'false\' WHERE name = $1',
-        values: [pokemon]
+        text: 'UPDATE pokemons SET "isFavorite" = false WHERE name = $1',
+        values: [name]
     }
     try {
         return await pool.query(query.text, query.values).then((res: any) => res.rows);
@@ -101,7 +101,7 @@ export async function RemoveStars(pokemon: string) {
 // !TODO: Remove plural 's' from the function name.
 export async function AddStars(pokemon: string) {
     const query = {
-        text: 'UPDATE pokemons SET isFavorite = \'true\' WHERE name = $1',
+        text: 'UPDATE pokemons SET "isFavorite" = true WHERE name = $1',
         values: [pokemon]
     }
     try {
@@ -128,8 +128,8 @@ export async function SearchStars(pokemon: string) {
 
 export async function get20Sorted(from: number = 0, limit: number = 20, sortBy: 'name' | 'id', dir: 1 | -1) {
     const query = {
-        text: 'SELECT $1 FROM pokemons WHERE $1 > $2 AND $1 <= $3 ORDER BY $4',
-        values: [sortBy, from, limit, dir == 1 ? 'ASC' : 'DESC']
+        text: `SELECT * FROM pokemons LIMIT $1 OFFSET $2 ORDER BY ${sortBy} ${dir == 1 ? 'ASC' : 'DESC'}`,
+        values: [limit, from]
     }
     try {
         return await pool.query(query.text, query.values).then((res: any) => res.rows);
