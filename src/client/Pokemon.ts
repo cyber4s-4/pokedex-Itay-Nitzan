@@ -1,5 +1,5 @@
 export class Pokemon {
-  pictureSrc: string;
+  pictureSrc: string[];
   id: number;
   name: string;
   pokemonTypes: string[];
