@@ -84,6 +84,8 @@ export class HandleUi {
     }
   }
   createPokemonCard = (pokemon: Pokemon) => {
+    console.log(pokemon);
+
     const colors = {
       fire: '#FDDFDF',
       grass: '#DEFDE0',

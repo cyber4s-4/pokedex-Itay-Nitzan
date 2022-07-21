@@ -81,8 +81,8 @@ async function addArrayToDb(arr) {
 	`);
 
   while (arr.length) {
-    let curr = data.splice(0, 200);
-    console.log("left:", data.length);
+    let curr = arr.splice(0, 200);
+    console.log("left:", arr.length);
     await insertAllIntoPokemonsDB(curr).then((res) =>
       console.log("inserted: ", res?.rowCount)
     );

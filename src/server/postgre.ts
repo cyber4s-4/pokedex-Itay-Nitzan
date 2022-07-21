@@ -18,17 +18,28 @@ const pool = new Pool(
         }
     }
 );
+connect();
 
-pool.connect();
+async function connect() {
+    try {
+        await pool.connect();
+        console.log("Connected to database");
+    } catch (error) {
+        console.log("Could not connect to database");
+    }
+}
+
+
 
 
 export async function get20Pokemons(from = 0, limit = 20) {
+
     const query = {
         text: 'SELECT * FROM pokemons WHERE id > $1 AND id <= $2',
         values: [from, limit]
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
@@ -47,11 +58,10 @@ export async function getPokemonSearch(pokemon: string | number) {
         query = {
             text: 'SELECT id FROM pokemons WHERE id = $1',
             values: [pokemon]
-            // return await collectionName.findOne({ id: pokemon });
         }
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
@@ -65,7 +75,7 @@ export async function getAllStars() {
         values: []
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
@@ -80,7 +90,7 @@ export async function RemoveStars(pokemon: string) {
         values: [pokemon]
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
@@ -95,8 +105,7 @@ export async function AddStars(pokemon: string) {
         values: [pokemon]
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
-        // return await collectionName.updateOne({ name: pokemon }, { $set: { isFavorite: true } });
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
@@ -123,7 +132,7 @@ export async function get20Sorted(from: number = 0, limit: number = 20, sortBy: 
         values: [sortBy, from, limit, dir == 1 ? 'ASC' : 'DESC']
     }
     try {
-        return pool.query(query.text, query.values).then((res: any) => res.rows);
+        return await pool.query(query.text, query.values).then((res: any) => res.rows);
     } catch (e) {
         console.error(e);
     } finally {
