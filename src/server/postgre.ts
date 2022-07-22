@@ -127,7 +127,7 @@ export async function isPokemonFavorite(pokemon: string) {
 
 export async function get20Sorted(from: number = 0, limit: number = 20, sortBy: 'name' | 'id', dir: 1 | -1) {
     const query = {
-        text: `SELECT * FROM pokemons LIMIT $1 OFFSET $2 ORDER BY ${sortBy} ${dir == 1 ? 'ASC' : 'DESC'}`,
+        text: `SELECT * FROM pokemons ORDER BY pokemons.${sortBy} ${dir == 1 ? 'ASC' : 'DESC'} LIMIT $1 OFFSET $2`,
         values: [limit, from]
     }
     try {

@@ -80,10 +80,7 @@ async function addArrayToDb(arr) {
       "isFavorite" boolean DEFAULT false
 		)
 	`);
-  console.log(arr[11]);
-  // not working 
-  arr.sort((a, b) => a.id - b.id);
-  console.log(arr[11]);
+
   while (arr.length) {
     let curr = arr.splice(0, 50);
     console.log("left:", arr.length);
