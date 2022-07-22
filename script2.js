@@ -81,6 +81,7 @@ async function addArrayToDb(arr) {
 		)
 	`);
   console.log(arr[11]);
+  // not working 
   arr.sort((a, b) => a.id - b.id);
   console.log(arr[11]);
   while (arr.length) {

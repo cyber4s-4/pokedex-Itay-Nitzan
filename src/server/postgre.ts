@@ -83,8 +83,8 @@ export async function getAllStars() {
     }
 }
 
-// !TODO: Remove plural 's' from the function name.
-export async function RemoveStars(name: string) {
+
+export async function RemoveStar(name: string) {
     const query = {
         text: 'UPDATE pokemons SET "isFavorite" = false WHERE name = $1',
         values: [name]
@@ -98,8 +98,7 @@ export async function RemoveStars(name: string) {
     }
 }
 
-// !TODO: Remove plural 's' from the function name.
-export async function AddStars(pokemon: string) {
+export async function AddStar(pokemon: string) {
     const query = {
         text: 'UPDATE pokemons SET "isFavorite" = true WHERE name = $1',
         values: [pokemon]
@@ -113,14 +112,14 @@ export async function AddStars(pokemon: string) {
     }
 }
 
-export async function SearchStars(pokemon: string) {
+export async function isPokemonFavorite(pokemon: string) {
     const query = {
-        text: 'SELECT name FROM pokemons WHERE name = $1',
+        text: 'SELECT "isFavorite" FROM pokemons WHERE name = $1',
         values: [pokemon]
     }
     try {
         const pokemonFromDB = await pool.query(query.text, query.values).then((res: any) => res.rows);
-        return pokemonFromDB.isFavorite == true;
+        return pokemonFromDB[0].isFavorite == true;
     } catch (e) {
         console.error(e);
     }

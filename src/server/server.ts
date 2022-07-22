@@ -4,9 +4,9 @@ const cors = require('cors');
 import {
   getPokemonSearch,
   getAllStars,
-  RemoveStars,
-  AddStars,
-  SearchStars,
+  RemoveStar,
+  AddStar,
+  isPokemonFavorite,
   get20Pokemons,
   get20Sorted
 } from './postgre';
@@ -83,12 +83,12 @@ app.get('/:searchValue', async (req: Request, res: Response) => {
 
 app.post('/star', async (req: Request, res: Response) => {
   try {
-    const pokemonSearch = await SearchStars(req.body.name.toLowerCase());
+    const pokemonSearch = await isPokemonFavorite(req.body.name.toLowerCase());
     if (pokemonSearch == true) {
-      await RemoveStars(req.body.name.toLowerCase());
+      await RemoveStar(req.body.name.toLowerCase());
       return res.status(202).send({ message: 'Removed from favorites' });
     } else {
-      await AddStars(req.body.name.toLowerCase());
+      await AddStar(req.body.name.toLowerCase());
       res.status(200).send({ message: 'Added to favorites' });
     }
   } catch {
