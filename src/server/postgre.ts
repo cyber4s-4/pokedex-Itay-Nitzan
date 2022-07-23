@@ -10,13 +10,6 @@ const pool = new Pool(
             rejectUnauthorized: false,
         },
     },
-    (err: Error) => {
-        if (err) {
-            console.log("Could not connect to database", err.message);
-        } else {
-            console.log("Connected to database");
-        }
-    }
 );
 connect();
 
@@ -28,8 +21,6 @@ async function connect() {
         console.log("Could not connect to database");
     }
 }
-
-
 
 
 export async function get20Pokemons(from = 0, limit = 20) {
@@ -54,18 +45,27 @@ export async function getPokemonSearch(pokemon: string | number) {
             text: 'SELECT * FROM pokemons WHERE name = $1',
             values: [pokemon]
         }
+        try {
+            const result = await pool.query(query.text, query.values).then((res: any) => res.rows[0]);
+            console.log(result);
+            return result;
+        } catch (e) {
+            console.error(e);
+        } finally {
+            console.log('done pokemon search');
+        }
     } else {
         query = {
             text: 'SELECT * FROM pokemons WHERE id = $1',
             values: [pokemon]
         }
-    }
-    try {
-        return await pool.query(query.text, query.values).then((res: any) => res.rows[0]);
-    } catch (e) {
-        console.error(e);
-    } finally {
-        console.log('done pokemon search');
+        try {
+            return await pool.query(query.text, query.values).then((res: any) => res.rows[0]);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            console.log('done pokemon search');
+        }
     }
 }
 

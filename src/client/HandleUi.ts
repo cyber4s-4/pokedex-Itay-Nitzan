@@ -8,7 +8,8 @@ declare global {
   }
 }
 window.isFavourite = false;
-
+const body = document.getElementsByTagName('body')[0];
+body.classList.add('stop-scrolling');
 export class HandleUi {
   finishLoadingUI() {
     const loader = document.querySelector('.loader') as HTMLDivElement;
@@ -17,6 +18,7 @@ export class HandleUi {
     loader.style.display = 'none';
     changeUiSection.style.display = 'flex';
     pokePreview.style.display = 'flex';
+    body.classList.remove('stop-scrolling');
     const sortOptions = Array.from(document.querySelectorAll<HTMLLIElement>('.sort-option'));
     sortOptions.forEach((sortOption) => {
       sortOption.addEventListener('click', async () => {
@@ -84,8 +86,6 @@ export class HandleUi {
     }
   }
   createPokemonCard = (pokemon: Pokemon) => {
-    console.log(pokemon);
-
     const colors = {
       fire: '#FDDFDF',
       grass: '#DEFDE0',
@@ -211,28 +211,23 @@ export function addPokemonToPreviewBox(pokemon: Pokemon) {
   const weight = document.querySelector('#weight') as HTMLElement;
   weight.innerText = `Weight: ${pokemon.weight}`;
   const pic = document.querySelector('#pokeimg') as HTMLImageElement;
-  if (Array.isArray(pokemon.pictureSrc)) {
-    if (pokemon.pictureSrc[0] !== null) {
-      pic.src = pokemon.pictureSrc[0];
-    } else {
-      pic.src = pokemon.pictureSrc[1];
+  if (pokemon.pictureSrc.length > 1) {
+    pic.src = pokemon.pictureSrc[0];
+    if (pic.src = pokemon.pictureSrc[0]) {
+      pic.setAttribute('onerror', `this.onerror=null;this.src=${pokemon.pictureSrc[1]}`)
+    }
+    if (pic.src = pokemon.pictureSrc[1]) {
+      pic.setAttribute('onerror', "this.onerror=null;this.src='https://i.ibb.co/9HVyMwK/download-icon-pikachu-pokeball-pokemon-icon-1320184857556086253-512-removebg-preview.png';")
     }
   } else {
     if (pokemon.spritesSources.frontDefault !== null) {
       pic.src = pokemon.spritesSources.frontDefault;
       addSpinAndShinyListeners(pokemon);
     } else {
-      pic.src = pokemon.pictureSrc;
-    }
-  }
-  if (Array.isArray(pokemon.pictureSrc)) {
-    if (pokemon.pictureSrc[0] !== null) {
       pic.src = pokemon.pictureSrc[0];
-    } else {
-      pic.src = pokemon.pictureSrc[1];
+      pic.setAttribute('onerror', "this.onerror=null;this.src='https://i.ibb.co/9HVyMwK/download-icon-pikachu-pokeball-pokemon-icon-1320184857556086253-512-removebg-preview.png';")
     }
   }
-  pic.setAttribute('onerror', "this.onerror=null;this.src='https://i.ibb.co/9HVyMwK/download-icon-pikachu-pokeball-pokemon-icon-1320184857556086253-512-removebg-preview.png';")
 }
 
 function addSpinAndShinyListeners(pokemon: Pokemon) {

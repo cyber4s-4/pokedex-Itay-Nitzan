@@ -75,14 +75,14 @@ async function addArrayToDb(arr) {
 			"height" text DEFAULT NULL,
       "weight" text DEFAULT NULL,
       "moves" text[] DEFAULT NULL,
-      "spritesSources" text DEFAULT NULL,
+      "spritesSources" json DEFAULT NULL,
       "visualId" text DEFAULT NULL,
       "isFavorite" boolean DEFAULT false
 		)
 	`);
 
   while (arr.length) {
-    let curr = arr.splice(0, 50);
+    let curr = arr.splice(0, 200);
     console.log("left:", arr.length);
     await insertAllIntoPokemonsDB(curr).then((res) =>
       console.log("inserted: ", res?.rowCount)
