@@ -5,7 +5,8 @@ let data = JSON.parse(fs.readFileSync("./pokemonData.json", "utf-8"));
 const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
-    "postgres://seeufvlotoovup:087dbde9ea597d7238c09f710706e7eccd564b32096a816ecfce1aefa7e70dac@ec2-34-247-72-29.eu-west-1.compute.amazonaws.com:5432/ddmh88c9kajff6",
+    "postgres://seeufvlotoovup:087dbde9ea597d7238c09f710706e7eccd564b32096a816ecfce1aefa7e70dac@ec2-34-247-72-29.eu-west-1.compute.amazonaws.com:5432/ddmh88c9kajff6" ||
+    "postgres://xkhwhpttanbjwg:1325e2582f084c9ddbbebfa88e96ea5281d8e4433af03e494fe0a9be2e298808@ec2-52-204-157-26.compute-1.amazonaws.com:5432/df02ujmevqo7fo",
   ssl: {
     rejectUnauthorized: false,
   },

@@ -32,7 +32,7 @@ async function retrieve20PokemonsFromDB() {
 const body = document.getElementsByTagName('body')[0];
 window.addEventListener('scroll', async () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (clientHeight + scrollTop >= scrollHeight - 5) {
+  if (clientHeight + scrollTop >= scrollHeight - 200) {
     // show the loading animation
     body.classList.add('stop-scrolling');
     await showLoading();
@@ -43,7 +43,9 @@ window.addEventListener('scroll', async () => {
 let i = 20;
 async function get20MorePokemons() {
   try {
-    const response = await fetch(`/pokemons?offset=${i}&limit=20${window.sortBy ? `&sort=${window.sortBy}` : ''}`);
+    const response = await fetch(
+      `/pokemons?offset=${i}&limit=20${window.sortBy ? `&sort=${window.sortBy}` : ''}`
+    );
     const pokemonArr = await response.json();
     handleUi.createAndDisplayPokemons(pokemonArr);
     i += 20;
