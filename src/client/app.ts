@@ -32,7 +32,7 @@ async function retrieve20PokemonsFromDB() {
 const body = document.getElementsByTagName('body')[0];
 window.addEventListener('scroll', async () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (clientHeight + scrollTop >= scrollHeight - 200) {
+  if (clientHeight + scrollTop >= scrollHeight - 10) {
     // show the loading animation
     body.classList.add('stop-scrolling');
     await showLoading();
