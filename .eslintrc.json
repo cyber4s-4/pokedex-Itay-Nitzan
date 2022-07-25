@@ -8,7 +8,7 @@
   ],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": "error",
     "max-len": ["error", { "code": 100 }],
@@ -28,5 +28,9 @@
     "no-trailing-spaces": "error",
     "no-whitespace-before-property": "error",
     "spaced-comment": ["error", "always"]
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }
