@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 $font-family: Helvetica, sans-serif;
 $primary-color: white;
 $secondary-color: lightgrey;
@@ -62,7 +62,7 @@ body {
     }
     .search-desc {
       color: white;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
       font-size: min(1.4em, 24px);
     }
     .change-ui-section {
@@ -87,13 +87,13 @@ body {
           padding: 0 0 0 1.5%;
           box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
           &::placeholder {
-            font-family: 'Cabin', sans-serif;
+            font-family: "Cabin", sans-serif;
           }
         }
         .search-icon {
           color: white;
           font-size: 40px;
-          font-family: 'Cabin', sans-serif;
+          font-family: "Cabin", sans-serif;
           background: none;
           border: none;
           &:hover {
@@ -120,7 +120,8 @@ body {
           border-radius: 12px;
           color: #ffffff;
           cursor: pointer;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           line-height: 2.5;
           outline: transparent;
@@ -144,7 +145,8 @@ body {
         .floating-list-of-sort-options {
           width: 200px;
           background: #ffffff;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           border-radius: 15px;
           z-index: 100;
@@ -155,7 +157,8 @@ body {
             border-radius: 12px;
             color: #ffffff;
             display: block;
-            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+              Arial, sans-serif;
             font-weight: 500;
             line-height: 2.5;
             outline: transparent;
@@ -174,6 +177,7 @@ body {
             }
           }
           .slide {
+            display: none;
             clear: both;
             width: 100%;
             height: 0px;
@@ -183,6 +187,14 @@ body {
             border-radius: 15px;
             transition: height 0.4s ease;
             position: absolute;
+            height: max-content;
+            list-style: none;
+            &.active {
+              display: flex;
+              flex-flow: column;
+              justify-content: center;
+              align-items: center;
+            }
             li {
               padding: 30px;
               p {
@@ -197,11 +209,11 @@ body {
           }
           #touch {
             position: absolute;
-            opacity: 0;
+            // opacity: 0;
             height: 0px;
-            &:checked + .slide {
-              height: max-content;
-            }
+            // &:checked + .slide {
+            //   height: max-content;
+            // }
           }
         }
 
@@ -215,7 +227,8 @@ body {
           border-radius: 12px;
           color: #ffffff;
           cursor: pointer;
-          font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
           font-weight: 500;
           line-height: 2.5;
           outline: transparent;
@@ -257,7 +270,7 @@ body {
       justify-content: space-evenly;
       align-items: center;
       border-radius: 15px;
-      font-family: 'Cabin', sans-serif;
+      font-family: "Cabin", sans-serif;
       width: 100%;
       background-color: #eee;
       border-radius: 10px;
