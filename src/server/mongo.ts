@@ -103,14 +103,14 @@ export async function SearchStars(pokemon: string) {
   }
 }
 
-export async function get20Sorted(from: number = 0, limit: number = 20, sortBy: 'name' | 'id', dir: 1 | -1) {
+export async function get20Sorted(from = 0, limit = 20, sortBy: 'name' | 'id', dir: 1 | -1) {
   try {
-    const pokemons = await getCollection("pokedex", "pokemons");
-    let response = await pokemons.find({}).sort(sortBy, dir).skip(from).limit(limit).toArray();
+    const pokemons = await getCollection('pokedex', 'pokemons');
+    const response = await pokemons.find({}).sort(sortBy, dir).skip(from).limit(limit).toArray();
     return response;
   } catch (e) {
     console.error(e);
   } finally {
-    console.log("done loading 20 pokemons");
+    console.log('done loading 20 pokemons');
   }
 }

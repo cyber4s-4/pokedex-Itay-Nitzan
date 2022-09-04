@@ -1,12 +1,12 @@
-const { Client, Pool } = require("pg");
-const fs = require("fs");
+import { Client, Pool } from 'pg';
+import { readFileSync } from 'fs';
 
-let data = JSON.parse(fs.readFileSync("./pokemonData.json", "utf-8"));
+let data = JSON.parse(readFileSync('./pokemonData.json', 'utf-8'));
 const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
-    "postgres://seeufvlotoovup:087dbde9ea597d7238c09f710706e7eccd564b32096a816ecfce1aefa7e70dac@ec2-34-247-72-29.eu-west-1.compute.amazonaws.com:5432/ddmh88c9kajff6" ||
-    "postgres://xkhwhpttanbjwg:1325e2582f084c9ddbbebfa88e96ea5281d8e4433af03e494fe0a9be2e298808@ec2-52-204-157-26.compute-1.amazonaws.com:5432/df02ujmevqo7fo",
+    'postgres://seeufvlotoovup:087dbde9ea597d7238c09f710706e7eccd564b32096a816ecfce1aefa7e70dac@ec2-34-247-72-29.eu-west-1.compute.amazonaws.com:5432/ddmh88c9kajff6' ||
+    'postgres://xkhwhpttanbjwg:1325e2582f084c9ddbbebfa88e96ea5281d8e4433af03e494fe0a9be2e298808@ec2-52-204-157-26.compute-1.amazonaws.com:5432/df02ujmevqo7fo',
   ssl: {
     rejectUnauthorized: false,
   },
@@ -45,7 +45,7 @@ function addAllFusionsToArray(arr) {
 
 function combinePokemons(pok1, pok2, id) {
   return {
-    name: pok1.name + "/" + pok2.name,
+    name: pok1.name + '/' + pok2.name,
     rawData: null,
     id: id,
     height: Math.floor((pok1.height + pok2.height) / 2).toString(),
@@ -66,7 +66,7 @@ function combinePokemons(pok1, pok2, id) {
 }
 
 async function addArrayToDb(arr) {
-  await pool.query("DROP TABLE IF EXISTS pokemons");
+  await pool.query('DROP TABLE IF EXISTS pokemons');
   await pool.query(`
 		CREATE TABLE pokemons (
 			id SERIAL PRIMARY KEY,
@@ -84,17 +84,15 @@ async function addArrayToDb(arr) {
 
   while (arr.length) {
     let curr = arr.splice(0, 200);
-    console.log("left:", arr.length);
-    await insertAllIntoPokemonsDB(curr).then((res) =>
-      console.log("inserted: ", res?.rowCount)
-    );
+    console.log('left:', arr.length);
+    await insertAllIntoPokemonsDB(curr).then((res) => console.log('inserted: ', res?.rowCount));
   }
   pool.end();
 }
 
 async function insertAllIntoPokemonsDB(arr) {
-  let queryStr = `INSERT INTO pokemons ("pictureSrc","name","pokemonTypes","height","weight","moves","spritesSources","visualId",
-  "isFavorite") VALUES `;
+  let queryStr = `INSERT INTO pokemons ("pictureSrc","name","pokemonTypes","height",
+  "weight","moves","spritesSources","visualId","isFavorite") VALUES `;
 
   arr = arr.map((x) => [
     x.pictureSrc,
@@ -111,10 +109,11 @@ async function insertAllIntoPokemonsDB(arr) {
   let values = `(${arr
     .map(
       (x) =>
-        `$${index++}, $${index++},$${index++},$${index++},$${index++},$${index++},$${index++},$${index++},$${index++} `
+        `$${index++}, $${index++},$${index++},$${index++},$${index++},
+        $${index++},$${index++},$${index++},$${index++} `
     )
-    .join("),(")})`;
-  queryStr += values + "returning id";
+    .join('),(')})`;
+  queryStr += values + 'returning id';
   if (arr.length) await pool.query(queryStr, arr.flat(1));
 
   // let queryStr = `INSERT INTO pokemons
